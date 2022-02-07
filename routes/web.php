@@ -17,6 +17,36 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', function () {
+    return view('admin/login/login');
+})->middleware('isadminloginAuth');
+	
+Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,'admin_login']);
+	
+
+Route::group(['middleware'=>['isAdmin']], function(){
+
+	//dashboard route
+	Route::get('admin-dashbord', [App\Http\Controllers\admin\Cn_dashboard::class,'index']);
+	
+	// Soft delete common funtion
+	Route::post('soft-delete', [App\Http\Controllers\Cn_common_controller::class, 'delete_common_function']);
+
+	// City Routes
+	Route::get('city', [App\Http\Controllers\admin\Cn_master_city::class,'index'])->name('city');
+	Route::post('city-action', [App\Http\Controllers\admin\Cn_master_city::class,'cityAction'])->name('city.action');
+	Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 'get_data_table_of_city'])->name('city.getDataTable');
+	Route::post('check-duplicate-city', [App\Http\Controllers\admin\Cn_master_city::class,'check_duplicate_city']);
+	Route::get('edit-city/{id}', [App\Http\Controllers\admin\Cn_master_city::class, 'fun_edit_city']);
+
+
+	// City admin Routes
+	Route::get('city-admin', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'index'])->name('city.admin');
+	Route::get('admin/add-cityadmin', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'add_cityadmin'])->name('city.add.admin');
+	Route::post('cityadmin-action', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'cityAdminAction'])->name('cityadmin.action');
+	Route::get('cityadmin-datatable', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'get_data_table_of_city_admin'])->name('cityadmin.getDataTable');
+	Route::get('edit-cityadmin/{id}', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'fun_edit_city_admin']);
+	
+
+});
