@@ -42,7 +42,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
               <div class="pull-right">
-                <a href="admin/logout" onclick="return confirm('Are you sure you want to logout?')" class="btn btn-default btn-flat"> logout</a>
+                <a href="{{url('admin-logout')}}" onclick="return confirm('Are you sure you want to logout?')" class="btn btn-default btn-flat"> logout</a>
               </div>
             </li>
           </ul>

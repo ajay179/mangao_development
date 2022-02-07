@@ -21,6 +21,16 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin/login/login');
 })->middleware('isadminloginAuth');
+
+Route::get('/admin-logout', function(){
+		if (session()->has('**^&%*$$username**$%#','*$%&%*id**$%#')) {
+			// session()->pull('username', null);
+			// session()->pull('id', null);
+			// session()->pull('email', null);
+			Session::flush();
+		}
+		return redirect('/admin');
+	});
 	
 Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,'admin_login']);
 	
