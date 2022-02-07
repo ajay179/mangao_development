@@ -46,7 +46,7 @@ Route::group(['middleware'=>['isAdmin']], function(){
 	// City Routes
 	Route::get('city', [App\Http\Controllers\admin\Cn_master_city::class,'index'])->name('city');
 	Route::post('city-action', [App\Http\Controllers\admin\Cn_master_city::class,'cityAction'])->name('city.action');
-	Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 'get_data_table_of_city'])->name('city.getDataTable');
+Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 'get_data_table_of_city'])->name('city.getDataTable');
 	Route::post('check-duplicate-city', [App\Http\Controllers\admin\Cn_master_city::class,'check_duplicate_city']);
 	Route::get('edit-city/{id}', [App\Http\Controllers\admin\Cn_master_city::class, 'fun_edit_city']);
 

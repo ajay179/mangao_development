@@ -45,7 +45,7 @@ class Cn_master_city extends Controller
                 }else{
                     $Md_city_master = Md_city_master::find($txtpkey);
                     $Md_city_master->updated_at   = date('Y-m-d h:i:s');
-                    $Md_city_master->updated_by   = session()->get('id');
+                    $Md_city_master->updated_by   = session()->get('*$%&%*id**$%#');
                     $Md_city_master->updated_ip_address   = $request->ip();
                 }
             }else{

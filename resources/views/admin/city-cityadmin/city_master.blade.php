@@ -102,10 +102,5 @@
       table.DataTable().ajax.reload(null, false);
    }
 
- 
-
-
-
- 
-</script>
+ </script>
 @endsection
