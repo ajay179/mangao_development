@@ -1,68 +1,74 @@
 
 $(document).ready(function () {
     $(function () {
-        $("#cityForm").validate({
+        $("#cityAdminForm").validate({
             onfocusout: false,
              rules: {
-                city_name: {
+                city_id: {
                     required: true,
                 },
-                city_name: {
+                admin_name: {
                     required: true,
                 },
-                city_name: {
+                address: {
                     required: true,
                 },
-                city_name: {
+                commision: {
                     required: true,
                 },
-                city_name: {
+                admin_email: {
+                    required: true,
+                    email: true
+                },
+                admin_mobile: {
+                    required: true,
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                password: {
                     required: true,
                 },
-                city_name: {
+                confirm_password: {
                     required: true,
+                    equalTo: "#password",
                 },
-                city_name: {
-                    required: true,
-                },
-                city_name: {
-                    required: true,
-                },
-                city_name: {
-                    required: true,
-                },
+                
 
 
             },
             // Specify the validation error messages
             messages: {
-                city_name: {
+                city_id: {
                     required: '* Please select city.',
                 },
-                city_name: {
-                    required: '* Please select city.',
+                admin_name: {
+                    required: '* Please enter name.',
                 },
-                city_name: {
-                    required: '* Please select city.',
+                address: {
+                    required: '* Please enter address.',
                 },
-                city_name: {
-                    required: '* Please select city.',
+                commision: {
+                    required: '* Please enter commision.',
                 },
-                city_name: {
-                    required: '* Please select city.',
+                admin_email: {
+                    required: '* Please enter email id.',
+                    email: "* Enter a valid email."
                 },
-                city_name: {
-                    required: '* Please select city.',
+                admin_mobile: {
+                    required: '* Please enter mobile no.',
+                    number: "The mobile no field only contain numerical digits.",
+                   minlength: "The mobile no field only contain 10 digits.",
+                   maxlength: "The mobile no field only contain 10 digits."
                 },
-                city_name: {
-                    required: '* Please select city.',
+                password: {
+                    required: '* Please enter password.',
                 },
-                city_name: {
-                    required: '* Please select city.',
+                confirm_password: {
+                    required: '* Please confirm password.',
+                    equalTo: "* New password and confirm new password does not match."
                 },
-                city_name: {
-                    required: '* Please select city.',
-                },
+                
             },
             submitHandler: function (form) {
                 $(".submit").text("Please wait..");

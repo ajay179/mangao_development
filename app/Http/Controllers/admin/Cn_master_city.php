@@ -34,34 +34,32 @@ class Cn_master_city extends Controller
         ]);
         
         // function used for add single array 
-        
-            $Md_city_master = new Md_city_master;
-            if(!empty($request->txtpkey)){
-                $msg = "updated";
-                $txtpkey =  Crypt::decryptString($request->txtpkey);
-                $data = Md_city_master::where('id', $txtpkey)->get();
-                if($data->isEmpty()){
-                    return redirect()->route('city')->with('message', 'something went wrong');
-                }else{
-                    $Md_city_master = Md_city_master::find($txtpkey);
-                    $Md_city_master->updated_at   = date('Y-m-d h:i:s');
-                    $Md_city_master->updated_by   = session()->get('*$%&%*id**$%#');
-                    $Md_city_master->updated_ip_address   = $request->ip();
-                }
+        $Md_city_master = new Md_city_master;
+        if(!empty($request->txtpkey)){
+            $msg = "updated";
+            $txtpkey =  Crypt::decryptString($request->txtpkey);
+            $data = Md_city_master::where('id', $txtpkey)->get();
+            if($data->isEmpty()){
+                return redirect()->route('city')->with('message', 'something went wrong');
             }else{
-                $msg = "Added";
-                $Md_city_master->created_at   = date('Y-m-d h:i:s');
-                $Md_city_master->created_by   = session()->get('*$%&%*id**$%#');
-                $Md_city_master->created_ip_address   = $request->ip();
-            }           
-            $Md_city_master->city_name   = $request->city_name;
-            $Md_city_master->save();
+                $Md_city_master = Md_city_master::find($txtpkey);
+                $Md_city_master->updated_at   = date('Y-m-d h:i:s');
+                $Md_city_master->updated_by   = session()->get('*$%&%*id**$%#');
+                $Md_city_master->updated_ip_address   = $request->ip();
+            }
+        }else{
+            $msg = "Added";
+            $Md_city_master->created_at   = date('Y-m-d h:i:s');
+            $Md_city_master->created_by   = session()->get('*$%&%*id**$%#');
+            $Md_city_master->created_ip_address   = $request->ip();
+        }           
+        $Md_city_master->city_name   = $request->city_name;
+        $Md_city_master->save();
 
-            // this statement are used for getting the last inserted id
-           //  $Md_city_master->id;   
+        // this statement are used for getting the last inserted id
+       //  $Md_city_master->id;   
 
-            return redirect()->route('city')->with('message', 'City '. $msg);
-       
+        return redirect()->route('city')->with('message', 'City '. $msg);
     }
 
 
@@ -80,8 +78,6 @@ class Cn_master_city extends Controller
                 ->addIndexColumn()
                 ->addColumn('action-js', function($data){
                     $btn = '<a href="'. url("/edit-city") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="City" table="' . Crypt::encryptString('mangao_city_masters') . '" redirect-url="' . Crypt::encryptString('admin-dashboard') . '" title="Delete" ><i class="fa fa-trash"></i></a> ';
-
-                    // $btn = '<a href="'.url("/edit-city") ."/". $data->id.'" class="edit btn btn-warning btn-xs">edit</a>  <a href="javascript:void(0)" class="edit btn btn-danger btn-xs">delete</a> ';
                     return $btn;
                 })
                 

@@ -41,7 +41,7 @@
                 <section class="content" style="padding:5px 0px;">
                     <div class="box box-primary">
                         <div class="box-body light-green-body">
-                            <form method='POST' enctype='multipart/form-data' action="{{ route('cityadmin.action')}}" >
+                            <form method='POST' id="cityAdminForm" enctype='multipart/form-data' action="{{ route('cityadmin.action')}}" >
                             @csrf  
                            <div class="col-md-8 no-pad-left">
                                 <div class="row">
@@ -113,7 +113,6 @@
                                     <div class="col-md-6 form-group">
                                         <label>Email<span style="color: red;">*</span></label>
                                         <input type="text" class="form-control" id="admin_email" name="admin_email" autocomplete="off" value="<?php echo !empty($cityadmin_data[0]['admin_email']) ? $cityadmin_data[0]['admin_email'] : ''; ?>">
-                                        <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="<?php echo !empty($cityadmin_data[0]['id']) ? $cityadmin_data[0]['id'] : ''; ?>">
                                     </div>
 
                                     <div  class="col-md-6 form-group no-pad-left">
@@ -130,12 +129,12 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label>Password<span style="color: red;">*</span></label>
-                                        <input type="text" class="form-control" id="password" name="password" autocomplete="off" value="<?php echo !empty($cityadmin_data[0]['password']) ? $cityadmin_data[0]['password'] : ''; ?>">
+                                        <input type="password" class="form-control" id="password" name="password" autocomplete="off" value="<?php echo !empty($cityadmin_data[0]['password']) ? $cityadmin_data[0]['password'] : ''; ?>">
                                     </div>
 
                                     <div  class="col-md-6 form-group no-pad-left">
                                         <label>Confirm Password<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" id="confirm_password" name="confirm_password" autocomplete="off" value="<?php echo !empty($cityadmin_data[0]['password']) ? $cityadmin_data[0]['password'] : ''; ?>">
+                                         <input type="password" class="form-control" id="confirm_password" name="confirm_password" autocomplete="off" value="<?php echo !empty($cityadmin_data[0]['password']) ? $cityadmin_data[0]['password'] : ''; ?>">
 
                                     </div>
                                     
@@ -172,6 +171,16 @@
     $(".s_meun").removeClass("active");
     $(".city_cityadmin").addClass("active");
     $(".city_admin_menu").addClass("active");
+
+    function change_img(img, preview_img) {
+       var oFReader = new FileReader();
+       oFReader.readAsDataURL($('#' + img)[0].files[0]);
+   
+       oFReader.onload = function(oFREvent) {
+           $('#' + preview_img).attr('src', oFREvent.target.result);
+       }
+   }
+    
 </script>
 
 @endsection

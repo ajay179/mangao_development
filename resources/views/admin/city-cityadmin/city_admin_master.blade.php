@@ -23,7 +23,7 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <th width="15%">City</th>
+                                        <!-- <th width="15%">City</th> -->
                                         <th width="15%">Name</th>
                                         <th width="15%">Mobile No.</th>
                                         <th width="15%">Email</th>
@@ -58,5 +58,27 @@
     $(".city_cityadmin").addClass("active");
     $(".city_admin_menu").addClass("active");
 </script>
+<script type="text/javascript">
+  // $(function () {
+    let table = $('#example').dataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('cityadmin.getDataTable') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'admin_name', name: 'admin_name'},
+            {data: 'admin_mobile', name: 'admin_mobile'},
+            {data: 'admin_email', name: 'admin_email'},
+            {data: 'admin_img', name: 'admin_img'},
+            {data: 'date', name: 'date'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  // });
 
+  function reload_table() {
+      table.DataTable().ajax.reload(null, false);
+   }
+
+ </script>
 @endsection
