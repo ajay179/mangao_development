@@ -58,5 +58,13 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	Route::get('cityadmin-datatable', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'get_data_table_of_city_admin'])->name('cityadmin.getDataTable');
 	Route::get('edit-cityadmin/{id}', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'fun_edit_city_admin']);
 	
+	// Categories Routes
+	Route::get('categories', [App\Http\Controllers\admin\Cn_categories::class,'index'])->name('main.categories');
+	Route::post('category-action', [App\Http\Controllers\admin\Cn_categories::class,'categoryAction'])->name('category.action');
+	
+
+	// Main Banner Routes
+	Route::get('city-admin', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'index'])->name('city.admin');
+
 
 });

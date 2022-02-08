@@ -16,6 +16,7 @@ return [
     //define direct constant
 
     'MANGAO_CITY_MASTER'=>'mangao_city_masters',
+    'MANGAO_CITY_ADMIN'=>'mangao_city_admins',
     
 ];
 

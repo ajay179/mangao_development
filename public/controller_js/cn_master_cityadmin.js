@@ -15,6 +15,7 @@ $(document).ready(function () {
                 },
                 commision: {
                     required: true,
+                    number: true,
                 },
                 admin_email: {
                     required: true,
@@ -50,6 +51,7 @@ $(document).ready(function () {
                 },
                 commision: {
                     required: '* Please enter commision.',
+                    number: "The commision field only contain numerical digits.",
                 },
                 admin_email: {
                     required: '* Please enter email id.',

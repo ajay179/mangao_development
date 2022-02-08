@@ -28,6 +28,7 @@
                                         <th width="15%">Mobile No.</th>
                                         <th width="15%">Email</th>
                                         <th width="20%">Image </th>
+                                        <th width="20%">Date </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -69,7 +70,7 @@
             {data: 'admin_name', name: 'admin_name'},
             {data: 'admin_mobile', name: 'admin_mobile'},
             {data: 'admin_email', name: 'admin_email'},
-            {data: 'admin_img', name: 'admin_img'},
+            {data: 'admin_image', name: 'admin_image'},
             {data: 'date', name: 'date'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]

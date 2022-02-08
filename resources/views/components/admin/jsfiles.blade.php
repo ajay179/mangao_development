@@ -67,6 +67,14 @@
   function loadFunction() {
     $('#preloader').hide();
   }
+  function change_img(img, preview_img) {
+       var oFReader = new FileReader();
+       oFReader.readAsDataURL($('#' + img)[0].files[0]);
+   
+       oFReader.onload = function(oFREvent) {
+           $('#' + preview_img).attr('src', oFREvent.target.result);
+       }
+   }
 </script>
 
 <script>

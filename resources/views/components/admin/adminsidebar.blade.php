@@ -83,7 +83,7 @@
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun categories_banner_section ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Categories/ Main Banner</span>
 						<span class="pull-right-container">
@@ -91,8 +91,8 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>Categories</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Main Banner</span></a></li>
+						<li class="s_meun categories_active"><a href="{{ route('main.categories') }}"><i class="fa fa-picture-o"></i> <span>Categories</span></a></li>
+						<li class="s_meun cms_association_active"><a href="{{ url('main-banner') }}"><i class="fa fa-picture-o"></i> <span>Main Banner</span></a></li>
 						
 					</ul>
 				</li>
