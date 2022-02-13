@@ -63,13 +63,16 @@
         var id = actionDiv.attr('data-id');  
         var flash = actionDiv.attr('flash');
         var table = actionDiv.attr('table');
-
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
         if (confirm('Do you really want to delete this record ?')) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/soft-delete',                    
+                url: base_url + '/soft-delete',                    
                 type: 'POST',
                 dataType: 'json',
-                data: {id:id,flashdata_message:flash,table:table,_token : _token},
+                headers:headers,
+                data: {id:id,flashdata_message:flash,table:table},
                 beforeSend: function() {
                     actionDiv.html(
                         "<i class='fa fa-spin fa-spinner' style='color: #0c0c0c !important;'></i>"

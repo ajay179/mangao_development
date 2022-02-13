@@ -52,13 +52,13 @@
                                   <div class="upload_photo">
                                       <label>Image <span style="color: red;">*</span></label>
                                       <input type="file" name="category_image" accept=".jpg,.jpeg,.bmp,.png," id="category_image" onchange="change_img('category_image','fileold')" class="form-control">
-                                      <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($category_data[0]->admin_img) ? $category_data[0]->admin_img : '' }}" class="form-control">
+                                      <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($category_data[0]->category_image) ? $category_data[0]->category_image : '' }}" class="form-control">
                                   </div>
                                   <input type="hidden" class="form-control">
 
                                   <div class="img-preview">
                                       <div class="photo p-relative">
-                                          <img id="fileold" name="fileold" src="{{ !empty($category_data[0]->show_admin_img) ? $category_data[0]->show_admin_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
+                                          <img id="fileold" name="fileold" src="{{ !empty($category_data[0]->show_category_img) ? $category_data[0]->show_category_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
                                       </div>
                                   </div>
                                 </div>
@@ -90,7 +90,10 @@
                                              <thead>
                                                    <tr role="row">
                                                       <th width="5%" class="text-center">Sr No.</th>
-                                                      <th width="20%">City</th>
+                                                      <th width="5%">Category UI</th>
+                                                      <th width="5%">Category Name</th>
+                                                      <th width="5%">Category Position</th>
+                                                      <th width="10%">Category Image</th>
                                                       <th width="2%" >created at</th>
                                                       <th width="3%" >Action</th>
                                                    </tr>
@@ -126,12 +129,15 @@
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('city.getDataTable') }}",
+        ajax: "{{ route('category.getDataTable') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'city_name', name: 'city_name'},
+            {data: 'category_ui', name: 'category_ui'},
+            {data: 'category_name', name: 'category_name'},
+            {data: 'category_position', name: 'category_position'},
+            {data: 'category_image', name: 'category_image'},
             {data: 'date', name: 'date'},
-            {data: 'action-js', name: 'action-js', orderable: false, searchable: false},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
   // });

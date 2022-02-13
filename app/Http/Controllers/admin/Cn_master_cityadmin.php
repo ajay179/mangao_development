@@ -51,46 +51,57 @@ class Cn_master_cityadmin extends Controller
         
         // function used for add single array 
         $Md_city_admin = new Md_city_admin;
+
+        $check_duplicate_city_admin = Md_city_admin::where('admin_email', $request->admin_email);
         if(!empty($request->txtpkey)){
-            $msg = "updated";
-            $txtpkey =  Crypt::decryptString($request->txtpkey);
-            $data = Md_city_admin::where('id', $txtpkey)->get();
-            if($data->isEmpty()){
-                return redirect()->route('city-admin')->with('message', 'something went wrong');
-            }else{
-                $Md_city_admin = Md_city_admin::find($txtpkey);
-                $Md_city_admin->updated_at   = date('Y-m-d h:i:s');
-                $Md_city_admin->updated_by   = session()->get('*$%&%*id**$%#');
-                $Md_city_admin->updated_ip_address   = $request->ip();
-            }
-        }else{
-            $msg = "Added";
-            $Md_city_admin->created_at   = date('Y-m-d h:i:s');
-            $Md_city_admin->created_by   = session()->get('*$%&%*id**$%#');
-            $Md_city_admin->created_ip_address   = $request->ip();
-        }      
-        $filename = '';
-        if($request->has('admin_image')){
-            $filename = time().'_'.$request->file('admin_image')->getClientOriginalName();
-            $filePath = $request->file('admin_image')->storeAs('public/admin_image',$filename);  
-        }else{
-            $filePath = $request->admin_image_old;
+          $check_duplicate_city_admin =  $check_duplicate_city_admin->where('id','<>', Crypt::decryptString($request->txtpkey));
         }
-        $Md_city_admin->city_id   = $request->city_id;
-        $Md_city_admin->admin_name   = $request->admin_name;
-        $Md_city_admin->address   = $request->address;
-        $Md_city_admin->commision   = $request->commision;
-        $Md_city_admin->admin_email   = $request->admin_email;
-        $Md_city_admin->admin_mobile   = $request->admin_mobile;
-        $Md_city_admin->admin_img   =  $filePath;
-        $Md_city_admin->password   = Hash::make($request->password);
-        $Md_city_admin->encrypt_password   = Crypt::encryptString($request->password);
-        $Md_city_admin->save();
+        $check_duplicate_city_admin = $check_duplicate_city_admin->where('status','<>', 3)->get();
+        if($check_duplicate_city_admin->isNotEmpty()){
+            return redirect()->route('city.admin')->with('error', 'This city admin email already added.');
+        }else{
 
-        // this statement are used for getting the last inserted id
-       //  $Md_city_master->id;   
+            if(!empty($request->txtpkey)){
+                $msg = "updated";
+                $txtpkey =  Crypt::decryptString($request->txtpkey);
+                $data = Md_city_admin::where('id', $txtpkey)->get();
+                if($data->isEmpty()){
+                    return redirect()->route('city.admin')->with('message', 'something went wrong');
+                }else{
+                    $Md_city_admin = Md_city_admin::find($txtpkey);
+                    $Md_city_admin->updated_at   = date('Y-m-d h:i:s');
+                    $Md_city_admin->updated_by   = session()->get('*$%&%*id**$%#');
+                    $Md_city_admin->updated_ip_address   = $request->ip();
+                }
+            }else{
+                $msg = "Added";
+                $Md_city_admin->created_at   = date('Y-m-d h:i:s');
+                $Md_city_admin->created_by   = session()->get('*$%&%*id**$%#');
+                $Md_city_admin->created_ip_address   = $request->ip();
+            }      
+            $filename = '';
+            if($request->has('admin_image')){
+                $filename = time().'_'.$request->file('admin_image')->getClientOriginalName();
+                $filePath = $request->file('admin_image')->storeAs('public/admin_image',$filename);  
+            }else{
+                $filePath = $request->admin_image_old;
+            }
+            $Md_city_admin->city_id   = $request->city_id;
+            $Md_city_admin->admin_name   = $request->admin_name;
+            $Md_city_admin->address   = $request->address;
+            $Md_city_admin->commision   = $request->commision;
+            $Md_city_admin->admin_email   = $request->admin_email;
+            $Md_city_admin->admin_mobile   = $request->admin_mobile;
+            $Md_city_admin->admin_img   =  $filePath;
+            $Md_city_admin->password   = Hash::make($request->password);
+            $Md_city_admin->encrypt_password   = Crypt::encryptString($request->password);
+            $Md_city_admin->save();
 
-        return redirect()->route('city.admin')->with('message', 'City admin'. $msg);
+            // this statement are used for getting the last inserted id
+           //  $Md_city_master->id;   
+
+            return redirect()->route('city.admin')->with('message', 'City admin'. $msg);
+        }
     }
 
 

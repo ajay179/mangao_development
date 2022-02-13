@@ -61,7 +61,19 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	// Categories Routes
 	Route::get('categories', [App\Http\Controllers\admin\Cn_categories::class,'index'])->name('main.categories');
 	Route::post('category-action', [App\Http\Controllers\admin\Cn_categories::class,'categoryAction'])->name('category.action');
-	
+	Route::get('category-datatable', [App\Http\Controllers\admin\Cn_categories::class, 'get_data_table_of_category'])->name('category.getDataTable');
+	Route::get('edit-categoryadmin/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_category']);
+
+
+
+	// Wallet Normal Routes
+	Route::get('normal-plan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'index'])->name('wallet.normal.plan');
+	Route::post('normal-plan-action', [App\Http\Controllers\admin\Cn_wallet_offers::class,'normalPlanAction'])->name('wallet.normal.plan.action');
+	Route::get('normal-plan-datatable', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'get_data_table_of_normal_plan'])->name('normal.plan.getDataTable');
+	Route::post('check-duplicate-plan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'check_duplicate_plan_amount']);
+	Route::get('edit-normal-plan/{id}', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'fun_edit_wallet_normal_plan']);
+
+
 
 	// Main Banner Routes
 	Route::get('city-admin', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'index'])->name('city.admin');

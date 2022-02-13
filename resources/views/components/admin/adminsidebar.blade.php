@@ -190,7 +190,7 @@
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun wallet_normal_admin ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Wallet / Offers</span>
 						<span class="pull-right-container">
@@ -198,7 +198,7 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>Normal Plan</span></a></li>
+						<li class="s_meun normal_plan_menu"><a href="{{ route('wallet.normal.plan') }}"><i class="fa fa-picture-o"></i> <span>Normal Plan</span></a></li>
 						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Offer Plan</span></a></li>
 						
 					</ul>

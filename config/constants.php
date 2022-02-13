@@ -17,6 +17,9 @@ return [
 
     'MANGAO_CITY_MASTER'=>'mangao_city_masters',
     'MANGAO_CITY_ADMIN'=>'mangao_city_admins',
+    'MANGAO_CATEGORY_MASTER'=>'mangao_categories',
+    'MANGAO_WALLET_NORMAL_PLAN'=>'mangao_wallet_noraml_plan',
+    
     
 ];
 
