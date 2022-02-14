@@ -33,6 +33,7 @@ return array(
     'App\\Models\\Md_city_admin' => $baseDir . '/app/Models/Md_city_admin.php',
     'App\\Models\\Md_city_master' => $baseDir . '/app/Models/Md_city_master.php',
     'App\\Models\\Md_mangao_categories' => $baseDir . '/app/Models/Md_mangao_categories.php',
+    'App\\Models\\Md_wallet_normal_plan' => $baseDir . '/app/Models/Md_wallet_normal_plan.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

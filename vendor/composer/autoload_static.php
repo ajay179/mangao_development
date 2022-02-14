@@ -562,6 +562,7 @@ class ComposerStaticInit0fc427af56b448e76753bdc85ea334d5
         'App\\Models\\Md_city_admin' => __DIR__ . '/../..' . '/app/Models/Md_city_admin.php',
         'App\\Models\\Md_city_master' => __DIR__ . '/../..' . '/app/Models/Md_city_master.php',
         'App\\Models\\Md_mangao_categories' => __DIR__ . '/../..' . '/app/Models/Md_mangao_categories.php',
+        'App\\Models\\Md_wallet_normal_plan' => __DIR__ . '/../..' . '/app/Models/Md_wallet_normal_plan.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

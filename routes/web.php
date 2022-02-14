@@ -78,5 +78,18 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	// Main Banner Routes
 	Route::get('city-admin', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'index'])->name('city.admin');
 
+	// Banner Routes
+	Route::get('banner', [App\Http\Controllers\admin\Cn_banner::class,'index'])->name('main.banner');
+	Route::post('banner-action', [App\Http\Controllers\admin\Cn_banner::class,'bannerAction'])->name('banner.action');
+	Route::get('bannermaster-datatable', [App\Http\Controllers\admin\Cn_banner::class, 'get_data_table_of_banner_master'])->name('bannermaster.getDataTable');
+	Route::get('edit-banner/{id}', [App\Http\Controllers\admin\Cn_banner::class, 'fun_edit_banner']);
+	
+
+	// Order routes
+	Route::get('ongoing-orders', [App\Http\Controllers\admin\Cn_ongoing_orders::class,'index'])->name('ongoing.orders');
+	Route::get('completed-orders', [App\Http\Controllers\admin\Cn_completed_orders::class,'index'])->name('completed.orders');
+	Route::get('cancelled-orders', [App\Http\Controllers\admin\Cn_cancelled_orders::class,'index'])->name('cancelled.orders');
+	Route::get('returned-orders', [App\Http\Controllers\admin\Cn_returned_orders::class,'index'])->name('returned.orders');
+
 
 });

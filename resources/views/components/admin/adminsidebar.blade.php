@@ -73,10 +73,10 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>Ongoing Orders</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Completed Orders</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Cancelled Orders</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Returned Orders</span></a></li>
+						<li class="s_meun ongoing_order_menu"><a href="{{ url('/ongoing-orders') }}"><i class="fa fa-picture-o"></i> <span>Ongoing Orders</span></a></li>
+						<li class="s_meun completed_order_menu"><a href="{{ url('/completed-orders') }}"><i class="fa fa-picture-o"></i> <span>Completed Orders</span></a></li>
+						<li class="s_meun cancelled_order_menu"><a href="{{ url('/cancelled-orders') }}"><i class="fa fa-picture-o"></i> <span>Cancelled Orders</span></a></li>
+						<li class="s_meun returned_order_menu"><a href="{{ url('/returned-orders') }}"><i class="fa fa-picture-o"></i> <span>Returned Orders</span></a></li>
 						
 					</ul>
 				</li>
@@ -92,7 +92,7 @@
 					</a>
 					<ul class="treeview-menu">
 						<li class="s_meun categories_active"><a href="{{ route('main.categories') }}"><i class="fa fa-picture-o"></i> <span>Categories</span></a></li>
-						<li class="s_meun cms_association_active"><a href="{{ url('main-banner') }}"><i class="fa fa-picture-o"></i> <span>Main Banner</span></a></li>
+						<li class="s_meun cms_association_active"><a href="{{ route('main.banner') }}"><i class="fa fa-picture-o"></i> <span>Main Banner</span></a></li>
 						
 					</ul>
 				</li>
