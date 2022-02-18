@@ -172,7 +172,7 @@
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun content_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Content Management</span>
 						<span class="pull-right-container">
@@ -180,10 +180,10 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>Term & Conditions</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>About Us</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Privacy Policy</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Return & Cancellation Policy</span></a></li>
+						<li class="s_meun term_condition_active"><a href="{{route('terms.condition')}}"><i class="fa fa-picture-o"></i> <span>Term & Conditions</span></a></li>
+						<li class="s_meun about_us_active"><a href="{{route('about.us')}}"><i class="fa fa-picture-o"></i> <span>About Us</span></a></li>
+						<li class="s_meun privacy_active"><a href="{{route('privacy.policy')}}"><i class="fa fa-picture-o"></i> <span>Privacy Policy</span></a></li>
+						<li class="s_meun return_policy_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Return & Cancellation Policy</span></a></li>
 						
 					</ul>
 				</li>
