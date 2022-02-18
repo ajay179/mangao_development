@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MdMangaoBanner extends Migration
+class MdMangaoAboutTermsMasters extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class MdMangaoBanner extends Migration
      */
     public function up()
     {
-        Schema::create('mangao_banner_masters', function (Blueprint $table) {
+        Schema::create('mangao_about_terms_masters', function (Blueprint $table) {
             $table->id();
-            $table->string('banner_name');
-            $table->integer('banner_position');
-            $table->text('banner_image')->nullable();
+            $table->string('title_name');
+            $table->longText('content_details');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();
@@ -35,6 +34,6 @@ class MdMangaoBanner extends Migration
      */
     public function down()
     {
-       Schema::dropIfExists('mangao_banner_masters');
+        Schema::dropIfExists('mangao_about_terms_masters');
     }
 }
