@@ -44,6 +44,12 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'city_admin' => [
+            'driver' => 'session',
+            'provider' => 'city_admins',
+        ],
+
+        
     ],
 
     /*
@@ -77,6 +83,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\MangaoStaticUseradmin::class,
+        ],
+        'city_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Md_city_admin::class,
         ],
     ],
 

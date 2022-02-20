@@ -47,6 +47,9 @@ class Kernel extends HttpKernel
         'isAdmin' => [
             \App\Http\Middleware\isAdmin::class,
         ],
+        'isCityAdmin' => [
+            \App\Http\Middleware\isCityAdmin::class,
+        ],
     ];
 
     /**
@@ -67,5 +70,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isadminloginAuth' => \App\Http\Middleware\isAdminLoginAuth::class,
+        'iscityadminloginAuth' => \App\Http\Middleware\isCityAdminLoginAuth::class,
     ];
 }

@@ -1,5 +1,5 @@
 
-@extends('admin.layout.layout')
+@extends('city_admin.layout.layout')
 @section('content')
 
 
@@ -13,7 +13,7 @@
    <section class="content">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-         <h1>Admin Dashboard</h1>
+         <h1>City Admin Dashboard</h1>
       </section>
       <!-- Info boxes -->
       <div class="col-md-12 no-pad">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\User as Authenticatable;
 
-class MangaoStaticUseradmin extends user
+class MangaoStaticUseradmin extends User
 {
     use HasFactory;
     protected $guard = 'admin';
