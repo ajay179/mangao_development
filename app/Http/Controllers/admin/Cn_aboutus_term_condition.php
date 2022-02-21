@@ -19,8 +19,10 @@ class Cn_aboutus_term_condition extends Controller
 
         $class_name ='Cn_aboutus_term_condition';
             $about_data = DB::table(Config::get('constants.MANGAO_ABOUT_TERMS_MASTERS').'  as MATM')->where('MATM.status', '<>', 3)->where('MATM.title_name', '=', 'About Us')->select('MATM.content_details', 'MATM.id')->get();
-
-            $about_data[0]->id = Crypt::encryptString($about_data[0]->id);
+            if(!empty($about_data[0]->id)){
+                $about_data[0]->id = Crypt::encryptString($about_data[0]->id);
+            }
+            
 
         return view('admin/content/about_us',compact('class_name','about_data'));
        

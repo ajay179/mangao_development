@@ -28,7 +28,7 @@
 
                             <div class="col-md-12 form-group no-padd">
                                 <label> About Content<span style="color: red;">*</span></label>
-                                <textarea  name="content_details" id="content_details" autocomplete="off" class="form-control" value="{{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}"> {{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}</textarea>
+                                <textarea  name="content_details" rows="6" id="content_details" autocomplete="off" class="form-control" value="{{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}"> {{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}</textarea>
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
@@ -58,8 +58,8 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                       <h3> Contant Title :   </h3>
-                                       <h4>{{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}   </h4>
+                                       <h3> Contant Details :   </h3>
+                                       <p>{{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}   </p>
                                     </div>
                                 </div>
 
