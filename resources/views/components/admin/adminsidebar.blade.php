@@ -130,7 +130,7 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
+						<li class="s_meun cms_banner_active"><a href="{{route('user.notification')}}"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
 						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
 						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
 						
