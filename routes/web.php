@@ -99,6 +99,8 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 
 	Route::post('cms-action', [App\Http\Controllers\admin\Cn_aboutus_term_condition::class,'cmsAction'])->name('cms.action');
 
+	
+
 
 	
 

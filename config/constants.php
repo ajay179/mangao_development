@@ -20,7 +20,7 @@ return [
     'MANGAO_CATEGORY_MASTER'=>'mangao_categories',
     'MANGAO_WALLET_NORMAL_PLAN'=>'mangao_wallet_noraml_plan',
     'MANGAO_BANNER_MASTER'=>'mangao_banner_masters',
-    "MANGAO_ABOUT_TERMS_MASTERS"=>'mangao_about_terms_masters',
+    'MANGAO_ABOUT_TERMS_MASTERS'=>'mangao_about_terms_masters',
 
 
     
