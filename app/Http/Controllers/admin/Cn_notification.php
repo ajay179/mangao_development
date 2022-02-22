@@ -23,6 +23,19 @@ class Cn_notification extends Controller
         return view('admin/notification/vw_user_notification',compact('class_name'));
     }
 
+    public function fun_vendor_notification()
+    {
+        $class_name = "cn_notification";
+        return view('admin/notification/vw_vendor_notification',compact('class_name'));
+    }
+
+    public function fun_delivery_boy_notification()
+    {
+        $class_name = "cn_notification";
+        return view('admin/notification/vw_delivery_boy_notification',compact('class_name'));
+    }
+
+
     /**
      * This is Add Notification action of all notification.
      *
@@ -45,13 +58,17 @@ class Cn_notification extends Controller
             // function used for add single array 
             $Md_mangao_admin_send_notification = Md_mangao_admin_send_notification::create($formdata);
             
+            if($formdata['user_type'] == 'user'){ $redirect_url = "user.notification";}
+            if($formdata['user_type'] == 'vendor'){ $redirect_url = "vendor.notification";}
+            if($formdata['user_type'] == 'delivery_boy'){ $redirect_url = "delivery.boy.notification";}
+
             if(!empty($Md_mangao_admin_send_notification->id)){
-                return redirect()->route('user.notification')->with('message', 'Notification added ');
+                return redirect()->route($redirect_url)->with('message', 'Notification added ');
             }else{
-                return redirect()->route('user.notification')->with('error', 'Notification not added ');
+                return redirect()->route($redirect_url)->with('error', 'Notification not added ');
             }
         }else{
-            return redirect()->route('user.notification')->with('error', 'Something went wrong ');
+            return redirect()->route($redirect_url)->with('error', 'Something went wrong ');
         }
     }
 
@@ -72,6 +89,9 @@ class Cn_notification extends Controller
             if($user_type == 'user'){
                $data->redirect_url = Crypt::encryptString('user-notification'); 
             }
+            if($user_type == 'vendor'){ $data->redirect_url = "vendor.notification";}
+            if($user_type == 'delivery_boy'){ $data->redirect_url = "delivery.boy.notification";}
+            
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action-js', function($data){

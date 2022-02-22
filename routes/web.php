@@ -73,11 +73,13 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	Route::post('check-duplicate-plan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'check_duplicate_plan_amount']);
 	Route::get('edit-normal-plan/{id}', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'fun_edit_wallet_normal_plan']);
 
+
+	// wallet offer plan routes
 	Route::get('offer-plan-page', [App\Http\Controllers\admin\cn_wallet_offers::class,'offer_plan_page'])->name('offer.plan.page');
 	Route::get('admin/add-offerplan', [App\Http\Controllers\admin\cn_wallet_offers::class,'add_offerplan'])->name('add.offerplan');
 	Route::post('offerplan-action', [App\Http\Controllers\admin\cn_wallet_offers::class,'offerPlanAction'])->name('offerplan.action');
 	Route::get('offerplan-datatable', [App\Http\Controllers\admin\cn_wallet_offers::class, 'get_data_table_of_offer_plan'])->name('offerplan.getDataTable');
-	Route::get('edit-offerplan/{id}', [App\Http\Controllers\admin\cn_wallet_offers::class, 'fun_edit_offer_plan']);
+	Route::get('edit-offer-plan/{id}', [App\Http\Controllers\admin\cn_wallet_offers::class, 'fun_edit_offer_plan']);
 
 
 
@@ -117,9 +119,20 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 
 
 
+	// On screen notification route
 	Route::get('user-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_user_notification'])->name('user.notification');
 	Route::post('notification-action', [App\Http\Controllers\admin\Cn_notification::class,'userNotificationAction']);
 Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification']);
-
 	
+	Route::get('vendor-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_vendor_notification'])->name('vendor.notification');
+
+
+	Route::get('delivery-boy-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_delivery_boy_notification'])->name('delivery.boy.notification');
+	
+	// Reward, Redeem Point all routes
+
+	Route::get('redeem-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_redeem_point'])->name('redeem.points');
+	
+
+
 });

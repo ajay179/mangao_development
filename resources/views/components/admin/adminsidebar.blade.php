@@ -65,7 +65,7 @@
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun orders_management_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Orders</span>
 						<span class="pull-right-container">
@@ -98,13 +98,6 @@
 				</li>
 
 
-
-
-
-				
-
-
-
 				<li class="treeview s_meun content_management_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>User Management</span>
@@ -122,7 +115,7 @@
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun onscreen_notification ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>OnScreen Notifications</span>
 						<span class="pull-right-container">
@@ -130,16 +123,16 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="{{route('user.notification')}}"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
+						<li class="s_meun user_notification"><a href="{{route('user.notification')}}"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
+						<li class="s_meun vendor_notification"><a href="{{route('vendor.notification')}}"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
+						<li class="s_meun delivery_boy_notification"><a href="{{route('delivery.boy.notification')}}"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
 						
 					</ul>
 				</li>
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun bell_icon_notification ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Bell Icon Notifications</span>
 						<span class="pull-right-container">
@@ -147,7 +140,7 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
+						<li class="s_meun user_notification"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
 						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
 						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
 						
@@ -155,7 +148,7 @@
 				</li>
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun reward_redeem_point ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Reward/ Reedem Points</span>
 						<span class="pull-right-container">
@@ -163,8 +156,8 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>Reward Points</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Redeem Points</span></a></li>
+						<li class="s_meun reward_point"><a href=""><i class="fa fa-picture-o"></i> <span>Reward Points</span></a></li>
+						<li class="s_meun redeem_point"><a href="{{ route('redeem.points')}}"><i class="fa fa-picture-o"></i> <span>Redeem Points</span></a></li>
 						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>App Refer</span></a></li>
 						
 					</ul>
@@ -204,13 +197,6 @@
 					</ul>
 				</li>
 
-
-
-
-				
-
-
-			
 
 <!-- MAIN_SERVICES -->
 				<li class="s_meun main_services_active">

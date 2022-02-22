@@ -150,7 +150,7 @@ class Cn_master_cityadmin extends Controller
             //decrypt password
             $cityadmin_data[0]->encrypt_password = Crypt::decryptString($cityadmin_data[0]->encrypt_password);
             
-            $class_name ='Cn_master_cityadmin';
+            $class_name ='cn_master_cityadmin';
            
             if(!empty($cityadmin_data[0])){
                 return view('admin/city-cityadmin/add_city_admin_master',compact('class_name','cityadmin_data','city_data'));

@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-4">
                 <section class="content-header">
-                    <h1>Add User Notification </h1>
+                    <h1>Add Vendor Notification </h1>
                 </section>
 
                 <div class="box box-primary">
@@ -21,7 +21,7 @@
                             <div class="col-md-12 form-group no-padd">
                                 <label>Notification<span style="color: red;">*</span></label>
                                 <input type="text" name="notification_title" id="notification_title" autocomplete="off" class="form-control" value="">
-                                <input type="hidden" name="user_type" value="user">
+                                <input type="hidden" name="user_type" value="vendor">
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
                             <div class="clearfix"></div>
@@ -91,7 +91,7 @@
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
     $(".onscreen_notification").addClass("active");
-    $(".user_notification").addClass("active");
+    $(".vendor_notification").addClass("active");
 </script>
 
 <script type="text/javascript">
@@ -99,7 +99,7 @@
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('notification-datatable','user') }}",
+        ajax: "{{ url('notification-datatable','vendor') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'notification_title', name: 'notification_title'},

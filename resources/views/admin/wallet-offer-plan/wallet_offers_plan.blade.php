@@ -22,11 +22,13 @@
                             <table id="example" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th width="7%">Sr No.</th>
+                                        <th width="10%">Sr No.</th>
                                         <th width="15%">Offer Amount</th>
-                                        <th width="15%">Percentage | Price</th>
-                                        <th width="15%">Value</th>
-                                        <th width="20%">Date </th>
+                                        <th width="15%">Discount Type</th>
+                                        <th width="15%">Discount Value</th>
+                                        <th width="15%">Maximum offer</th>
+                                        <th width="15%">Offer Image</th>
+                                        <th width="7%">Date </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -56,20 +58,25 @@
     $(".s_meun").removeClass("active");
     $(".wallet_normal_admin").addClass("active");
     $(".offer_plan_active").addClass("active");
+    
 </script>
+
+
 <script type="text/javascript">
   // $(function () {
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('cityadmin.getDataTable') }}",
+        ajax: "{{ route('offerplan.getDataTable') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'admin_name', name: 'admin_name'},
-            {data: 'admin_mobile', name: 'admin_mobile'},
-            {data: 'admin_email', name: 'admin_email'},
+            {data: 'offer_amount', name: 'offer_amount'},
+            {data: 'discount_value_type', name: 'discount_value_type'},
+            {data: 'discount_amount', name: 'discount_amount'},
+            {data: 'maximum_offer', name: 'maximum_offer'},
+            {data: 'offer_plan_image', name: 'offer_plan_image'},
             {data: 'date', name: 'date'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data: 'action-js', name: 'action-js', orderable: false, searchable: false},
         ]
     });
   // });
@@ -79,4 +86,5 @@
    }
 
  </script>
+
 @endsection

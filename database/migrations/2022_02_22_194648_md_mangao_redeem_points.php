@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MangaoWalletOffersPlan extends Migration
+class MdMangaoRedeemPoints extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class MangaoWalletOffersPlan extends Migration
      */
     public function up()
     {
-         
-        Schema::create('mangao_wallet_offers_plan', function (Blueprint $table) {
+        Schema::create('mangao_redeem_point', function (Blueprint $table) {
             $table->id();
-            $table->string('offer_amount')->nullable();
-            $table->enum('discount_value_type', ['percentage', 'price'])->nullable();
-            $table->string('discount_amount')->nullable();
-            $table->string('maximum_offer')->nullable();
-            $table->text('offer_plan_image')->nullable();
+            $table->string('reward_points');
+            $table->string('value');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();
@@ -38,6 +34,6 @@ class MangaoWalletOffersPlan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mangao_wallet_offers_plan');
+        Schema::dropIfExists('mangao_redeem_point');
     }
 }

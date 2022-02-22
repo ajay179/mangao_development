@@ -55,26 +55,7 @@
     $(".ongoing_order_menu").addClass("active");
 </script>
 <script type="text/javascript">
-  // $(function () {
-    let table = $('#example').dataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('cityadmin.getDataTable') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'admin_name', name: 'admin_name'},
-            {data: 'admin_mobile', name: 'admin_mobile'},
-            {data: 'admin_email', name: 'admin_email'},
-            {data: 'admin_image', name: 'admin_image'},
-            {data: 'date', name: 'date'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-  // });
-
-  function reload_table() {
-      table.DataTable().ajax.reload(null, false);
-   }
+  $("#example").dataTable();
 
  </script>
 @endsection
