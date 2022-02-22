@@ -73,6 +73,12 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	Route::post('check-duplicate-plan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'check_duplicate_plan_amount']);
 	Route::get('edit-normal-plan/{id}', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'fun_edit_wallet_normal_plan']);
 
+	Route::get('offer-plan-page', [App\Http\Controllers\admin\cn_wallet_offers::class,'offer_plan_page'])->name('offer.plan.page');
+	Route::get('admin/add-offerplan', [App\Http\Controllers\admin\cn_wallet_offers::class,'add_offerplan'])->name('add.offerplan');
+	Route::post('offerplan-action', [App\Http\Controllers\admin\cn_wallet_offers::class,'offerPlanAction'])->name('offerplan.action');
+	Route::get('offerplan-datatable', [App\Http\Controllers\admin\cn_wallet_offers::class, 'get_data_table_of_offer_plan'])->name('offerplan.getDataTable');
+	Route::get('edit-offerplan/{id}', [App\Http\Controllers\admin\cn_wallet_offers::class, 'fun_edit_offer_plan']);
+
 
 
 	// Main Banner Routes
@@ -99,7 +105,15 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 
 	Route::post('cms-action', [App\Http\Controllers\admin\Cn_aboutus_term_condition::class,'cmsAction'])->name('cms.action');
 
-	
+	// Withdrwal Request routes
+	Route::get('city-admin-withdrwal', [App\Http\Controllers\admin\Cn_withdrwal_request::class,'index'])->name('city.admin.withdrwal');
+	Route::get('vendor-withdrwal', [App\Http\Controllers\admin\Cn_withdrwal_request::class,'vendor_withdrwal_page'])->name('vendor.withdrwal');
+	Route::get('delivery-boy-withdrwal', [App\Http\Controllers\admin\Cn_withdrwal_request::class,'delivery_boy_withdrwal_page'])->name('delivery.boy.withdrwal');
+
+	// Account Settlement routes
+	Route::get('city-admin-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'index'])->name('city.admin.account.settlement');
+	Route::get('vendor-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'vendor_account_settlement_page'])->name('vendor.account.settlement');
+	Route::get('delivery-boy-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'delivery_boy_account_settlement_page'])->name('delivery.boy.account.settlement');
 
 
 	

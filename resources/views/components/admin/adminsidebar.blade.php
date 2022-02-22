@@ -30,7 +30,7 @@
 
 
 
-				<li class="treeview s_meun content_withdrwal_active ">
+				<li class="treeview s_meun withdrwal_request_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Withdrwal Request</span>
 						<span class="pull-right-container">
@@ -38,9 +38,9 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun city_withdrwal_active"><a href="{{ url('/ongoing-orders') }}"><i class="fa fa-picture-o"></i> <span>City Admin Withdrawal Request</span></a></li>
-						<li class="s_meun vendor_withdrwal_active"><a href=""><i class="fa fa-picture-o"></i> <span>Vendor Withdrawal Request</span></a></li>
-						<li class="s_meun delivery_withdrwal_active"><a href=""><i class="fa fa-picture-o"></i> <span>Delivery Boy Withdrawal Request</span></a></li>
+						<li class="s_meun city_withdrwal_active"><a href="{{ url('/city-admin-withdrwal') }}"><i class="fa fa-picture-o"></i> <span>City Admin Withdrawal Request</span></a></li>
+						<li class="s_meun vendor_withdrwal_active"><a href="{{ url('/vendor-withdrwal') }}"><i class="fa fa-picture-o"></i> <span>Vendor Withdrawal Request</span></a></li>
+						<li class="s_meun delivery_withdrwal_active"><a href="{{ url('/delivery-boy-withdrwal') }}"><i class="fa fa-picture-o"></i> <span>Delivery Boy Withdrawal Request</span></a></li>
 						
 					</ul>
 				</li>
@@ -48,7 +48,7 @@
 
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun account_settlement_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Account Settlement</span>
 						<span class="pull-right-container">
@@ -56,9 +56,9 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href=""><i class="fa fa-picture-o"></i> <span>City Admin Account Settlement</span></a></li>
-						<li class="s_meun cms_association_active"><a href=""><i class="fa fa-picture-o"></i> <span>Vendor Account Settlement</span></a></li>
-						<li class="s_meun cms_association_active"><a href=""><i class="fa fa-picture-o"></i> <span>Delivery Boy Account Settlement</span></a></li>
+						<li class="s_meun city_account_settlement_active"><a href="{{ url('/city-admin-account-settlement') }}"><i class="fa fa-picture-o"></i> <span>City Admin Account Settlement</span></a></li>
+						<li class="s_meun vendor_account_settlement_active"><a href="{{ url('/vendor-account-settlement') }}"><i class="fa fa-picture-o"></i> <span>Vendor Account Settlement</span></a></li>
+						<li class="s_meun delivery_account_settlement_active"><a href="{{ url('/delivery-boy-account-settlement') }}"><i class="fa fa-picture-o"></i> <span>Delivery Boy Account Settlement</span></a></li>
 						
 					</ul>
 				</li>
@@ -198,11 +198,12 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun normal_plan_menu"><a href="{{ route('wallet.normal.plan') }}"><i class="fa fa-picture-o"></i> <span>Normal Plan</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Offer Plan</span></a></li>
+						<li class="s_meun normal_plan_menu"><a href="{{route('wallet.normal.plan')}}"><i class="fa fa-picture-o"></i> <span>Normal Plan</span></a></li>
+						<li class="s_meun offer_plan_active"><a href="{{route('offer.plan.page')}}"><i class="fa fa-picture-o"></i> <span>Offer Plan</span></a></li>
 						
 					</ul>
 				</li>
+
 
 
 

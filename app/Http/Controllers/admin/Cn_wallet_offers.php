@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\models\Md_wallet_normal_plan;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use DB;
 use Config;
 
-class Cn_wallet_offers extends Controller
+class cn_wallet_offers extends Controller
 {
     /**
 	 * Display a listing of the resource.
@@ -153,4 +154,30 @@ class Cn_wallet_offers extends Controller
         }
 
     }
+
+    /**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+    public function offer_plan_page()
+    {
+        $class_name ='cn_wallet_offers';
+        return view('admin/wallet-offer-plan/wallet_offers_plan',compact('class_name'));
+    }
+
+    /**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+    public function add_offerplan()
+    {
+        $class_name ='cn_wallet_offers';
+        //$offer_data = Md_wallet_normal_plan::latest()->where('status','<>',3)->select('offer_amount','id','percentage_price','created_at')->get();
+        return view('admin/wallet-offer-plan/add_wallet_offers_plan',compact('class_name'));
+    }
+
+   
+
 }
