@@ -116,7 +116,10 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	Route::get('delivery-boy-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'delivery_boy_account_settlement_page'])->name('delivery.boy.account.settlement');
 
 
+
+	Route::get('user-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_user_notification'])->name('user.notification');
+	Route::post('notification-action', [App\Http\Controllers\admin\Cn_notification::class,'userNotificationAction']);
+Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification']);
+
 	
-
-
 });
