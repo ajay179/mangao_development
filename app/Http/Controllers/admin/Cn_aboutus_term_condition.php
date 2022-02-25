@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Md_mangao_about_terms_masters;
+use App\Models\Md_mangao_about_terms_masters;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Storage;

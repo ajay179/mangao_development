@@ -132,6 +132,8 @@ Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_
 	// Reward, Redeem Point all routes
 
 	Route::get('redeem-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_redeem_point'])->name('redeem.points');
+	Route::post('cms-points-action', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'cmsPointsAction'])->name('cms.points.action');
+	Route::get('reward-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_reward_point'])->name('reward.points');
 	
 
 
