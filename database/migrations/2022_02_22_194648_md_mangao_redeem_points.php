@@ -15,6 +15,7 @@ class MdMangaoRedeemPoints extends Migration
     {
         Schema::create('mangao_redeem_point', function (Blueprint $table) {
             $table->id();
+            $table->string('points_type');
             $table->string('reward_points');
             $table->string('value');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
