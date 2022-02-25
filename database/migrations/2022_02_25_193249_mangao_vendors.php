@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-class MangaoCityadmin extends Migration
+class MangaoVendors extends Migration
 {
     /**
      * Run the migrations.
@@ -14,17 +13,20 @@ class MangaoCityadmin extends Migration
      */
     public function up()
     {
-        Schema::create('mangao_city_admins', function (Blueprint $table) {
+        Schema::create('mangao_vendors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('city_id');
-            $table->string('admin_name');
-            $table->string('admin_email');
-            $table->string('password');
+            $table->foreignId('category_id');
+            $table->string('store_name');
+            $table->string('store_owner_name');
+            $table->decimal('vendor_latitude', 5, 2);
+            $table->decimal('vendor_longitude', 5, 2);
+            $table->decimal('vendor_comission', 5, 2);
+            $table->text('vendor_address');
+            $table->integer('delivery_range');
+            $table->string('vendor_email');
+            $table->string('vendor_mobile_no');
+            $table->string('vendor_password');
             $table->text('encrypt_password');
-            $table->string('admin_mobile');
-            $table->text('address');
-            $table->integer('commision');
-            $table->text('admin_img')->nullable();
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();
@@ -42,6 +44,6 @@ class MangaoCityadmin extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mangao_city_admins');
+        Schema::dropIfExists('mangao_vendors');
     }
 }

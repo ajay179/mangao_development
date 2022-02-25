@@ -113,7 +113,7 @@ class Cn_categories extends Controller
     }
 
 
-     public function fun_edit_category($encrypt_id)
+    public function fun_edit_category($encrypt_id)
     {
         try {
             
