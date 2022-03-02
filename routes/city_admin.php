@@ -36,6 +36,9 @@ Route::group(['middleware'=>['isCityAdmin']], function(){
 	Route::get('cityadmin/view-vendor', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_vendor_list'])->name('cityadmin.view.vendor.list');
 	
 	Route::get('cityadmin/add-vendor', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_add_vendor'])->name('cityadmin.add.vendor');
+	Route::post('cityadmin/vendor-cityadmin-action', [App\Http\Controllers\city_admin\Cn_user_management::class,'vendorCityAdminAction'])->name('cityadmin.vendor.action');
+	Route::get('cityadmin/cityadmin-vendor-datatable', [App\Http\Controllers\city_admin\Cn_user_management::class, 'get_data_table_of_city_admin_vendor'])->name('cityadminvendor.getDataTable');
+	Route::get('cityadmin/edit-cityadmin-vendor/{id}', [App\Http\Controllers\city_admin\Cn_user_management::class, 'fun_edit_city_admin_vendor']);
 
 
 	Route::get('cityadmin/view-delivery-boy', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_delivery_boy_list'])->name('cityadmin.view.delivery.boy.list');

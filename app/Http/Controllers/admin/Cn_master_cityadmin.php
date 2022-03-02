@@ -43,7 +43,7 @@ class Cn_master_cityadmin extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function offerPlanAction(Request $request)
+    public function cityAdminAction(Request $request)
     {
        $this->validate($request, [
             'city_id' => 'required','admin_name' => 'required','address' => 'required','commision' => 'required','admin_email' => 'required','admin_mobile' => 'required','password' => 'required'

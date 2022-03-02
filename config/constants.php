@@ -22,6 +22,8 @@ return [
     'MANGAO_BANNER_MASTER'=>'mangao_banner_masters',
     'MANGAO_ABOUT_TERMS_MASTERS'=>'mangao_about_terms_masters',
     'MANGAO_REDEEM_POINTS'=>'mangao_redeem_point',
+    'MANGAO_VENDORS'=>'mangao_vendors',
+    'MANGAO_DELIVERY_BOY'=>'mangao_delivery_boy',
 
 
     

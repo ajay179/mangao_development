@@ -16,11 +16,7 @@ class MangaoWalletOffersPlan extends Migration
          
         Schema::create('mangao_wallet_offers_plan', function (Blueprint $table) {
             $table->id();
-            $table->string('offer_amount')->nullable();
-            $table->enum('discount_value_type', ['percentage', 'price'])->nullable();
-            $table->string('discount_amount')->nullable();
-            $table->string('maximum_offer')->nullable();
-            $table->text('offer_plan_image')->nullable();
+            $table->string('wallet_amount');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();
@@ -38,6 +34,6 @@ class MangaoWalletOffersPlan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mangao_wallet_offers_plan');
+        // Schema::dropIfExists('mangao_wallet_offers_plan');
     }
 }
