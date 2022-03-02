@@ -110,7 +110,7 @@ class Cn_user_management extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/cityadmin/edit-cityadmin-vendor") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="Vendor" table="' . Crypt::encryptString('mangao_vendors') . '" redirect-url="' . Crypt::encryptString('cityadmin/view-vendor') . '" title="Delete" ><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="'. url("/cityadmin/edit-cityadmin-vendor") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-city-admin" flash="Vendor" table="' . Crypt::encryptString('mangao_vendors') . '" redirect-url="' . Crypt::encryptString('cityadmin/view-vendor') . '" title="Delete" ><i class="fa fa-trash"></i></a>';
                     return $btn;
                 })
                 ->addColumn('date', function($data){
@@ -144,7 +144,7 @@ class Cn_user_management extends Controller
             //decrypt password
             $vendor_info[0]->encrypt_password = Crypt::decryptString($vendor_info[0]->encrypt_password);
             
-            $class_name ='cn_master_cityadmin';
+            $class_name ='Cn_user_management';
            
             if(!empty($vendor_info[0])){
                 return view('city_admin/user_management/vw_add_vendor',compact('class_name','vendor_info','vendor_data'));

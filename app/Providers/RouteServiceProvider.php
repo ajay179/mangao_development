@@ -50,6 +50,13 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace('App\Http\Controllers')
                 ->group(base_path('routes/city_admin.php'));
+
+
+            Route::middleware('web')
+                ->namespace('App\Http\Controllers')
+                ->group(base_path('routes/vendors.php'));
+
+                
         });
     }
 

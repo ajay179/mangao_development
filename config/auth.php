@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'city_admins',
         ],
+        'vendor' => [
+            'driver' => 'session',
+            'provider' => 'vendors',
+        ],
 
         
     ],
@@ -88,6 +92,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Md_city_admin::class,
         ],
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Md_city_admin_vendor::class,
+        ],
+        
     ],
 
     /*

@@ -31,6 +31,8 @@ Route::group(['middleware'=>['isCityAdmin']], function(){
 	//city admin dashboard route
 	Route::get('city-admin-dashbord', [App\Http\Controllers\city_admin\Cn_city_admin_dashboard::class,'index']);
 
+	// city admin Soft delete common function
+	Route::post('soft-delete-of-city-admin', [App\Http\Controllers\Cn_city_common_controller::class, 'delete_common_function_city_admin']);
 
 	// User Management Vendor Routing
 	Route::get('cityadmin/view-vendor', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_vendor_list'])->name('cityadmin.view.vendor.list');
