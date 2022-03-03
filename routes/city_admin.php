@@ -47,6 +47,24 @@ Route::group(['middleware'=>['isCityAdmin']], function(){
 	Route::get('cityadmin/add-delivery-boy', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_add_delivery_boy'])->name('cityadmin.add.delivery.boy');
 
 
+// Withdrwal Request routes
+
+	Route::get('cityadmin/city-admin-withdrwal', [App\Http\Controllers\city_admin\Cn_city_admin_withdrwal_request::class,'index'])->name('cityadmin.city.admin.withdrwal');
+	Route::get('cityadmin/vendor-withdrwal', [App\Http\Controllers\city_admin\Cn_city_admin_withdrwal_request::class,'fun_vendor_withdrwal_page'])->name('cityadmin.vendor.withdrwal');
+	Route::get('cityadmin/delivery-boy-withdrwal', [App\Http\Controllers\city_admin\Cn_city_admin_withdrwal_request::class,'fun_delivery_boy_withdrwal_page'])->name('cityadmin.delivery.boy.withdrwal');
+
+	// Account Settlement routes
+	Route::get('cityadmin/city-admin-account-settlement', [App\Http\Controllers\city_admin\Cn_city_admin_account_settlement::class,'index'])->name('cityadmin.city.admin.account.settlement');
+	Route::get('cityadmin/vendor-account-settlement', [App\Http\Controllers\city_admin\Cn_city_admin_account_settlement::class,'vendor_account_settlement_page'])->name('cityadmin.vendor.account.settlement');
+	Route::get('cityadmin/delivery-boy-account-settlement', [App\Http\Controllers\city_admin\Cn_city_admin_account_settlement::class,'delivery_boy_account_settlement_page'])->name('cityadmin.delivery.boy.account.settlement');
+
+	// Order routes
+	Route::get('cityadmin/ongoing-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'index'])->name('cityadmin.ongoing.orders');
+	Route::get('cityadmin/completed-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_completed_orders'])->name('cityadmin.completed.orders');
+	Route::get('cityadmin/cancelled-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_cancelled_orders'])->name('cityadmin.cancelled.orders');
+	Route::get('cityadmin/returned-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_returned_orders'])->name('cityadmin.returned.orders');
+
+
 
 
 
