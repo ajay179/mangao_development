@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Md_city_master;
+use App\Models\Md_city_master;
 use Illuminate\Support\Facades\Crypt;
 use DataTables;
 use Config;

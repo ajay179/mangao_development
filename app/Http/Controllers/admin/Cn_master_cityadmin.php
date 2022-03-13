@@ -4,8 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Md_city_master;
-use App\models\Md_city_admin;
+use App\Models\Md_city_master;
+use App\Models\Md_city_admin;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Storage;

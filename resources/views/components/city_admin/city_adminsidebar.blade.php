@@ -6,7 +6,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <!-- Dashboard start-->
                 <li class="s_meun dashboard_active active">
-                    <a href="{{ url('admin-dashbord') }}">
+                    <a href="{{ url('city-admin-dashbord') }}">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>

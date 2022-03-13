@@ -50,6 +50,9 @@ class Kernel extends HttpKernel
         'isCityAdmin' => [
             \App\Http\Middleware\isCityAdmin::class,
         ],
+        'isVendor' => [
+            \App\Http\Middleware\isVendor::class,
+        ],
     ];
 
     /**

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\MangaoStaticUseradmin;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,18 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('isSuperAdmin', function($user){
+
+            echo "ajay";
+            // $admin=  Auth::guard('admin')->user();
+
+            // echo $admin->user_type;
+            // return $admin->user_type == 'super_admin';
+        });
+
+        // Gate::define('isSuperAdmin', function($user){
+        //     echo $user;
+        //     return $user->user_type == 'super_admin';
+        // });
     }
 }

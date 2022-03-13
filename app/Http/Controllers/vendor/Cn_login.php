@@ -28,12 +28,12 @@ class Cn_login extends Controller
             'email' => 'required',
             'password' => 'required',
         ],
-        
         );
 
+         // return $request;
         $admin_data = array(
             'vendor_email' =>$request->email,
-            'vendor_password' => $request->password
+            'password' => $request->password
         );  
         if(Auth::guard('vendor')->attempt($admin_data)){
           
@@ -47,7 +47,8 @@ class Cn_login extends Controller
             $request->session()->put([
                 '&%*$^vendorusername$%#' => Auth::guard('vendor')->user()->store_name,
                 '&&*id$##' => Auth::guard('vendor')->user()->id,
-                '$%vendor_email&%*' => Auth::guard('vendor')->user()->vendor_email
+                '$%vendor_email&%*' => Auth::guard('vendor')->user()->vendor_email,
+                '$%vendor_category_type_id&%*' => Auth::guard('vendor')->user()->category_id
             ]);
 
             if ($request->session()->has('&%*$^vendorusername$%#', '&&*id$##', '$%vendor_email&%*')) {

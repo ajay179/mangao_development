@@ -42,12 +42,12 @@ $(document).ready(function () {
                     minlength: 10,
                     maxlength: 10
                 },
-                vendor_password: {
+                password: {
                     required: true,
                 },
                 confirm_password: {
                     required: true,
-                    equalTo: "#vendor_password",
+                    equalTo: "#password",
                 },
                 
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
                    minlength: "The mobile no field only contain 10 digits.",
                    maxlength: "The mobile no field only contain 10 digits."
                 },
-                vendor_password: {
+                password: {
                     required: '* Please enter password.',
                 },
                 confirm_password: {

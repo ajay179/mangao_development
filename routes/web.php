@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 
 
+Auth::routes();
+
+
 Route::get('/admin', function () {
     return view('admin/login/login');
 })->middleware('isadminloginAuth');

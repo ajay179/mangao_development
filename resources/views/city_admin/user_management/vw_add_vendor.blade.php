@@ -151,7 +151,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label>Password<span style="color: red;">*</span></label>
-                                        <input type="password" class="form-control" placeholder="vendor_password" id="vendor_password" name="vendor_password" autocomplete="off" value="{{ !empty($vendor_info[0]->encrypt_password) ? $vendor_info[0]->encrypt_password : ''}}">
+                                        <input type="password" class="form-control" placeholder="password" id="password" name="password" autocomplete="off" value="{{ !empty($vendor_info[0]->encrypt_password) ? $vendor_info[0]->encrypt_password : ''}}">
                                     </div>
 
                                     <div  class="col-md-6 form-group no-pad-left">

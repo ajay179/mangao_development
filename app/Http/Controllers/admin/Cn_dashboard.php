@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\MangaoStaticUseradmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class Cn_dashboard extends Controller
 {
@@ -16,7 +19,22 @@ class Cn_dashboard extends Controller
     {
         // echo $password = Hash::make('123456');
         
+        if (Gate::allows('isSuperAdmin')) {
+
+           echo "you are admin";
+
+        } else {
+
+            echo "you are not admin";
+
+        }
+
+
+        // if (Gate::denies('isSuperAdmin')) {
+        //         abort(403);
+        //     }
+
         // die();
-        return view('admin.dashbord.dashbord');
+        // return view('admin.dashbord.dashbord');
     }
 }

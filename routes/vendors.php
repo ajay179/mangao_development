@@ -26,9 +26,19 @@ Route::get('/vendor-admin-logout', function(){
 	
 Route::post('check-login-for-vendor',[App\Http\Controllers\vendor\Cn_login::class,'vendor_login']);
 
-Route::group(['middleware'=>['isVendorAdmin']], function(){
+Route::group(['middleware'=>['isVendor']], function(){
 
-	
+		//Vendor dashboard route
+		Route::get('vendor-dashbord', [App\Http\Controllers\vendor\Cn_vendor_dashboard::class,'index']);
+
+
+		//Vendor Category 
+		Route::get('vendor-category', [App\Http\Controllers\vendor\Cn_category_master::class,'index'])->name('vendor.category');
+		Route::post('vendor-category-action', [App\Http\Controllers\vendor\Cn_category_master::class,'vendorCategoryAction'])->name('vendor.category.action');
+
+		//Vendor Sub Category 
+		Route::get('vendor-sub-category', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'index'])->name('vendor.sub.category');
+		Route::post('vendor-sub-category-action', [App\Http\Controllers\vendor\Cn_category_master::class,'index'])->name('vendor.sub.category.action');
 });
 	
 

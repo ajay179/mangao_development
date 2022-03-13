@@ -61,7 +61,6 @@
 
 <script src="{{asset('commonarea/plugins/toaster/jquery.toast.min.js')}}"></script>
 <!-- dynamically class name added -->
-<script src="{{ asset('controller_js/'.$class_name.'.js') }}"></script>
 
 <script>
   function loadFunction() {

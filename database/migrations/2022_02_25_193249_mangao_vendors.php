@@ -25,8 +25,9 @@ class MangaoVendors extends Migration
             $table->integer('delivery_range');
             $table->string('vendor_email');
             $table->string('vendor_mobile_no');
-            $table->string('vendor_password');
+            $table->string('password');
             $table->text('encrypt_password');
+            $table->enum('user_type', ['super_admin'])->default('super_admin');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();
