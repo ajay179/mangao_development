@@ -49,7 +49,7 @@
                                         <label>Vendor Category<span style="color: red;">*</span></label>
                                         @php $category_id =  !empty($vendor_info[0]->category_id) ? $vendor_info[0]->category_id :  '' @endphp
                                         <select class="form-control" name="category_id" id="category_id">
-                                            <option value="">Select Ctegory</option>
+                                            <option value="">Select Category</option>
                                             @if (!empty($vendor_data)) 
                                                @foreach ($vendor_data as $key => $value)
                                             <option value="{{ $value['id'] }}"  @if ($value->id == $category_id) selected @endif> {{ ucwords($value['category_name']) }}</option>

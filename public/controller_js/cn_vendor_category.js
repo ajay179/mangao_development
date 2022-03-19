@@ -36,7 +36,11 @@ $(document).ready(function () {
             onfocusout: false,
              rules: {
                 
-                category_name: {
+                vendor_category_id: {
+                    required: true,
+                },
+
+                vendor_sub_category_name: {
                     required: true,
                 },
                 
@@ -44,8 +48,12 @@ $(document).ready(function () {
             // Specify the validation error messages
             messages: {
                
-                category_name: {
-                    required: '* Please enter Category Name.',
+                vendor_category_id: {
+                    required: '* Please select category.',
+                },
+
+                vendor_sub_category_name: {
+                    required: '* Please enter sub category name.',
                 },
                 
             },

@@ -24,7 +24,8 @@ return [
     'MANGAO_REDEEM_POINTS'=>'mangao_redeem_point',
     'MANGAO_VENDORS'=>'mangao_vendors',
     'MANGAO_DELIVERY_BOY'=>'mangao_delivery_boy',
-
+    'MANGAO_VENDOR_CATEGORY_MASTER'=> 'mangao_vendor_category_master',
+    'MANGAO_VENDOR_SUB_CATEGORY_MASTER'=> 'mangao_vendor_sub_category_master',
 
     
 ];

@@ -1,4 +1,4 @@
-    var base_url = $('#base_url').val();
+    let base_url = $('#base_url').val();
     let _token   = $('meta[name="csrf-token"]').attr('content');
     $(function() {
         $(document).on("click", ".change-status", function() {
@@ -103,6 +103,38 @@
         if (confirm('Do you really want to delete this record ?')) {
             $.ajax({
                 url: base_url + '/soft-delete-of-city-admin',                    
+                type: 'POST',
+                dataType: 'json',
+                headers:headers,
+                data: {id:id,flashdata_message:flash,table:table},
+                beforeSend: function() {
+                    actionDiv.html(
+                        "<i class='fa fa-spin fa-spinner' style='color: #0c0c0c !important;'></i>"
+                    );
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        success_toast('', data.message);
+                        reload_table();
+                    }                         
+                }
+            });
+        }
+    });
+    
+
+     $(document).on('click', '.delete-record-of-vendor', function() 
+    {           
+        var actionDiv = $(this); 
+        var id = actionDiv.attr('data-id');  
+        var flash = actionDiv.attr('flash');
+        var table = actionDiv.attr('table');
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        if (confirm('Do you really want to delete this record ?')) {
+            $.ajax({
+                url: base_url + '/soft-delete-of-vendor',                    
                 type: 'POST',
                 dataType: 'json',
                 headers:headers,

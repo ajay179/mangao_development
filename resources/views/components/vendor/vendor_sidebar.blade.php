@@ -32,7 +32,7 @@
                 </li>
 
                 <li class="s_meun products_active">
-                    <a href="{{ url('vendor-dashbord') }}">
+                    <a href="{{ url('vendor-product') }}">
                         <i class="fa fa-dashboard"></i> <span>Products</span>
                     </a>
                 </li>
