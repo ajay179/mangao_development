@@ -30,9 +30,9 @@ class Cn_dashboard extends Controller
         }
 
 
-        // if (Gate::denies('isSuperAdmin')) {
-        //         abort(403);
-        //     }
+        if (Gate::denies('isSuperAdmin')) {
+                abort(403);
+            }
 
         // die();
         // return view('admin.dashbord.dashbord');
