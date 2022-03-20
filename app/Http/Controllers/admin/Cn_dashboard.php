@@ -19,22 +19,26 @@ class Cn_dashboard extends Controller
     {
         // echo $password = Hash::make('123456');
         
-        if (Gate::allows('isSuperAdmin')) {
+        // $response = Gate::inspect('isSuperAdmin');
+        
+        // Gate::authorize('isSuperAdmin');
+ 
+        // if (Gate::allows('isSuperAdmin')) {
 
-           echo "you are admin";
+        //    echo "you are admin";
 
-        } else {
+        // } else {
 
-            echo "you are not admin";
+        //     echo "you are not admin";
 
-        }
+        // }
 
-
-        if (Gate::denies('isSuperAdmin')) {
-                abort(403);
-            }
+        // return $response;
+        // if (Gate::denies('isSuperAdmin')) {
+        //         abort(403);
+        //     }
 
         // die();
-        // return view('admin.dashbord.dashbord');
+        return view('admin.dashbord.dashbord');
     }
 }

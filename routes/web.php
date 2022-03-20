@@ -33,12 +33,12 @@ Route::get('/admin-logout', function(){
 			Session::flush();
 		}
 		return redirect('/admin');
-	});
+	})->can('isSuperAdmin');
 	
 Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,'admin_login']);
 	
 
-Route::group(['middleware'=>['isAdmin']], function(){
+Route::group(['middleware'=>['isAdmin','can:isSuperAdmin']], function(){
 
 	//dashboard route
 	Route::get('admin-dashbord', [App\Http\Controllers\admin\Cn_dashboard::class,'index']);

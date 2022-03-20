@@ -21,7 +21,7 @@ Route::get('/city-admin-logout', function(){
 		if (session()->has('&%*$$cityadminusername$%#','&%*id$%#')) {
 			Session::flush();
 		}
-		return redirect('/city-admin');
+		return redirect('/city-admin-login');
 	});
 	
 Route::post('check-login-for-city-admin',[App\Http\Controllers\city_admin\Cn_login::class,'city_admin_login']);
@@ -63,9 +63,6 @@ Route::group(['middleware'=>['isCityAdmin']], function(){
 	Route::get('cityadmin/completed-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_completed_orders'])->name('cityadmin.completed.orders');
 	Route::get('cityadmin/cancelled-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_cancelled_orders'])->name('cityadmin.cancelled.orders');
 	Route::get('cityadmin/returned-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_returned_orders'])->name('cityadmin.returned.orders');
-
-
-
 
 
 });

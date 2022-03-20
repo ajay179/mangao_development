@@ -42,7 +42,20 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
               <div class="pull-right">
-                <a href="{{url('admin-logout')}}" onclick="return confirm('Are you sure you want to logout?')" class="btn btn-default btn-flat"> logout</a>
+                
+                 @if ((!empty(Auth::guard('admin')->user())) &&  (Auth::guard('admin')->user()->can('isSuperAdmin')))
+                   <a href="{{url('admin-logout')}}" onclick="return confirm('Are you sure you want to logout super admin?')" class="btn btn-default btn-flat"> logout</a>
+                @endif
+
+                @if ((!empty(Auth::guard('city_admin')->user())) && (Auth::guard('city_admin')->user()->can('isCityAdmin')))
+                    <a href="{{url('city-admin-logout')}}" onclick="return confirm('Are you sure you want to logout city amidn?')" class="btn btn-default btn-flat"> logout</a>
+                @endif
+                
+                @if ((!empty(Auth::guard('vendor')->user())) && (Auth::guard('vendor')->user()->can('isVendorAdmin')))
+                    <a href="{{url('vendor-admin-logout')}}" onclick="return confirm('Are you sure you want to logout vendor?')" class="btn btn-default btn-flat"> logout</a>
+                @endif
+                
+
               </div>
             </li>
           </ul>
