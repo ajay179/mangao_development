@@ -57,6 +57,7 @@ class Cn_category_master extends Controller
             $msg = "Added";
             $Md_vendor_category_master->created_at   = date('Y-m-d h:i:s');
             $Md_vendor_category_master->created_by   = session()->get('&&*id$##');
+            $Md_vendor_category_master->vendor_id   = session()->get('&&*id$##');
             $Md_vendor_category_master->created_ip_address   = $request->ip();
         }      
         $filename = '';
@@ -81,7 +82,7 @@ class Cn_category_master extends Controller
     public function get_data_table_of_vendor_category(Request $request)
     {
         if ($request->ajax()) {
-            $data = Md_vendor_category_master::latest()->select('vendor_category_name','vendor_category_image','id','created_at')->where('status', '<>', 3)->where('created_by','=',session()->get('&&*id$##'))->where('MVCM.category_type', '=', session()->get('$%vendor_category_type_id&%*'))->get();
+            $data = Md_vendor_category_master::latest()->select('vendor_category_name','vendor_category_image','id','created_at')->where('status', '<>', 3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -109,7 +110,7 @@ class Cn_category_master extends Controller
         try {
             
             $id =  Crypt::decryptString($encrypt_id);
-            $vendor_category_data = DB::table(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').'  as MVCM')->where('MVCM.status', '<>', 3)->where('MVCM.id', '=', $id)->where('MVCM.category_type', '=', session()->get('$%vendor_category_type_id&%*'))->where('MVCM.created_by','=',session()->get('&&*id$##'))->select('MVCM.vendor_category_name','MVCM.vendor_category_image','MVCM.id')->get();
+            $vendor_category_data = DB::table(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').'  as MVCM')->where('MVCM.status', '<>', 3)->where('MVCM.id', '=', $id)->where('MVCM.category_type', '=', session()->get('$%vendor_category_type_id&%*'))->where('MVCM.vendor_id','=',session()->get('&&*id$##'))->select('MVCM.vendor_category_name','MVCM.vendor_category_image','MVCM.id')->get();
 
             $vendor_category_data[0]->id = Crypt::encryptString($vendor_category_data[0]->id);
             $class_name ='cn_vendor_category';

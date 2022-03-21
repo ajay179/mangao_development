@@ -22,11 +22,11 @@ Route::get('/city-admin-logout', function(){
 			Session::flush();
 		}
 		return redirect('/city-admin-login');
-	});
+	})->can('isCityAdmin');
 	
 Route::post('check-login-for-city-admin',[App\Http\Controllers\city_admin\Cn_login::class,'city_admin_login']);
 
-Route::group(['middleware'=>['isCityAdmin']], function(){
+Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 
 	//city admin dashboard route
 	Route::get('city-admin-dashbord', [App\Http\Controllers\city_admin\Cn_city_admin_dashboard::class,'index']);

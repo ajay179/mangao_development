@@ -25,6 +25,7 @@ class MangaoCityadmin extends Migration
             $table->text('address');
             $table->integer('commision');
             $table->text('admin_img')->nullable();
+            $table->enum('user_type', ['city_admin'])->default('city_admin');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();

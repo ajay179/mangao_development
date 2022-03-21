@@ -15,8 +15,9 @@ class MangaoVendorProduct extends Migration
     {
         Schema::create('mangao_vendor_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vendor_category_id')->constrained('mangao_vendor_category_master','id');;
-            $table->foreignId('vendor_sub_category_id')->constrained('mangao_vendor_sub_category_master','id');;
+            $table->foreignId('vendor_category_id')->constrained('mangao_vendor_category_master','id');
+            $table->foreignId('vendor_sub_category_id')->constrained('mangao_vendor_sub_category_master','id');
+            $table->foreignId('vendor_id')->constrained('mangao_vendors','id');
             $table->string('product_name')->nullable();
             $table->bigInteger('quantity')->nullable();
             $table->float('price',8,2)->nullable();

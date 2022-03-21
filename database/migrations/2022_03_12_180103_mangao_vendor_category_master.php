@@ -15,6 +15,7 @@ class MangaoVendorCategoryMaster extends Migration
     {
          Schema::create('mangao_vendor_category_master', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('vendor_id')->constrained('mangao_vendors','id');
             $table->string('vendor_category_name');
             $table->text('vendor_category_image')->nullable();
             $table->string('category_type');

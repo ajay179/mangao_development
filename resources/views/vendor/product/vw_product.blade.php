@@ -24,13 +24,13 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <!-- <th width="15%">City</th> -->
-                                        <th width="15%">Store name</th>
-                                        <th width="15%">Store owner name</th>
-                                        <th width="15%">Address </th>
-                                        <th width="20%">Email </th>
-                                        <th width="20%">Phone No. </th>
-                                        <th width="20%">Date </th>
+                                        <th width="15%">Category</th>
+                                        <th width="15%">Sub Category</th>
+                                        <th width="15%">Product Name </th>
+                                        <th width="15%">Product Image </th>
+                                        <th width="10%">Price </th>
+                                        <th width="10%">Offer Price </th>
+                                        <th width="6%">Status</th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -62,27 +62,28 @@
     $(".ct_vendor_list_active").addClass("active");
 </script>
 <script type="text/javascript">
-  // // $(function () {
-  //   let table = $('#example').dataTable({
-  //       processing: true,
-  //       serverSide: true,
-  //       ajax: "{{ route('cityadminvendor.getDataTable') }}",
-  //       columns: [
-  //           {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-  //           {data: 'store_name', name: 'store_name'},
-  //           {data: 'store_owner_name', name: 'store_owner_name'},
-  //           {data: 'vendor_address', name: 'vendor_address'},
-  //           {data: 'vendor_email', name: 'vendor_email'},
-  //           {data: 'vendor_mobile_no', name: 'vendor_mobile_no'},
-  //           {data: 'date', name: 'date'},
-  //           {data: 'action', name: 'action', orderable: false, searchable: false},
-  //       ]
-  //   });
-  // // });
+  // $(function () {
+    let table = $('#example').dataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('vendor.product.getDataTable') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'vendor_category_name', name: 'vendor_category_name'},
+            {data: 'vendor_sub_category_name', name: 'vendor_sub_category_name'},
+            {data: 'product_name', name: 'product_name'},
+            {data: 'product_image', name: 'product_image'},
+            {data: 'price', name: 'price'},
+            {data: 'offer_price', name: 'offer_price'},
+            {data: 'date', name: 'date'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  // });
 
-  // function reload_table() {
-  //     table.DataTable().ajax.reload(null, false);
-  //  }
+  function reload_table() {
+      table.DataTable().ajax.reload(null, false);
+   }
 
  </script>
 @endsection

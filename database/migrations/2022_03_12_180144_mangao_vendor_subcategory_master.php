@@ -15,7 +15,8 @@ class MangaoVendorSubcategoryMaster extends Migration
     {
         Schema::create('mangao_vendor_sub_category_master', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vendor_category_id');
+            $table->foreignId('vendor_category_id')->constrained('mangao_vendor_category_master','id');
+            $table->foreignId('vendor_id')->constrained('mangao_vendors','id');
             $table->string('vendor_sub_category_name');
             $table->string('category_type');
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');

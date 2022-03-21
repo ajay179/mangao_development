@@ -22,11 +22,11 @@ Route::get('/vendor-admin-logout', function(){
 			Session::flush();
 		}
 		return redirect('/vendor');
-	});
+	})->can('isVendorAdmin');
 	
 Route::post('check-login-for-vendor',[App\Http\Controllers\vendor\Cn_login::class,'vendor_login']);
 
-Route::group(['middleware'=>['isVendor']], function(){
+Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 		//Vendor dashboard route
 		Route::get('vendor-dashbord', [App\Http\Controllers\vendor\Cn_vendor_dashboard::class,'index']);
@@ -54,11 +54,8 @@ Route::group(['middleware'=>['isVendor']], function(){
 		Route::post('vendor-add-product-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddProductAction'])->name('vendor.add.product.action');
 		
 		Route::post('get-sub-category-list-on-category-id', [App\Http\Controllers\vendor\Cn_vendor_product::class,'get_sub_category_list_on_category_id']);
-		
-
-
-		Route::get('vendor-sub-category-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_sub_category'])->name('vendor.sub.category.getDataTable');
-		Route::get('edit-sub-vendor-category/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_sub_vendor_category']);
+		Route::get('vendor-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_product'])->name('vendor.product.getDataTable');
+		Route::get('edit-product/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_product']);
 
 });
 	
