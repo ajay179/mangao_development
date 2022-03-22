@@ -30,7 +30,7 @@
             <div class="col-md-12 no-pad">
                 <section class="content-header">
 
-                    <h1>{{ !empty($vendor_info) ? 'Edit' : 'Add' }} Product
+                    <h1>{{ !empty($product_data) ? 'Edit' : 'Add' }} Product
                         <div class="pull-right">
                             <a href="{{ route('vendor.product') }}"><button type="button" class="btn btn-danger"><i class="fa fa-arrow-circle-left"></i> Back
                                 </button></a>
@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label>Vendor Category<span style="color: red;">*</span></label>
-                                        @php $vendor_category_id =  !empty($vendor_info[0]->vendor_category_id) ? $vendor_info[0]->vendor_category_id :  '' @endphp
+                                        @php $vendor_category_id =  !empty($product_data[0]->vendor_category_id) ? $product_data[0]->vendor_category_id :  '' @endphp
                                         <select class="form-control" name="vendor_category_id" id="vendor_category_id">
                                             <option value="">Select Category</option>
                                             @if (!empty($get_vendor_category)) 
@@ -56,12 +56,12 @@
                                                @endforeach
                                             @endif
                                         </select>
-                                        <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($vendor_info[0]->id) ? $vendor_info[0]->id : '' }}">
+                                        <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($product_data[0]->id) ? $product_data[0]->id : '' }}">
                                     </div>
 
                                    <div class="col-md-6 form-group">
                                         <label>Vendor Sub Category<span style="color: red;">*</span></label>
-                                        @php $vendor_sub_category_id =  !empty($vendor_info[0]->vendor_sub_category_id) ? $vendor_info[0]->vendor_sub_category_id :  '' @endphp
+                                        @php $vendor_sub_category_id =  !empty($product_data[0]->vendor_sub_category_id) ? $product_data[0]->vendor_sub_category_id :  '' @endphp
                                         <select class="form-control" name="vendor_sub_category_id" id="vendor_sub_category_id">
                                             <option value="">Select Sub Category</option>
                                             @if (!empty($get_vendor_sub_category)) 
@@ -75,23 +75,23 @@
 
                                     <div  class="col-md-6 form-group">
                                         <label>Product name<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" placeholder="Product name" id="product_name" name="product_name" autocomplete="off" value="{{ !empty($vendor_info[0]->product_name) ? $vendor_info[0]->product_name : ''}}">
+                                         <input type="text" class="form-control" placeholder="Product name" id="product_name" name="product_name" autocomplete="off" value="{{ !empty($product_data[0]->product_name) ? $product_data[0]->product_name : ''}}">
 
                                     </div>
                                     <div  class="col-md-6 form-group">
                                         <label>Quantity<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" placeholder="Quantity" id="quantity" name="quantity" autocomplete="off" value="{{ !empty($vendor_info[0]->quantity) ? $vendor_info[0]->quantity : ''}}">
+                                         <input type="text" class="form-control" placeholder="Quantity" id="quantity" name="quantity" autocomplete="off" value="{{ !empty($product_data[0]->quantity) ? $product_data[0]->quantity : ''}}">
 
                                     </div>
 
                                     <div  class="col-md-6 form-group">
                                         <label>Price<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" placeholder="Price" id="price" name="price" autocomplete="off" value="{{ !empty($vendor_info[0]->price) ? $vendor_info[0]->price : ''}}">
+                                         <input type="text" class="form-control" placeholder="Price" id="price" name="price" autocomplete="off" value="{{ !empty($product_data[0]->price) ? $product_data[0]->price : ''}}">
 
                                     </div>
                                     <div  class="col-md-6 form-group ">
                                         <label>Offer Price<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" id="offer_price" placeholder="Offer Price" name="offer_price" autocomplete="off" value="{{ !empty($vendor_info[0]->offer_price) ? $vendor_info[0]->offer_price : ''}}">
+                                         <input type="text" class="form-control" id="offer_price" placeholder="Offer Price" name="offer_price" autocomplete="off" value="{{ !empty($product_data[0]->offer_price) ? $product_data[0]->offer_price : ''}}">
 
                                     </div>
                                     
@@ -107,13 +107,13 @@
                                             <div class="upload_photo">
                                                 <label>Image <small class="text-danger">(size:730*350)</small><span style="color: red;">*</span></label>
                                                 <input type="file" name="product_image" accept=".jpg,.jpeg,.bmp,.png," id="product_image" onchange="change_img('product_image','image_preview')" class="form-control">
-                                                <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($vendor_info[0]->product_image) ? $vendor_info[0]->product_image : '' }}" class="form-control">
+                                                <input type="hidden" name="product_image_old" id="product_image_old" value="{{ !empty($product_data[0]->product_image) ? $product_data[0]->product_image : '' }}" class="form-control">
                                             </div>
                                             <input type="hidden" class="form-control">
 
                                             <div class="img-preview">
                                                 <div class="photo p-relative">
-                                                    <img id="image_preview" name="image_preview" src="{{ !empty($vendor_info[0]->show_admin_img) ? $vendor_info[0]->show_admin_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
+                                                    <img id="image_preview" name="image_preview" src="{{ !empty($product_data[0]->show_product_image) ? $product_data[0]->show_product_image : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
                                                 </div>
                                             </div>
 
@@ -127,7 +127,7 @@
                             
                             <div class="col-md-12 form-group no-pad-left ">
                                 <label>product Description <span style="color: red;">*</span></label>
-                                <textarea class="form-control" placeholder="Enter Description" name="product_description" autocomplete="off">{{ !empty($vendor_info[0]->product_description) ? $vendor_info[0]->product_description : ''}}</textarea>
+                                <textarea class="form-control" placeholder="Enter Description" name="product_description" autocomplete="off">{{ !empty($product_data[0]->product_description) ? $product_data[0]->product_description : ''}}</textarea>
                             </div>
 
 
@@ -139,12 +139,12 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label>Unit<span style="color: red;">*</span></label>
-                                        <input type="text" class="form-control" id="unit" placeholder="KG/Grm./Li..." name="unit" autocomplete="off" value="{{ !empty($vendor_info[0]->unit) ? $vendor_info[0]->unit : '' }}">
+                                        <input type="text" class="form-control" id="unit" placeholder="KG/Grm./Li..." name="unit" autocomplete="off" value="{{ !empty($product_data[0]->unit) ? $product_data[0]->unit : '' }}">
                                     </div>
 
                                     <div  class="col-md-6 form-group no-pad-left">
                                         <label>Stock<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" id="stock" placeholder="Enter stock quantity in numbers" name="stock" autocomplete="off" value="{{ !empty($vendor_info[0]->stock) ? $vendor_info[0]->stock : ''}}">
+                                         <input type="text" class="form-control" id="stock" placeholder="Enter stock quantity in numbers" name="stock" autocomplete="off" value="{{ !empty($product_data[0]->stock) ? $product_data[0]->stock : ''}}">
 
                                     </div>
                                     
@@ -158,7 +158,7 @@
                             <div class="col-md-12 form-group no-padd">
 
                                 <button type="submit" class="btn btn-success save_btn submit" style="display:none;" data-id="submit" id="blogbtn"><i class="fa fa-check-circle"></i>
-                                    {{ !empty($vendor_info[0]->id) ? 'Update' : 'Submit' }}</button>
+                                    {{ !empty($product_data[0]->id) ? 'Update' : 'Submit' }}</button>
 
                                 <a href="{{ route('cityadmin.add.vendor')}}"> <button type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Clear</button></a>
                             </div>

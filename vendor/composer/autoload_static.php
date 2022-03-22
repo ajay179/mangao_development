@@ -604,6 +604,7 @@ class ComposerStaticInit0fc427af56b448e76753bdc85ea334d5
         'App\\Models\\md_withdrwal_request' => __DIR__ . '/../..' . '/app/Models/md_withdrwal_request.php',
         'App\\Models\\vendor\\Md_sub_category_master' => __DIR__ . '/../..' . '/app/Models/vendor/Md_sub_category_master.php',
         'App\\Models\\vendor\\Md_vendor_category_master' => __DIR__ . '/../..' . '/app/Models/vendor/Md_vendor_category_master.php',
+        'App\\Models\\vendor\\Md_vendor_product' => __DIR__ . '/../..' . '/app/Models/vendor/Md_vendor_product.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

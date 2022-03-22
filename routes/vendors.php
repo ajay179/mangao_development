@@ -56,7 +56,12 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		Route::post('get-sub-category-list-on-category-id', [App\Http\Controllers\vendor\Cn_vendor_product::class,'get_sub_category_list_on_category_id']);
 		Route::get('vendor-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_product'])->name('vendor.product.getDataTable');
 		Route::get('edit-product/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_product']);
+		
+		// Vendor product variant route
+		Route::get('add-product-variant/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_product_variant']);
+		Route::post('vendor-add-product-variant-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddProductVariantAction'])->name('vendor.add.product.variant.action');
 
+		
 });
 	
 

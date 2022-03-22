@@ -75,6 +75,61 @@ $(document).ready(function () {
                form.submit();
             }
         });
+
+
+        $("#vendorProductVariantForm").validate({
+            onfocusout: false,
+             rules: {
+                
+                variant_quantity: {
+                    required: true,
+                },
+                variant_price: {
+                    required: true,
+                },
+                variant_offer_price: {
+                    required: true,
+                    // max: '#price'
+                    max: function() {
+                        return parseInt($('#variant_price').val());
+                    }
+                },
+                variant_unit: {
+                    required: true,
+                },
+                variant_stock: {
+                    required: true,
+                },
+                
+
+            },
+            // Specify the validation error messages
+            messages: {
+                
+                variant_quantity: {
+                    required: '* Please enter quantity.',
+                },
+                variant_price: {
+                    required: '* Please enter price.',
+                },
+                variant_offer_price: {
+                    required: '* Please enter offer price.',
+                    max:'* Offer price should be less than price'
+                },
+                variant_unit: {
+                    required: '* Please enter unit.',
+                },
+                variant_stock: {
+                    required: '* Please enter stock.',
+                },
+            },
+            submitHandler: function (form) {
+                $(".submit").text("Please wait..");
+                $(".submit").attr("disabled", true);
+
+               form.submit();
+            }
+        });
     });
 });
 
