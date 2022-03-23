@@ -61,6 +61,8 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		Route::get('add-product-variant/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_product_variant']);
 		Route::post('vendor-add-product-variant-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddProductVariantAction'])->name('vendor.add.product.variant.action');
 
+		Route::get('edit-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_product_variant']);
+		
 		
 });
 	

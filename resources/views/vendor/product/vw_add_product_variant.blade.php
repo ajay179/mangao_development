@@ -20,30 +20,34 @@
                         
                             <div  class="col-md-12 form-group no-padd">
                                 <label>Price<span style="color: red;">*</span></label>
-                                 <input type="text" class="form-control" placeholder="Price" id="variant_price" name="variant_price" autocomplete="off" value="{{ !empty($product_data[0]->variant_price) ? $product_data[0]->variant_price : ''}}">
+                                 <input type="text" class="form-control" placeholder="Price" id="variant_price" name="variant_price" autocomplete="off" value="{{ !empty($product_single_variant_data_for_update[0]->variant_price) ? $product_single_variant_data_for_update[0]->variant_price : ''}}">
+
+                                 <input type="hidden"  id="product_encrypt_id" name="product_encrypt_id" autocomplete="off" value="{{ !empty($product_data[0]->id) ? $product_data[0]->id : ''}}">
+
+                                 <input type="hidden"  id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($product_single_variant_data_for_update[0]->encrypt_id) ? $product_single_variant_data_for_update[0]->encrypt_id : ''}}">
 
                             </div>
                             <div  class="col-md-12 form-group no-padd ">
                                 <label>Offer Price<span style="color: red;">*</span></label>
-                                 <input type="text" class="form-control" id="variant_offer_price" placeholder="Offer Price" name="variant_offer_price" autocomplete="off" value="{{ !empty($product_data[0]->variant_offer_price) ? $product_data[0]->variant_offer_price : ''}}">
+                                 <input type="text" class="form-control" id="variant_offer_price" placeholder="Offer Price" name="variant_offer_price" autocomplete="off" value="{{ !empty($product_single_variant_data_for_update[0]->variant_offer_price) ? $product_single_variant_data_for_update[0]->variant_offer_price : ''}}">
 
                             </div>
                           
                           <div class="clearfix"></div>
                             <div  class="col-md-12 form-group no-padd">
                                 <label>Quantity<span style="color: red;">*</span></label>
-                                 <input type="text" class="form-control" placeholder="Quantity" id="variant_quantity" name="variant_quantity" autocomplete="off" value="{{ !empty($product_data[0]->variant_quantity) ? $product_data[0]->variant_quantity : ''}}">
+                                 <input type="text" class="form-control" placeholder="Quantity" id="variant_quantity" name="variant_quantity" autocomplete="off" value="{{ !empty($product_single_variant_data_for_update[0]->variant_quantity) ? $product_single_variant_data_for_update[0]->variant_quantity : ''}}">
 
                             </div>
 
                             <div class="col-md-12 form-group no-padd">
                                 <label>Unit<span style="color: red;">*</span></label>
-                                <input type="text" class="form-control" id="variant_unit" placeholder="KG/Grm./Li..." name="variant_unit" autocomplete="off" value="{{ !empty($product_data[0]->variant_unit) ? $product_data[0]->variant_unit : '' }}">
+                                <input type="text" class="form-control" id="variant_unit" placeholder="KG/Grm./Li..." name="variant_unit" autocomplete="off" value="{{ !empty($product_single_variant_data_for_update[0]->variant_unit) ? $product_single_variant_data_for_update[0]->variant_unit : '' }}">
                             </div>
 
                             <div  class="col-md-12 form-group no-padd">
                                 <label>Stock<span style="color: red;">*</span></label>
-                                 <input type="text" class="form-control" id="variant_stock" placeholder="Enter stock quantity in numbers" name="variant_stock" autocomplete="off" value="{{ !empty($product_data[0]->variant_stock) ? $product_data[0]->variant_stock : ''}}">
+                                 <input type="text" class="form-control" id="variant_stock" placeholder="Enter stock quantity in numbers" name="variant_stock" autocomplete="off" value="{{ !empty($product_single_variant_data_for_update[0]->variant_stock) ? $product_single_variant_data_for_update[0]->variant_stock : ''}}">
 
                             </div>
                            
@@ -75,13 +79,35 @@
                                              <thead>
                                                    <tr role="row">
                                                       <th width="5%" class="text-center">Sr No.</th>
-                                                      <th width="5%">Category Name</th>
-                                                      <th width="5%">Sub Category Name</th>
+                                                      <th width="5%">Price</th>
+                                                      <th width="5%">Offer Price</th>
+                                                      <th width="5%">Quantity</th>
+                                                      <th width="5%">Unit</th>
+                                                      <th width="5%">Stock</th>
                                                       <th width="2%" >created at</th>
                                                       <th width="3%" >Action</th>
                                                    </tr>
                                              </thead>
-                                             
+                                            <tbody>
+                                                @if(!empty($product_variant_data))
+                                                     @php $x = 1;@endphp
+                                                    @foreach($product_variant_data as $key => $value)
+                                                <tr id="variant_row_{{ $x }}">
+                                                    
+                                                    <td>{{ $x }}</td>
+                                                    <td>{{ $value['variant_price'] }}</td>
+                                                    <td>{{ $value['variant_offer_price'] }}</td>
+                                                    <td>{{ $value['variant_quantity'] }}</td>
+                                                    <td>{{ $value['variant_unit'] }}</td>
+                                                    <td>{{ $value['variant_stock'] }}</td>
+                                                    <td>{{ date('d-m-Y h:i A',strtotime($value['created_at'])) }}</td>
+                                                    <td><a href="{{ url('/edit-product-variant').'/'. $product_data[0]->id.'/'.Crypt::encryptString($value['id'])}}" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" row-id="{{ $x }}" data-id="{{ Crypt::encryptString($value['id'])}} " class="btn btn-danger btn-xs delete-product-variant" flash="Product" table=" {{Crypt::encryptString('mangao_vendor_product_variant_list')}}" redirect-url="{{Crypt::encryptString('add-product-variant').'/'.$product_data[0]->id}}" title="Delete" ><i class="fa fa-trash"></i></a> </td>
+                                                   
+                                                </tr>
+                                                 @php $x ++;@endphp
+                                                    @endforeach
+                                                    @endif
+                                            </tbody>
                                           </table>
                                         </div>
                                     </div>
@@ -104,28 +130,8 @@
 <script type="text/javascript">
      $(".ct_meun").removeClass("active");
     $(".products_active").addClass("active");
-  
+    $('#example').dataTable();
 </script>
 
-<script type="text/javascript">
-  // // $(function () {
-  //   let table = $('#example').dataTable({
-  //       processing: true,
-  //       serverSide: true,
-  //       ajax: "{{ route('vendor.sub.category.getDataTable') }}",
-  //       columns: [
-  //           {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-  //           {data: 'vendor_category_name', name: 'vendor_category_name'},
-  //           {data: 'vendor_sub_category_name', name: 'vendor_sub_category_name'},
-  //           {data: 'date', name: 'date'},
-  //           {data: 'action', name: 'action', orderable: false, searchable: false},
-  //       ]
-  //   });
-  // // });
 
-  // function reload_table() {
-  //     table.DataTable().ajax.reload(null, false);
-  //  }
-
- </script>
 @endsection

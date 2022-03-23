@@ -163,3 +163,41 @@ $(document).ready(function () {
     }
     
  });
+
+
+
+// Delete Product varient
+$(document).on('click', '.delete-product-variant', function() 
+{           
+    var actionDiv = $(this); 
+    var id = actionDiv.attr('data-id');  
+    var flash = actionDiv.attr('flash');
+    var table = actionDiv.attr('table');
+    var row_id = actionDiv.attr('row-id');
+    var headers = {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    if (confirm('Do you really want to delete this record ?')) {
+        $.ajax({
+            url: base_url + '/soft-delete-of-vendor',                    
+            type: 'POST',
+            dataType: 'json',
+            headers:headers,
+            data: {id:id,flashdata_message:flash,table:table},
+            beforeSend: function() {
+                actionDiv.html(
+                    "<i class='fa fa-spin fa-spinner' style='color: #0c0c0c !important;'></i>"
+                );
+            },
+            success: function(data) {
+                if (data.status == true) {
+                    success_toast('', data.message);
+                    // reload_table();
+                    // $('#variant_row_'+row_id).remove();
+                    location.reload();
+                }                         
+            }
+        });
+    }
+});
+    

@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use App\Models\vendor\Md_vendor_product;
 use App\Models\vendor\Md_vendor_category_master;
 use App\Models\vendor\Md_sub_category_master;
+use App\Models\vendor\Md_vendor_product_variant_list;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
 use DB;
@@ -215,8 +216,9 @@ class Cn_vendor_product extends Controller
             $class_name ='cn_vendor_product';
             
             if(!empty($product_data[0])){
-                
-                return view('vendor.product.vw_add_product_variant',compact('class_name','product_data'));
+                $product_variant_data = Md_vendor_product_variant_list::where('product_id','=', $id)->where('status','=','1')->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('vendor_id','=',session()->get('&&*id$##'))->get();
+                return view('vendor.product.vw_add_product_variant',compact('class_name','product_data','product_variant_data'));
             }else{
                return redirect('vendor-product')->with('error', 'something went wrong');
             }
@@ -226,49 +228,81 @@ class Cn_vendor_product extends Controller
 
     }
 
+    public function fun_edit_product_variant($product_id ,$product_variant_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($product_id);
+            $product_variant_id =  Crypt::decryptString($product_variant_id);
+            $product_data =  DB::table(Config::get('constants.MANGAO_VENDOR_PRODUCT').'  as MVP')
+            ->where('MVP.id', '=', $id)
+            ->where('MVP.status', '<>', 3)
+            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
+            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.vendor_sub_category_id','MVP.product_description','MVP.unit','MVP.stock')
+            ->get();
+            $product_data[0]->id = Crypt::encryptString($product_data[0]->id);
+            
+            $class_name ='cn_vendor_product';
+            
+            if(!empty($product_data[0])){
+                $product_variant_data = Md_vendor_product_variant_list::where('product_id','=', $id)->where('status','=','1')->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('vendor_id','=',session()->get('&&*id$##'))->get();
+
+            $product_single_variant_data_for_update = Md_vendor_product_variant_list::where('product_id','=', $id)
+            ->where('id','=', $product_variant_id)
+            ->where('status','=','1')->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('vendor_id','=',session()->get('&&*id$##'))->get();
+            
+            $product_single_variant_data_for_update[0]->encrypt_id = Crypt::encryptString($product_single_variant_data_for_update[0]->id);
+
+            return view('vendor.product.vw_add_product_variant',compact('class_name','product_data','product_variant_data','product_single_variant_data_for_update'));
+            }else{
+               return redirect('vendor-product')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('vendor-product')->with('error', 'something went wrong');
+        }
+    }
+
 
 
     public function vendorAddProductVariantAction(Request $request)
     {
-        $price = $request->price;   
+        $variant_price = $request->variant_price;   
          $this->validate($request, [
-           'vendor_sub_category_id' => 'required|numeric','product_name' => 'required','quantity' => 'required|numeric','price' => 'required|numeric','offer_price' => 'required|numeric|max:'.$price,'product_description' => 'required','unit' => 'required','stock' => 'required'
+           'product_encrypt_id' => 'required','variant_quantity' => 'required|numeric','variant_price' => 'required|numeric','variant_offer_price' => 'required|numeric|max:'.$variant_price,'variant_unit' => 'required','variant_stock' => 'required'
         ]);
         
         $formdata = $request->all();
-        $filename = '';
-        if($request->has('product_image')){
-            $filename = time().'_'.$request->file('product_image')->getClientOriginalName();
-            $filePath = $request->file('product_image')->storeAs('public/product_image',$filename);  
-        }else{
-            $filePath = $request->product_image_old;
-        }
-               
+       
+        $product_encrypt_id = $formdata['product_encrypt_id'];
         if(!empty($formdata['txtpkey'])){
             $msg = "updated";
             $txtpkey =  Crypt::decryptString($formdata['txtpkey']);
-            $data = Md_vendor_product::where('id', $txtpkey)->get();
+            $data = Md_vendor_product_variant_list::where('id', $txtpkey)->where('status','1')->get();
             if($data->isEmpty()){
-                return redirect()->route('vendor.product')->with('message', 'something went wrong');
-            }else{
-                $formdata['product_image']   = $filePath;
+                return redirect('add-product-variant/'.$product_encrypt_id)->with('message', 'something went wrong');
+            }else{ 
                 $formdata['updated_by']   = session()->get('&&*id$##');
                 $formdata['category_type']   = session()->get('$%vendor_category_type_id&%*');
+                $formdata['product_id']   = Crypt::decryptString($formdata['product_encrypt_id']);
+                $formdata['vendor_id']   = session()->get('&&*id$##');
                 $formdata['updated_ip_address']   = $request->ip();
-                $formdata = Arr::except($formdata,['_token','txtpkey','product_image_old']);
-                $Md_mangao_categories = Md_vendor_product::where('id',$txtpkey)->update($formdata);
+                $formdata = Arr::except($formdata,['_token','txtpkey','product_encrypt_id','submit_btn']);
+                $product_variant = Md_vendor_product_variant_list::where('id',$txtpkey)->update($formdata);
             }
         }else{
             $msg = "Added";
-            $formdata['product_image']   = $filePath;
             $formdata['created_by']   = session()->get('&&*id$##');
+            $formdata['product_id']   = Crypt::decryptString($formdata['product_encrypt_id']);
             $formdata['vendor_id']   = session()->get('&&*id$##');
             $formdata['category_type']   = session()->get('$%vendor_category_type_id&%*');
             $formdata['created_ip_address']   = $request->ip();
-            $Md_mangao_categories = Md_vendor_product::create($formdata);
+            $product_variant = Md_vendor_product_variant_list::create($formdata);
         }      
        
-        return redirect()->route('vendor.product')->with('message', 'Product '. $msg);
+        return redirect('add-product-variant/'.$product_encrypt_id)->with('message', 'Product variant'. $msg);
  
     }
 
