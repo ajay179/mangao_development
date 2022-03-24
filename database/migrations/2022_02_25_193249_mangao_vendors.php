@@ -28,6 +28,7 @@ class MangaoVendors extends Migration
             $table->string('password');
             $table->text('encrypt_password');
             $table->enum('user_type', ['vendor'])->default('vendor');
+            $table->enum('category_type', ['Grocery', 'Restaurant', 'Pharmacy', 'Parcel', 'other']);
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();

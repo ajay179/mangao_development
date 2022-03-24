@@ -306,4 +306,22 @@ class Cn_vendor_product extends Controller
  
     }
 
+
+
+    // Restaurant Vendor function
+
+    public function fun_vendor_restaurant_product()
+    {
+        return view('vendor.product.vw_restaurant_product');
+    }
+
+    public function fun_add_restaurant_product($value='')
+    {
+        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+        
+        $class_name = 'cn_vendor_product';
+        return view('vendor.product.vw_add_restaurant_product',compact('class_name','get_vendor_category'));
+    }
+
+
 }

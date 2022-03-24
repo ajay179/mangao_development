@@ -80,13 +80,16 @@ class Cn_user_management extends Controller
                 $Md_city_admin_vendor->created_ip_address   = $request->ip();
             }      
             
+            $category_type = Md_mangao_categories::where('id','=',$request->category_id)->select('category_ui')->get();
+
             $Md_city_admin_vendor->category_id   = $request->category_id;
             $Md_city_admin_vendor->store_name   = $request->store_name;
             $Md_city_admin_vendor->store_owner_name   = $request->store_owner_name;
             $Md_city_admin_vendor->vendor_latitude   = $request->vendor_latitude;
             $Md_city_admin_vendor->vendor_longitude   = $request->vendor_longitude;
             $Md_city_admin_vendor->vendor_comission   = $request->vendor_comission;
-
+            $Md_city_admin_vendor->category_type   = !empty($category_type[0]->category_ui) ? $category_type[0]->category_ui : 'other';
+            
             $Md_city_admin_vendor->vendor_address   = $request->vendor_address;
             $Md_city_admin_vendor->delivery_range   = $request->delivery_range;
             $Md_city_admin_vendor->vendor_email   = $request->vendor_email;

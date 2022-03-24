@@ -24,7 +24,7 @@
                         <i class="fa fa-dashboard"></i> <span>Category</span>
                     </a>
                 </li>
-
+                @if ((!empty(Auth::guard('vendor')->user())) && (Auth::guard('vendor')->user()->can('isVendorGrocery')))
                 <li class="s_meun sub_category_active">
                     <a href="{{ url('vendor-sub-category') }}">
                         <i class="fa fa-dashboard"></i> <span>Sub Category</span>
@@ -36,7 +36,18 @@
                         <i class="fa fa-dashboard"></i> <span>Products</span>
                     </a>
                 </li>
-                
+                @endif
+
+                 @if ((!empty(Auth::guard('vendor')->user())) && (Auth::guard('vendor')->user()->can('isVendorRestaurant')))
+               
+                <li class="s_meun products_active">
+                    <a href="{{ url('vendor-restaurant-product') }}">
+                        <i class="fa fa-dashboard"></i> <span>Products</span>
+                    </a>
+                </li>
+                @endif
+
+
 
 
                 
