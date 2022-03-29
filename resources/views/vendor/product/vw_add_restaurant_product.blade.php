@@ -32,7 +32,7 @@
 
                     <h1>{{ !empty($product_data) ? 'Edit' : 'Add' }} Reataurant Product
                         <div class="pull-right">
-                            <a href="{{ route('vendor.product') }}"><button type="button" class="btn btn-danger"><i class="fa fa-arrow-circle-left"></i> Back
+                            <a href="{{ route('vendor.restaurant.product') }}"><button type="button" class="btn btn-danger"><i class="fa fa-arrow-circle-left"></i> Back
                                 </button></a>
                         </div>
 
@@ -41,7 +41,7 @@
                 <section class="content" style="padding:5px 0px;">
                     <div class="box box-primary">
                         <div class="box-body light-green-body">
-                            <form method='POST' id="vendorAddProductForm" enctype='multipart/form-data' action="{{ route('vendor.add.product.action')}}" >
+                            <form method='POST' id="vendorAddRestaurantProductForm" enctype='multipart/form-data' action="{{ route('vendor.add.restaurant.product.action')}}" >
                             @csrf  
                            <div class="col-md-8 no-pad-left">
                                 <div class="row">
@@ -60,16 +60,8 @@
                                     </div>
 
                                    <div class="col-md-6 form-group">
-                                        <label>Vendor Sub Category<span style="color: red;">*</span></label>
-                                        @php $vendor_sub_category_id =  !empty($product_data[0]->vendor_sub_category_id) ? $product_data[0]->vendor_sub_category_id :  '' @endphp
-                                        <select class="form-control" name="vendor_sub_category_id" id="vendor_sub_category_id">
-                                            <option value="">Select Sub Category</option>
-                                            @if (!empty($get_vendor_sub_category)) 
-                                               @foreach ($get_vendor_sub_category as $key => $value)
-                                            <option value="{{ $value['id'] }}"  @if ($value->id == $vendor_sub_category_id) selected @endif> {{ ucwords($value['vendor_sub_category_name']) }}</option>
-                                               @endforeach
-                                            @endif
-                                        </select>
+                                       <label>Quantity<span style="color: red;">*</span></label>
+                                         <input type="text" class="form-control" placeholder="Quantity" id="quantity" name="quantity" autocomplete="off" value="{{ !empty($product_data[0]->quantity) ? $product_data[0]->quantity : ''}}">
                                         
                                     </div>
 
@@ -79,8 +71,8 @@
 
                                     </div>
                                     <div  class="col-md-6 form-group">
-                                        <label>Quantity<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" placeholder="Quantity" id="quantity" name="quantity" autocomplete="off" value="{{ !empty($product_data[0]->quantity) ? $product_data[0]->quantity : ''}}">
+                                        <label>Unit<span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="unit" placeholder="KG/Grm./Li..." name="unit" autocomplete="off" value="{{ !empty($product_data[0]->unit) ? $product_data[0]->unit : '' }}">
 
                                     </div>
 
@@ -133,34 +125,13 @@
 
                             <div class="clearfix"></div>
 
-                            
-
-                            <div class="col-md-12 no-pad-left">
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label>Unit<span style="color: red;">*</span></label>
-                                        <input type="text" class="form-control" id="unit" placeholder="KG/Grm./Li..." name="unit" autocomplete="off" value="{{ !empty($product_data[0]->unit) ? $product_data[0]->unit : '' }}">
-                                    </div>
-
-                                    <div  class="col-md-6 form-group no-pad-left">
-                                        <label>Stock<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" id="stock" placeholder="Enter stock quantity in numbers" name="stock" autocomplete="off" value="{{ !empty($product_data[0]->stock) ? $product_data[0]->stock : ''}}">
-
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-
-                            
-
-
+                    
                             <div class="col-md-12 form-group no-padd">
 
                                 <button type="submit" class="btn btn-success save_btn submit" style="display:none;" data-id="submit" id="blogbtn"><i class="fa fa-check-circle"></i>
                                     {{ !empty($product_data[0]->id) ? 'Update' : 'Submit' }}</button>
 
-                                <a href="{{ route('cityadmin.add.vendor')}}"> <button type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Clear</button></a>
+                                <a href="{{ route('vendor.add.restaurant.product')}}"> <button type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Clear</button></a>
                             </div>
                              </form>
                         </div>

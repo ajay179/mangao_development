@@ -76,6 +76,7 @@ return array(
     'App\\Models\\vendor\\Md_sub_category_master' => $baseDir . '/app/Models/vendor/Md_sub_category_master.php',
     'App\\Models\\vendor\\Md_vendor_category_master' => $baseDir . '/app/Models/vendor/Md_vendor_category_master.php',
     'App\\Models\\vendor\\Md_vendor_product' => $baseDir . '/app/Models/vendor/Md_vendor_product.php',
+    'App\\Models\\vendor\\Md_vendor_product_variant_list' => $baseDir . '/app/Models/vendor/Md_vendor_product_variant_list.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

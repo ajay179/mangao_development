@@ -71,6 +71,9 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		Route::get('vendor-add-restaurant-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_restaurant_product'])->name('vendor.add.restaurant.product')->can('isVendorRestaurant');
 		Route::post('vendor-add-restaurant-product-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddRestaurantProductAction'])->name('vendor.add.restaurant.product.action')->can('isVendorRestaurant');
 
+		Route::get('vendor-restaurant-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_restaurant_product'])->name('vendor.restaurant.product.getDataTable')->can('isVendorRestaurant');
+		
+
 });
 	
 
