@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('user-auth', function (Request $request) {
+    $response = [
+            'success' => false,
+            'message' => "User not authenticate",
+        ];
+        return response()->json($response, '403');
+})->name('user-auth');
+
+
+Route::post('user-login', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_login']);
+
+// All Authentication URL's are in this middleware
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    //All secure URL's
+    Route::get('with-auth', function (Request $request) {
+        return "api success";
+    })->name('show-data-use-auth');
 });

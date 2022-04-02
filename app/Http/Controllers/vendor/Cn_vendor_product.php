@@ -10,6 +10,7 @@ use App\Models\vendor\Md_vendor_product;
 use App\Models\vendor\Md_vendor_category_master;
 use App\Models\vendor\Md_sub_category_master;
 use App\Models\vendor\Md_vendor_product_variant_list;
+use App\Models\vendor\Md_vendor_reataurant_product_variant_list;
 use App\Models\vendor\Md_vendor_restaurant_product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
@@ -385,7 +386,7 @@ class Cn_vendor_product extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/edit-product") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-vendor" flash="Product" table="' . Crypt::encryptString('mangao_vendor_product') . '" redirect-url="' . Crypt::encryptString('vendor-product') . '" title="Delete" ><i class="fa fa-trash"></i></a>  <a href="'. url("/add-product-variant") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-info btn-xs" ><i class="fa fa-plus"></i> Add variant</a> ';
+                    $btn = '<a href="'. url("/edit-product") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-vendor" flash="Product" table="' . Crypt::encryptString('mangao_vendor_restaurant_product') . '" redirect-url="' . Crypt::encryptString('vendor-product') . '" title="Delete" ><i class="fa fa-trash"></i></a>  <a href="'. url("/add-restaurant-product-variant") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-info btn-xs" ><i class="fa fa-plus"></i> Add variant</a> ';
                     return $btn;
                 })
                 ->addColumn('date', function($data){
@@ -401,5 +402,114 @@ class Cn_vendor_product extends Controller
                 ->make(true);
         }
     }
+
+    // Vendor Reataurant product variant all function
+    public function fun_add_restaurant_product_variant($encrypt_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($encrypt_id);
+            $product_data =  DB::table(Config::get('constants.MANGAO_VENDOR_RESTAURANT_PRODUCT').'  as MVRP')
+            ->where('MVRP.id', '=', $id)
+            ->where('MVRP.status', '<>', 3)
+            ->where('MVRP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVRP.vendor_id','=',session()->get('&&*id$##'))
+            ->select('MVRP.product_name','MVRP.product_image','MVRP.price','MVRP.offer_price','MVRP.status' ,'MVRP.id', 'MVRP.created_at','MVRP.quantity','MVRP.vendor_category_id','MVRP.product_description','MVRP.unit')
+            ->get();
+            $product_data[0]->id = Crypt::encryptString($product_data[0]->id);
+            
+            $class_name ='cn_vendor_restaurant_product';
+            
+            if(!empty($product_data[0])){
+                $product_variant_data = Md_vendor_reataurant_product_variant_list::where('product_id','=', $id)->where('status','=','1')->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('vendor_id','=',session()->get('&&*id$##'))->get();
+                return view('vendor.product.vw_add_restaurant_product_variant',compact('class_name','product_data','product_variant_data'));
+            }else{
+               return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
+        }
+
+    }
+
+    public function fun_edit_restaurant_product_variant($product_id ,$product_variant_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($product_id);
+            $product_variant_id =  Crypt::decryptString($product_variant_id);
+            $product_data =  DB::table(Config::get('constants.MANGAO_VENDOR_RESTAURANT_PRODUCT').'  as MVRP')
+            ->where('MVRP.id', '=', $id)
+            ->where('MVRP.status', '<>', 3)
+            ->where('MVRP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVRP.vendor_id','=',session()->get('&&*id$##'))
+            ->select('MVRP.product_name','MVRP.product_image','MVRP.price','MVRP.offer_price','MVRP.status' ,'MVRP.id', 'MVRP.created_at','MVRP.quantity','MVRP.vendor_category_id','MVRP.product_description','MVRP.unit')
+            ->get();
+            $product_data[0]->id = Crypt::encryptString($product_data[0]->id);
+            
+            $class_name ='cn_vendor_restaurant_product';
+            
+            if(!empty($product_data[0])){
+                $product_variant_data = Md_vendor_reataurant_product_variant_list::where('product_id','=', $id)->where('status','=','1')->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('vendor_id','=',session()->get('&&*id$##'))->get();
+
+            $product_single_variant_data_for_update = Md_vendor_reataurant_product_variant_list::where('product_id','=', $id)
+            ->where('id','=', $product_variant_id)
+            ->where('status','=','1')->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('vendor_id','=',session()->get('&&*id$##'))->get();
+            
+            $product_single_variant_data_for_update[0]->encrypt_id = Crypt::encryptString($product_single_variant_data_for_update[0]->id);
+
+            return view('vendor.product.vw_add_restaurant_product_variant',compact('class_name','product_data','product_variant_data','product_single_variant_data_for_update'));
+            }else{
+               return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
+        }
+    }
+
+
+
+    public function vendorAddReataurantProductVariantAction(Request $request)
+    {
+        $variant_price = $request->variant_price;   
+         $this->validate($request, [
+           'product_encrypt_id' => 'required','variant_quantity' => 'required|numeric','variant_price' => 'required|numeric','variant_offer_price' => 'required|numeric|max:'.$variant_price,'variant_unit' => 'required'
+        ]);
+        
+        $formdata = $request->all();
+       
+        $product_encrypt_id = $formdata['product_encrypt_id'];
+        if(!empty($formdata['txtpkey'])){
+            $msg = "updated";
+            $txtpkey =  Crypt::decryptString($formdata['txtpkey']);
+            $data = Md_vendor_reataurant_product_variant_list::where('id', $txtpkey)->where('status','1')->get();
+            if($data->isEmpty()){
+                return redirect('add-restaurant-product-variant/'.$product_encrypt_id)->with('message', 'something went wrong');
+            }else{ 
+                $formdata['updated_by']   = session()->get('&&*id$##');
+                $formdata['category_type']   = session()->get('$%vendor_category_type_id&%*');
+                $formdata['product_id']   = Crypt::decryptString($formdata['product_encrypt_id']);
+                $formdata['vendor_id']   = session()->get('&&*id$##');
+                $formdata['updated_ip_address']   = $request->ip();
+                $formdata = Arr::except($formdata,['_token','txtpkey','product_encrypt_id','submit_btn']);
+                $product_variant = Md_vendor_reataurant_product_variant_list::where('id',$txtpkey)->update($formdata);
+            }
+        }else{
+            $msg = "Added";
+            $formdata['created_by']   = session()->get('&&*id$##');
+            $formdata['product_id']   = Crypt::decryptString($formdata['product_encrypt_id']);
+            $formdata['vendor_id']   = session()->get('&&*id$##');
+            $formdata['category_type']   = session()->get('$%vendor_category_type_id&%*');
+            $formdata['created_ip_address']   = $request->ip();
+            $product_variant = Md_vendor_reataurant_product_variant_list::create($formdata);
+        }      
+       
+        return redirect('add-restaurant-product-variant/'.$product_encrypt_id)->with('message', 'Product variant'. $msg);
+ 
+    }
+
 
 }
