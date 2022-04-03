@@ -20,7 +20,7 @@ class Cn_login extends Cn_base_controller
     public function fun_user_login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'mobile_no' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:10|numeric',
+            'mobile_no' => 'required',
         ]);
    
         if($validator->fails()){
@@ -42,8 +42,8 @@ class Cn_login extends Cn_base_controller
         
             $response = [
                 'user' => Crypt::encryptString($user),
-                'token' => $token
-                'mobile_no' => $request->mobile_no
+                'token' => $token,
+                'mobile_no' => $request->mobile_no,
                 'otp' => $otp
             ];
         
