@@ -27,8 +27,11 @@ Route::post('user-login', [App\Http\Controllers\api\login\Cn_login::class,'fun_u
 Route::post('verify-user-otp', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_otp_verification']);
 Route::post('resend-user-otp', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_resend_otp']);
 
+
 // All Authentication URL's are in this middleware
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
     Route::post('user-registration', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_registration']);
+    //Home Api
+Route::post('home', [App\Http\Controllers\api\home_controller\Cn_home_controller::class,'fun_home_page']);
 });
