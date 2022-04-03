@@ -20,18 +20,22 @@ class Cn_login extends Cn_base_controller
     public function fun_user_login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
+            'mobile_no' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:10|numeric',
         ]);
    
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors(),'401');       
         }
         
-        $user= User::where('email', $request->email)->first();
+        $user= User::where('mobile_no', $request->mobile_no)->first();
         // print_r($data);
-            if (!$user) {
-
-                return $this->sendError('Unauthorised.', ['error'=>'These credentials do not match our records.']);
+            if ($user->isEmpty()) {
+                $otp = rand(1000,9999);
+                 user::create([
+                    'mobile_no' => $request->mobile_no,
+                    'otp' => $otp,
+                    'created_ip_address' => $request->ip(),
+                    ]);
             }
     
              $token = $user->createToken('my-app-token')->plainTextToken;
@@ -39,9 +43,12 @@ class Cn_login extends Cn_base_controller
             $response = [
                 'user' => Crypt::encryptString($user),
                 'token' => $token
+                'mobile_no' => $request->mobile_no
+                'otp' => $otp
             ];
         
              // return response($response, 201);
              return $this->sendResponse($response, 'User login successfully.');
+         
     }
 }
