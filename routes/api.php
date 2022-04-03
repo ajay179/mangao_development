@@ -24,11 +24,11 @@ Route::get('user-auth', function (Request $request) {
 
 
 Route::post('user-login', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_login']);
+Route::post('verify-user-otp', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_otp_verification']);
+Route::post('resend-user-otp', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_resend_otp']);
 
 // All Authentication URL's are in this middleware
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
-    Route::get('with-auth', function (Request $request) {
-        return "api success";
-    })->name('show-data-use-auth');
+    Route::post('user-registration', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_registration']);
 });

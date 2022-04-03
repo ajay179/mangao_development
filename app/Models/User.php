@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'mobile_no',
+        'otp',
+        'created_ip_address'
     ];
 
     /**
