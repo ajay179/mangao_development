@@ -79,6 +79,13 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 		Route::get('edit-restaurant-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_restaurant_product_variant'])->can('isVendorRestaurant');
 
+		// Pharmacy vendor product
+
+		Route::get('vendor-pharmacy-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_vendor_pharmacy_product'])->name('vendor.phrmacy.product')->can('isVendorPharmacy');
+
+
+
+
 });
 	
 

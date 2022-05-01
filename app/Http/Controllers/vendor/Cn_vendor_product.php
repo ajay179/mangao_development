@@ -512,4 +512,12 @@ class Cn_vendor_product extends Controller
     }
 
 
+    // Pharmacy vendor function
+
+    public function fun_vendor_pharmacy_product()
+    {
+        return view('vendor.product.vw_pharmacy_product');
+    }
+
+
 }

@@ -58,6 +58,12 @@ class AuthServiceProvider extends ServiceProvider
             $vendor=  Auth::guard('vendor')->user();
             return $vendor->category_type == 'Restaurant' ? Response::allow()
                 : Response::deny('You must be an grocery vendor.');
+        });     
+
+        Gate::define('isVendorPharmacy', function($vendor = null){
+            $vendor=  Auth::guard('vendor')->user();
+            return $vendor->category_type == 'Pharmacy' ? Response::allow()
+                : Response::deny('You must be an Pharmacy vendor.');
         });        
 
         

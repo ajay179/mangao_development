@@ -48,6 +48,16 @@
                 @endif
 
 
+                @if ((!empty(Auth::guard('vendor')->user())) && (Auth::guard('vendor')->user()->can('isVendorPharmacy')))
+               
+                <li class="s_meun products_active">
+                    <a href="{{ url('vendor-pharmacy-product') }}">
+                        <i class="fa fa-dashboard"></i> <span>Pharmacy Products</span>
+                    </a>
+                </li>
+                @endif
+
+
 
 
                 
