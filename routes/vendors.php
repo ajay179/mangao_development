@@ -79,13 +79,19 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 		Route::get('edit-restaurant-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_restaurant_product_variant'])->can('isVendorRestaurant');
 
+		
 		// Pharmacy vendor product
+		Route::get('vendor-pharmacy-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_vendor_pharmacy_product'])->name('vendor.pharmacy.product')->can('isVendorPharmacy');
+		Route::get('vendor-add-pharmacy-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_pharmacy_product'])->name('vendor.add.pharmacy.product')->can('isVendorPharmacy');
+		Route::post('vendor-add-pharmacy-product-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddPharmacyProductAction'])->name('vendor.add.pharmacy.product.action')->can('isVendorPharmacy');
+		Route::get('vendor-pharmacy-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_pharmacy_product'])->name('vendor.pharmacy.product.getDataTable')->can('isVendorPharmacy');
 
-		Route::get('vendor-pharmacy-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_vendor_pharmacy_product'])->name('vendor.phrmacy.product')->can('isVendorPharmacy');
 
+		// Pharmacy Vendor product variant route
+		Route::get('add-pharmacy-product-variant/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_pharmacy_product_variant'])->can('isVendorPharmacy');
 
-
-
+		Route::post('vendor-add-pharmacy-product-variant-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddPharmacyProductVariantAction'])->name('vendor.add.pharmacy.product.variant.action')->can('isVendorPharmacy');
+		Route::get('edit-pharmacy-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_pharmacy_product_variant'])->can('isVendorPharmacy');
 });
 	
 

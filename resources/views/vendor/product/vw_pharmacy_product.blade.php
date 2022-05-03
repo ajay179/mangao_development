@@ -12,7 +12,7 @@
                 <section class="content-header">
                     <h1>Product List
                         <div class="pull-right">
-                            <a href="{{ route('vendor.add.product') }}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New Product
+                            <a href="{{ route('vendor.add.pharmacy.product') }}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New Product
                                 </button></a>
                         </div>
                     </h1>
@@ -25,7 +25,6 @@
                                     <tr>
                                         <th width="7%">Sr No.</th>
                                         <th width="15%">Category</th>
-                                        <th width="15%">Sub Category</th>
                                         <th width="15%">Product Name </th>
                                         <th width="15%">Product Image </th>
                                         <th width="10%">Price </th>
@@ -62,15 +61,14 @@
 
 </script>
 <script type="text/javascript">
-  $(function () {
+  // $(function () {
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('vendor.product.getDataTable') }}",
+        ajax: "{{ route('vendor.pharmacy.product.getDataTable') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'vendor_category_name', name: 'vendor_category_name'},
-            {data: 'vendor_sub_category_name', name: 'vendor_sub_category_name'},
             {data: 'product_name', name: 'product_name'},
             {data: 'product_image', name: 'product_image'},
             {data: 'price', name: 'price'},
@@ -79,7 +77,7 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-  });
+  // });
 
   function reload_table() {
       table.DataTable().ajax.reload(null, false);
