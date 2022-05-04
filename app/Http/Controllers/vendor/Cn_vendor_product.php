@@ -328,6 +328,44 @@ class Cn_vendor_product extends Controller
     }
 
 
+
+    public function fun_edit_restaurant_product($encrypt_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($encrypt_id);
+            $product_data =  DB::table(Config::get('constants.MANGAO_VENDOR_RESTAURANT_PRODUCT').'  as MVP')
+            ->where('MVP.id', '=', $id)
+            ->where('MVP.status', '<>', 3)
+            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
+            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.product_description','MVP.unit')
+            ->get();
+
+
+            $product_data[0]->id = Crypt::encryptString($product_data[0]->id);
+            $class_name ='cn_vendor_product';
+            
+            //make image url
+            $url =Storage::url($product_data[0]->product_image);
+            $product_data[0]->show_product_image = url($url);
+
+            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+
+            if(!empty($product_data[0])){
+                
+
+                return view('vendor.product.vw_add_restaurant_product',compact('class_name','product_data','get_vendor_category'));
+            }else{
+               return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
+        }
+
+    }
+
+
     public function vendorAddRestaurantProductAction(Request $request)
     {
         $price = $request->price;   
@@ -349,7 +387,7 @@ class Cn_vendor_product extends Controller
             $txtpkey =  Crypt::decryptString($formdata['txtpkey']);
             $data = Md_vendor_restaurant_product::where('id', $txtpkey)->get();
             if($data->isEmpty()){
-                return redirect()->route('vendor.product')->with('message', 'something went wrong');
+                return redirect()->route('vendor.restaurant.product')->with('message', 'something went wrong');
             }else{
                 $formdata['product_image']   = $filePath;
                 $formdata['updated_by']   = session()->get('&&*id$##');
@@ -388,7 +426,7 @@ class Cn_vendor_product extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/edit-product") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-vendor" flash="Product" table="' . Crypt::encryptString('mangao_vendor_restaurant_product') . '" redirect-url="' . Crypt::encryptString('vendor-restaurant-product') . '" title="Delete" ><i class="fa fa-trash"></i></a>  <a href="'. url("/add-restaurant-product-variant") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-info btn-xs" ><i class="fa fa-plus"></i> Add variant</a> ';
+                    $btn = '<a href="'. url("/edit-restaurant-product") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-vendor" flash="Product" table="' . Crypt::encryptString('mangao_vendor_restaurant_product') . '" redirect-url="' . Crypt::encryptString('vendor-restaurant-product') . '" title="Delete" ><i class="fa fa-trash"></i></a>  <a href="'. url("/add-restaurant-product-variant") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-info btn-xs" ><i class="fa fa-plus"></i> Add variant</a> ';
                     return $btn;
                 })
                 ->addColumn('date', function($data){
@@ -530,6 +568,43 @@ class Cn_vendor_product extends Controller
     }
 
 
+    public function fun_edit_pharmacy_product($encrypt_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($encrypt_id);
+            $product_data =  DB::table(Config::get('constants.MANGAO_VENDOR_PHARMACY_PRODUCT').'  as MVP')
+            ->where('MVP.id', '=', $id)
+            ->where('MVP.status', '<>', 3)
+            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
+            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.product_description','MVP.unit')
+            ->get();
+
+
+            $product_data[0]->id = Crypt::encryptString($product_data[0]->id);
+            $class_name ='cn_vendor_product';
+            
+            //make image url
+            $url =Storage::url($product_data[0]->product_image);
+            $product_data[0]->show_product_image = url($url);
+
+            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+
+            if(!empty($product_data[0])){
+                
+
+                return view('vendor.product.vw_add_pharmacy_product',compact('class_name','product_data','get_vendor_category'));
+            }else{
+               return redirect('vendor-add-pharmacy-product')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('vendor-add-pharmacy-product')->with('error', 'something went wrong');
+        }
+
+    }
+
+
     public function vendorAddPharmacyProductAction(Request $request)
     {
         $price = $request->price;   
@@ -590,7 +665,7 @@ class Cn_vendor_product extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/edit-product") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-vendor" flash="Product" table="' . Crypt::encryptString('mangao_vendor_pharmacy_product') . '" redirect-url="' . Crypt::encryptString('vendor-pharmacy-product') . '" title="Delete" ><i class="fa fa-trash"></i></a>  <a href="'. url("/add-pharmacy-product-variant") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-info btn-xs" ><i class="fa fa-plus"></i> Add variant</a> ';
+                    $btn = '<a href="'. url("/edit-pharmacy-product") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-vendor" flash="Product" table="' . Crypt::encryptString('mangao_vendor_pharmacy_product') . '" redirect-url="' . Crypt::encryptString('vendor-pharmacy-product') . '" title="Delete" ><i class="fa fa-trash"></i></a>  <a href="'. url("/add-pharmacy-product-variant") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-info btn-xs" ><i class="fa fa-plus"></i> Add variant</a> ';
                     return $btn;
                 })
                 ->addColumn('date', function($data){
