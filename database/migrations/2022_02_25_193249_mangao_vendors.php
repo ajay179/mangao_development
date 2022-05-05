@@ -27,6 +27,7 @@ class MangaoVendors extends Migration
             $table->string('vendor_mobile_no');
             $table->string('password');
             $table->text('encrypt_password');
+            $table->text('vendor_image')->nullable();
             $table->enum('user_type', ['vendor'])->default('vendor');
             $table->enum('category_type', ['Grocery', 'Restaurant', 'Pharmacy', 'Parcel', 'other']);
             $table->enum('status', ['1', '2', '3'])->default('1')->comment('1-active 2-inactive 3-delete');

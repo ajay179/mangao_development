@@ -22,6 +22,6 @@ class Md_mangao_banner extends Model
     public function getBannerImageAttribute($value)
     {
         // return ucfirst($value);
-        return $url = url('/'). Storage::url($value);
+        return $url = !empty($value) ? url('/'). Storage::url($value) : '';
     }
 }
