@@ -94,6 +94,12 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 		Route::post('vendor-add-pharmacy-product-variant-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddPharmacyProductVariantAction'])->name('vendor.add.pharmacy.product.variant.action')->can('isVendorPharmacy');
 		Route::get('edit-pharmacy-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_pharmacy_product_variant'])->can('isVendorPharmacy');
+
+
+
+		// Promotional Banners routes
+		Route::get('vendor-promotional-banner', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class,'fun_view_promotional_banner'])->name('vendor.promotional.banner');
+
 });
 	
 
