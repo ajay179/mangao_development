@@ -139,5 +139,13 @@ Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_
 	Route::get('reward-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_reward_point'])->name('reward.points');
 	
 
+	// Slot Master
+	Route::get('banner-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_banner_slot'])->name('banner.slot.master');
+
+	Route::get('vendor-promotion-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_vendor_promotion_slot'])->name('vendor.promotion.slot.master');
+	Route::get('notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_notification_slot'])->name('notification.slot.master');
+
+	Route::post('time-slot-master-action', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_action'])->name('time.slot.master.action');
+	
 
 });

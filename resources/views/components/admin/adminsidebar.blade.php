@@ -98,6 +98,23 @@
 				</li>
 
 
+
+				<li class="treeview s_meun categories_banner_section ">
+					<a href="#">
+						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Slot Master</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="s_meun categories_active"><a href="{{ route('banner.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Banner Promotion Slot</span></a></li>
+						<li class="s_meun cms_association_active"><a href="{{ route('vendor.promotion.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Vendor Promotion slot</span></a></li>
+						<li class="s_meun cms_association_active"><a href="{{ route('notification.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Notification Promotion slot</span></a></li>
+						
+					</ul>
+				</li>
+
+
 				<li class="treeview s_meun content_management_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>User Management</span>

@@ -19,12 +19,6 @@
                     </a>
                 </li>
 
-                <li class="s_meun category_active">
-                    <a href="{{ url('vendor-category') }}">
-                        <i class="fa fa-dashboard"></i> <span>Category</span>
-                    </a>
-                </li>
-
                 <li class="s_meun promotional_banner_active">
                     <a href="{{ url('vendor-promotional-banner') }}">
                         <i class="fa fa-dashboard"></i> <span>Promotional Banner</span>
@@ -35,6 +29,15 @@
                         <i class="fa fa-dashboard"></i> <span>Promotional Listing</span>
                     </a>
                 </li>
+
+
+                <li class="s_meun category_active">
+                    <a href="{{ url('vendor-category') }}">
+                        <i class="fa fa-dashboard"></i> <span>Category</span>
+                    </a>
+                </li>
+
+                
                 @if ((!empty(Auth::guard('vendor')->user())) && (Auth::guard('vendor')->user()->can('isVendorGrocery')))
                 <li class="s_meun sub_category_active">
                     <a href="{{ url('vendor-sub-category') }}">

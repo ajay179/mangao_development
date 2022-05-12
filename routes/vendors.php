@@ -99,7 +99,8 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 		// Promotional Banners routes
 		Route::get('vendor-promotional-banner', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class,'fun_view_promotional_banner'])->name('vendor.promotional.banner');
-
+		Route::post('vendor-promotional-banner-action', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class,'fun_promotional_banner_action'])->name('vendor.promotional.banner.action');
+		Route::get('vendor-promotional-banner-datatable', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class, 'get_data_table_of_vendor_promotional_banner'])->name('vendor.promotional.banner.getDataTable');
 });
 	
 
