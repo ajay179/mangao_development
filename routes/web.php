@@ -66,7 +66,8 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	Route::post('category-action', [App\Http\Controllers\admin\Cn_categories::class,'categoryAction'])->name('category.action');
 	Route::get('category-datatable', [App\Http\Controllers\admin\Cn_categories::class, 'get_data_table_of_category'])->name('category.getDataTable');
 	Route::get('edit-categoryadmin/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_category']);
-
+	Route::post('check_category_position', [App\Http\Controllers\admin\Cn_categories::class, 'fun_check_category_position']);
+	
 
 
 	// Wallet Normal Routes
@@ -94,7 +95,7 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	Route::post('banner-action', [App\Http\Controllers\admin\Cn_banner::class,'bannerAction'])->name('banner.action');
 	Route::get('bannermaster-datatable', [App\Http\Controllers\admin\Cn_banner::class, 'get_data_table_of_banner_master'])->name('bannermaster.getDataTable');
 	Route::get('edit-banner/{id}', [App\Http\Controllers\admin\Cn_banner::class, 'fun_edit_banner']);
-
+	Route::post('check_banner_position', [App\Http\Controllers\admin\Cn_banner::class, 'fun_check_banner_position']);
 
 	// Order routes
 	Route::get('ongoing-orders', [App\Http\Controllers\admin\Cn_ongoing_orders::class,'index'])->name('ongoing.orders');
@@ -146,6 +147,11 @@ Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_
 	Route::get('notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_notification_slot'])->name('notification.slot.master');
 
 	Route::post('time-slot-master-action', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_action'])->name('time.slot.master.action');
+
+	Route::get('time-slot-master-getdatatable/{slot_type}', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_get_data_table'])->name('master.time.slot.getDataTable');
+
+	Route::get('on-screen-notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_on_screen_notification_slot'])->name('on.screen.notification.slot.master');
+	
 	
 
 });

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Arr;
+use App\Models\Md_mangao_time_slot_master;
 use App\Models\Md_mangao_admin_send_notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
@@ -19,8 +20,9 @@ class Cn_notification extends Controller
     
     public function fun_user_notification()
     {
+        $slot_list_data = Md_mangao_time_slot_master::where('status','<>','3')->where('slot_category','on_screen_notification_promotion')->select('id','slot_name')->get();
         $class_name = "cn_notification";
-        return view('admin/notification/vw_user_notification',compact('class_name'));
+        return view('admin/notification/vw_user_notification',compact('class_name','slot_list_data'));
     }
 
     public function fun_vendor_notification()

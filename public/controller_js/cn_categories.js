@@ -1,4 +1,5 @@
 
+
 $(document).ready(function () {
     $(function () {
         $("#categoryForm").validate({
@@ -12,6 +13,21 @@ $(document).ready(function () {
                 },
                 category_position: {
                     required: true,
+                    remote: {
+                        url: base_url + "/check_category_position",
+                        type: "post",
+                         headers : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                        data: {
+                          category_position: function () {
+                            return $("#category_position").val();
+                          },
+                          txtpkey:function () {
+                            return $("#txtpkey").val();
+                          },
+                        },
+                    },
                 },
                 
 
@@ -26,6 +42,7 @@ $(document).ready(function () {
                 },
                 category_position: {
                     required: '* Please enter category position Name.',
+                    remote: '* This position is already booked'
                 },
             },
             submitHandler: function (form) {

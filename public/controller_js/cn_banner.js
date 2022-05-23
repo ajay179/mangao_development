@@ -10,6 +10,21 @@ $(document).ready(function () {
                 },
                 banner_position: {
                     required: true,
+                     remote: {
+                        url: base_url + "/check_banner_position",
+                        type: "post",
+                        headers : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                        data: {
+                          banner_position: function () {
+                            return $("#banner_position").val();
+                          },
+                          txtpkey:function () {
+                            return $("#txtpkey").val();
+                          },
+                        },
+                    },
                 },
                 
 
@@ -22,6 +37,7 @@ $(document).ready(function () {
                 },
                 banner_position: {
                     required: '* Please enter Banner position .',
+                    remote: '* This position is already booked'
                 },
             },
             submitHandler: function (form) {

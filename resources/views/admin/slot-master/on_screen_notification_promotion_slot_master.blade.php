@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-4">
                 <section class="content-header">
-                    <h1>Add Banner Time Slot </h1>
+                    <h1>Add On Screen Notification Promotion Time Slot </h1>
                 </section>
 
                 <div class="box box-primary">
@@ -59,7 +59,7 @@
 
             <div class="col-md-8 ">
                 <section class="content-header">
-                    <h1>Banner Slot List </h1>
+                    <h1> On Screen Notification Promotion Slot List </h1>
 
                 </section>
                 <div class="box box-primary">
@@ -105,7 +105,7 @@
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
     $(".slot_master_section").addClass("active");
-    $(".bannet_slot_master_active").addClass("active");
+    $(".notification_slot_master_active").addClass("active");
 
      $(document).ready(function() {
 
@@ -119,7 +119,7 @@
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('master.time.slot.getDataTable','banner_promotion') }}",
+        ajax: "{{ route('master.time.slot.getDataTable','on_screen_notification_promotion') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'slot_name', name: 'slot_name'},

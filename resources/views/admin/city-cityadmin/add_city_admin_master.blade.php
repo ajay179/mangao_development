@@ -72,8 +72,8 @@
 
 
                                     <div class="col-md-12 form-group">
-                                        <label>Commission<span style="color: red;">*</span></label>
-                                        <input type="text" class="form-control" id="commision" name="commision" autocomplete="off" value="{{ !empty($cityadmin_data[0]->commision) ? $cityadmin_data[0]->commision : ''}}">
+                                        <label>Commission<span style="color: red;">*</span>  (%) </label>
+                                        <input type="text" class="form-control" id="commision"  oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" name="commision" autocomplete="off" value="{{ !empty($cityadmin_data[0]->commision) ? $cityadmin_data[0]->commision : ''}}">
                                         
                                     </div>
                                
@@ -117,7 +117,7 @@
 
                                     <div  class="col-md-6 form-group no-pad-left">
                                         <label>Phone<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" id="admin_mobile" name="admin_mobile" autocomplete="off" value="{{ !empty($cityadmin_data[0]->admin_mobile) ? $cityadmin_data[0]->admin_mobile : ''}}">
+                                         <input type="text" class="form-control" id="admin_mobile" name="admin_mobile" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" value="{{ !empty($cityadmin_data[0]->admin_mobile) ? $cityadmin_data[0]->admin_mobile : ''}}">
 
                                     </div>
                                     

@@ -59,7 +59,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                        <h3> Contant Details :   </h3>
-                                       <p>{{!empty($policy_data[0]->content_details) ? $policy_data[0]->content_details : ''}}   </p>
+                    
+                                       @php echo !empty($policy_data[0]->content_details) ? $policy_data[0]->content_details : '' @endphp 
                                     </div>
                                 </div>
 
@@ -81,6 +82,12 @@
     $(".content_active").addClass("active");
     $(".privacy_active").addClass("active");
 
+
+     $(document).ready(function() {
+    $('#content_details').summernote({
+      height: 200,
+    });
+  });
 </script>
 
 @endsection
