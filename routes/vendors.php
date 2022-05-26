@@ -34,6 +34,10 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		// Vendor Soft delete common function
 		Route::post('soft-delete-of-vendor', [App\Http\Controllers\Cn_vendor_common_controller::class, 'delete_common_function_vendor']);
 
+		// On Screen notification routes for all vendor.
+		Route::get('on-screen-notification-list', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'fun_vendor_to_user_notification'])->name('on.screen.notification.list');
+		Route::post('vendor-to-user-notification-action', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'vendorToUserNotificationAction']);
+		
 		//Vendor Category 
 		Route::get('vendor-category', [App\Http\Controllers\vendor\Cn_category_master::class,'index'])->name('vendor.category');
 		Route::post('vendor-category-action', [App\Http\Controllers\vendor\Cn_category_master::class,'vendorCategoryAction'])->name('vendor.category.action');

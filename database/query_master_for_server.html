@@ -5,3 +5,5 @@ ALTER TABLE `mangao_time_slot_master` CHANGE `slot_category` `slot_category` ENU
 
 
 /** Second query **/
+
+ALTER TABLE `mangao_admin_send_notification` ADD `notification_image_name` TEXT NULL AFTER `user_type`, ADD `slot_id` INT NULL AFTER `notification_image_name`, ADD `slot_name` VARCHAR(255) NULL AFTER `slot_id`, ADD `from_time` TIME NULL AFTER `slot_name`, ADD `to_time` TIME NULL AFTER `from_time`;

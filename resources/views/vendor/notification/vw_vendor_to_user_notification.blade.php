@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('vendor.layout.layout')
 @section('content')
 
 
@@ -10,18 +10,18 @@
         <div class="row">
             <div class="col-md-4">
                 <section class="content-header">
-                    <h1>Add Delivery Boy Notification </h1>
+                    <h1>Add User Notification </h1>
                 </section>
 
                 <div class="box box-primary">
                     <div class="box-body light-green-body mob_min_height_auto">
-                          <form method="POST" id="cityForm" enctype='multipart/form-data' action="{{ url('notification-action') }}">
+                          <form method="POST" id="cityForm" enctype='multipart/form-data' action="{{ url('vendor-to-user-notification-action') }}" >
                           @csrf
                         
                             <div class="col-md-12 form-group no-padd">
                                 <label>Notification Title<span style="color: red;">*</span></label>
                                 <input type="text" name="notification_title" id="notification_title" autocomplete="off" class="form-control" value="">
-                                <input type="hidden" name="user_type" value="delivery_boy">
+                                <input type="hidden" name="user_type" value="user">
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
                             <div class="clearfix"></div>
@@ -33,6 +33,7 @@
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
+
 
                             <div class="col-md-12 form-group no-pad">
                               <div class="upload_img">
@@ -76,7 +77,7 @@
 
             <div class="col-md-8 ">
                 <section class="content-header">
-                    <h1>Delivery Boy Notification List </h1>
+                    <h1>User Notification List </h1>
 
                 </section>
                 <div class="box box-primary">
@@ -120,24 +121,24 @@
 @section('js_section')
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
-    $(".onscreen_notification").addClass("active");
-    $(".delivery_boy_notification").addClass("active");
+    $(".on_screen_notification").addClass("active");
+    
 </script>
 
 <script type="text/javascript">
   // $(function () {
-    let table = $('#example').dataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ url('notification-datatable','delivery_boy') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'notification_title', name: 'notification_title'},
-            {data: 'message', name: 'message'},
-            {data: 'date', name: 'date'},
-            {data: 'action-js', name: 'action-js', orderable: false, searchable: false},
-        ]
-    });
+    // let table = $('#example').dataTable({
+    //     processing: true,
+    //     serverSide: true,
+    //     ajax: "{{ url('notification-datatable','user') }}",
+    //     columns: [
+    //         {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+    //         {data: 'notification_title', name: 'notification_title'},
+    //         {data: 'message', name: 'message'},
+    //         {data: 'date', name: 'date'},
+    //         {data: 'action-js', name: 'action-js', orderable: false, searchable: false},
+    //     ]
+    // });
   // });
 
   function reload_table() {

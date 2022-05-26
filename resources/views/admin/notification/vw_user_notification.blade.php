@@ -15,7 +15,7 @@
 
                 <div class="box box-primary">
                     <div class="box-body light-green-body mob_min_height_auto">
-                          <form method="POST" id="cityForm" action="{{ url('notification-action') }}">
+                          <form method="POST" id="cityForm" enctype='multipart/form-data' action="{{ url('notification-action') }}" >
                           @csrf
                         
                             <div class="col-md-12 form-group no-padd">
@@ -39,14 +39,14 @@
                               <div class="upload_img">
                                   <div class="upload_photo">
                                       <label>Image <span style="color: red;">*</span></label>
-                                      <input type="file" name="category_image" accept=".jpg,.jpeg,.bmp,.png," id="category_image" onchange="change_img('category_image','fileold')" class="form-control">
-                                      <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($category_data[0]->category_image) ? $category_data[0]->category_image : '' }}" class="form-control">
+                                      <input type="file" name="notification_image" accept=".jpg,.jpeg,.bmp,.png," id="notification_image" onchange="change_img('notification_image','fileold')" class="form-control">
+                                      
                                   </div>
                                   <input type="hidden" class="form-control">
 
                                   <div class="img-preview">
                                       <div class="photo p-relative">
-                                          <img id="fileold" name="fileold" src="{{ !empty($category_data[0]->show_category_img) ? $category_data[0]->show_category_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
+                                          <img id="fileold" name="fileold" src="{{ asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
                                       </div>
                                   </div>
                                 </div>

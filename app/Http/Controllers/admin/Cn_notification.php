@@ -27,14 +27,16 @@ class Cn_notification extends Controller
 
     public function fun_vendor_notification()
     {
+        $slot_list_data = Md_mangao_time_slot_master::where('status','<>','3')->where('slot_category','on_screen_notification_promotion')->select('id','slot_name')->get();
         $class_name = "cn_notification";
-        return view('admin/notification/vw_vendor_notification',compact('class_name'));
+        return view('admin/notification/vw_vendor_notification',compact('class_name','slot_list_data'));
     }
 
     public function fun_delivery_boy_notification()
     {
+        $slot_list_data = Md_mangao_time_slot_master::where('status','<>','3')->where('slot_category','on_screen_notification_promotion')->select('id','slot_name')->get();
         $class_name = "cn_notification";
-        return view('admin/notification/vw_delivery_boy_notification',compact('class_name'));
+        return view('admin/notification/vw_delivery_boy_notification',compact('class_name','slot_list_data'));
     }
 
 
@@ -48,14 +50,40 @@ class Cn_notification extends Controller
         $this->validate($request, [
            'notification_title' => 'required','user_type' => 'required'
         ]);
+        // return $request->all();
         
         $formdata = $request->all();
 
+        // return $formdata;
+
         if($formdata['user_type'] == 'user' || $formdata['user_type'] == 'vendor' || $formdata['user_type'] == 'delivery_boy'){
-            $formdata = Arr::except($formdata,['_token']);
+
+            $filename = '';
+            if($request->has('notification_image')){
+                $filename = time().'_'.$request->file('notification_image')->getClientOriginalName();
+                $filePath = $request->file('notification_image')->storeAs('public/on_screen_notification_image',$filename);  
+            }
+            // else{
+            //     $filePath = $request->admin_image_old;
+            // }
+
+            $check_slot_data =  Md_mangao_time_slot_master::where('status','<>','3')->where('slot_category','on_screen_notification_promotion')->select('id','slot_name','from_time','to_time')->first();
+
+            $formdata['notification_image_name']   = $filePath;
+            $formdata['slot_id'] = $formdata['time_slot_id'];
+
+            if(!empty($check_slot_data)){
+                $formdata['slot_name'] = $check_slot_data->slot_name;
+                $formdata['from_time'] = $check_slot_data->from_time;
+                $formdata['to_time'] = $check_slot_data->to_time;
+            }
+
             $formdata['created_at']   = date('Y-m-d h:i:s');
             $formdata['created_by']   = session()->get('*$%&%*id**$%#');
             $formdata['created_ip_address']   = $request->ip();
+            $formdata['created_user_type']   = "super_admin";
+            $formdata['category_type_id']   = NULL;
+            $formdata['category_type']   = NULL;
             
             // function used for add single array 
             $Md_mangao_admin_send_notification = Md_mangao_admin_send_notification::create($formdata);
@@ -86,7 +114,7 @@ class Cn_notification extends Controller
     {
         if ($request->ajax()) {
             
-            $data = Md_mangao_admin_send_notification::where('status', '<>', 3)->select('notification_title', 'id', 'created_at','message')->where('user_type',$user_type)->get();
+            $data = Md_mangao_admin_send_notification::where('status', '<>', 3)->select('notification_title', 'id', 'created_at','message')->where('user_type',$user_type)->where('created_by',session()->get('*$%&%*id**$%#'))->get();
             $data->redirect_url = '';
             if($user_type == 'user'){
                $data->redirect_url = Crypt::encryptString('user-notification'); 

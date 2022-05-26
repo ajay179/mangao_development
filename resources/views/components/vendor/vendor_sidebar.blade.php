@@ -14,7 +14,7 @@
 
 
                 <li class="s_meun on_screen_notification">
-                    <a href="{{ url('vendor-dashbord') }}">
+                    <a href="{{ url('on-screen-notification-list') }}">
                         <i class="fa fa-dashboard"></i> <span>On Screen Notification</span>
                     </a>
                 </li>
