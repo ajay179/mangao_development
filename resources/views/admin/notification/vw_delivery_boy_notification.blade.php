@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-4">
                 <section class="content-header">
-                    <h1>Add Delivery Boy Notification </h1>
+                    <h1>Add Delivery Boy Bell Icon Notification </h1>
                 </section>
 
                 <div class="box box-primary">
@@ -76,7 +76,7 @@
 
             <div class="col-md-8 ">
                 <section class="content-header">
-                    <h1>Delivery Boy Notification List </h1>
+                    <h1>Delivery Boy Bell Icon Notification List </h1>
 
                 </section>
                 <div class="box box-primary">

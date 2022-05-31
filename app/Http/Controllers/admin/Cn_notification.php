@@ -61,11 +61,11 @@ class Cn_notification extends Controller
             $filename = '';
             if($request->has('notification_image')){
                 $filename = time().'_'.$request->file('notification_image')->getClientOriginalName();
-                $filePath = $request->file('notification_image')->storeAs('public/on_screen_notification_image',$filename);  
+                $filePath = $request->file('notification_image')->storeAs('public/on_screen_notification_image/'.$formdata['user_type'],$filename);  
             }
-            // else{
-            //     $filePath = $request->admin_image_old;
-            // }
+            else{
+                $filePath = "";
+            }
 
             $check_slot_data =  Md_mangao_time_slot_master::where('status','<>','3')->where('slot_category','on_screen_notification_promotion')->select('id','slot_name','from_time','to_time')->first();
 
@@ -119,8 +119,8 @@ class Cn_notification extends Controller
             if($user_type == 'user'){
                $data->redirect_url = Crypt::encryptString('user-notification'); 
             }
-            if($user_type == 'vendor'){ $data->redirect_url = "vendor.notification";}
-            if($user_type == 'delivery_boy'){ $data->redirect_url = "delivery.boy.notification";}
+            if($user_type == 'vendor'){ $data->redirect_url = Crypt::encryptString("vendor.notification");}
+            if($user_type == 'delivery_boy'){ $data->redirect_url = Crypt::encryptString("delivery.boy.notification");}
             
             return Datatables::of($data)
                 ->addIndexColumn()

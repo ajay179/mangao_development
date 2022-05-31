@@ -152,6 +152,20 @@ Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_
 
 	Route::get('on-screen-notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_on_screen_notification_slot'])->name('on.screen.notification.slot.master');
 	
+
+	// Bell Icon Notification
+
+	
+	
+	Route::get('user-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_user_bell_icon_notification'])->name('user.bell.notification');
+	Route::get('vendor-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_vendor_bell_icon_notification'])->name('vendor.bell.notification');
+	Route::get('delivery-boy-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_delivery_boy_bell_icon_notification'])->name('delivery.boy.bell.notification');
+
+	Route::post('bell-icon-notification-action', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'bell_icon_notification_action']);
+
+	Route::get('bell-icon-notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'bell_icon_notification_data_table']);
+
+
 	
 
 });

@@ -14,4 +14,8 @@ class Md_mangao_time_slot_master extends Model
     protected $fillable = [
         'from_time', 'to_time', 'slot_category','slot_name','created_by','category_type','created_ip_address','updated_by','updated_ip_address'
     ];
+
+    protected $hidden = [
+        'remember_token',
+    ];
 }

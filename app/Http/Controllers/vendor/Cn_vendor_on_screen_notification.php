@@ -39,11 +39,11 @@ class Cn_vendor_on_screen_notification extends Controller
             $filename = '';
             if($request->has('notification_image')){
                 $filename = time().'_'.$request->file('notification_image')->getClientOriginalName();
-                $filePath = $request->file('notification_image')->storeAs('public/on_screen_notification_image',$filename);  
+                $filePath = $request->file('notification_image')->storeAs('public/on_screen_notification_image/'.$formdata['user_type'],$filename);  
             }
-            // else{
-            //     $filePath = $request->admin_image_old;
-            // }
+            else{
+                $filePath = "";
+            }
 
             $check_slot_data =  Md_mangao_time_slot_master::where('status','<>','3')->where('slot_category','on_screen_notification_promotion')->select('id','slot_name','from_time','to_time')->first();
 
@@ -63,9 +63,12 @@ class Cn_vendor_on_screen_notification extends Controller
             $formdata['category_type_id']   = session()->get('$%vendor_category_type_id&%*');
             $formdata['category_type']   = session()->get('$%vendor_category_type&%*');
             
+            // return $formdata;
             // function used for add single array 
             $Md_mangao_admin_send_notification = Md_mangao_admin_send_notification::create($formdata);
             
+
+
             if($formdata['user_type'] == 'user'){ $redirect_url = "on.screen.notification.list";}
             if($formdata['user_type'] == 'vendor'){ $redirect_url = "vendor.notification";}
             if($formdata['user_type'] == 'delivery_boy'){ $redirect_url = "delivery.boy.notification";}
@@ -78,6 +81,39 @@ class Cn_vendor_on_screen_notification extends Controller
         }else{
             return redirect()->route($redirect_url)->with('error', 'Something went wrong ');
         }
+    }
+
+
+    public function vendorGetOnScreenNotificationDataTable(Request $request,$user_type)
+    {
+       if ($request->ajax()) {
+            
+            $data = Md_mangao_admin_send_notification::where('status', '<>', 3)->select('notification_title', 'id', 'created_at','message')->where('user_type',$user_type)->where('created_by',session()->get('*$%&%*id**$%#'))->get();
+            $data->redirect_url = '';
+            if($user_type == 'user'){
+               $data->redirect_url = Crypt::encryptString('user-notification'); 
+            }
+            if($user_type == 'vendor'){ $data->redirect_url = "vendor.notification";}
+            if($user_type == 'delivery_boy'){ $data->redirect_url = "delivery.boy.notification";}
+            
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action-js', function($data){
+                    $btn = ' <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="Notification" table="' . Crypt::encryptString('mangao_admin_send_notification') . '" redirect-url="' . $data->redirect_url . '" title="Delete" ><i class="fa fa-trash"></i></a> ';
+                    return $btn;
+                })
+                
+                ->addColumn('date', function($data){
+                    $date_with_format = date('d M Y',strtotime($data->created_at));
+                    return $date_with_format;
+                })
+
+                
+                ->rawColumns(['date'])
+                ->rawColumns(['action-js']) // if you want to add two action coloumn than you need to add two coloumn add in array like this
+                ->make(true);
+        }
+
     }
 
 }

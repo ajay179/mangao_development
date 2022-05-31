@@ -158,9 +158,9 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun user_notification"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
+						<li class="s_meun user_notification"><a href="{{route('user.bell.notification')}}"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
+						<li class="s_meun vendor_notification"><a href="{{route('vendor.bell.notification')}}"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
+						<li class="s_meun delivery_boy_notification"><a href="{{route('delivery.boy.bell.notification')}}"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
 						
 					</ul>
 				</li>

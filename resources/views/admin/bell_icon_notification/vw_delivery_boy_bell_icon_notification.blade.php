@@ -1,4 +1,4 @@
-@extends('vendor.layout.layout')
+@extends('admin.layout.layout')
 @section('content')
 
 
@@ -10,18 +10,29 @@
         <div class="row">
             <div class="col-md-4">
                 <section class="content-header">
-                    <h1>Add User Notification </h1>
+                    <h1>Add Delivery Boy Bell Icon Notification </h1>
                 </section>
 
                 <div class="box box-primary">
                     <div class="box-body light-green-body mob_min_height_auto">
-                          <form method="POST" id="cityForm" enctype='multipart/form-data' action="{{ url('vendor-to-user-notification-action') }}" >
+                          <form method="POST" id="bell_icon_notification_form" enctype='multipart/form-data' action="{{ url('bell-icon-notification-action') }}" >
                           @csrf
-                        
+                            
+                            <div class="col-md-12 form-group no-padd">
+                                        <label>City<span style="color: red;">*</span></label>
+                                        <select class="form-control" name="city_id" id="city_id">
+                                            <option value="">Select City</option>
+                                            @if (!empty($city_data)) 
+                                               @foreach ($city_data as $key => $value)
+                                                <option value="{{ $value['id'] }}" > {{ ucwords($value['city_name']) }}</option>
+                                               @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
                             <div class="col-md-12 form-group no-padd">
                                 <label>Notification Title<span style="color: red;">*</span></label>
                                 <input type="text" name="notification_title" id="notification_title" autocomplete="off" class="form-control" value="">
-                                <input type="hidden" name="user_type" value="user">
+                                <input type="hidden" name="user_type" value="delivery_boy">
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
                             <div class="clearfix"></div>
@@ -52,20 +63,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12 form-group no-pad">
-                                        <label>Select Slot<span style="color: red;">*</span></label>
-                                        @php $time_slot_id =  !empty($cityadmin_data[0]->time_slot_id) ? $cityadmin_data[0]->time_slot_id :  '' @endphp
-                                        <select class="form-control" name="time_slot_id" id="time_slot_id">
-                                            <option value="">Select Slot</option>
-                                            @if (!empty($slot_list_data)) 
-                                               @foreach ($slot_list_data as $key => $value)
-        <option value="{{ $value['id'] }}"  @if ($value->id == $time_slot_id) selected @endif> {{ ucwords($value['slot_name']) }}</option>
-                                               @endforeach
-                                            @endif
-                                        </select>
-                                        
-                                    </div>
-
                             <div class="col-md-12 form-group no-padd">
                                 <button type="submit" id="submit_btn" class="btn btn-success save_btn submit sub-btn" data-id="submit">Send Notification</button>
                                 <a href=""> <button type="button" class="btn btn-danger cancel-btn"><i class="fa fa-times-circle"></i> Cancel</button></a>
@@ -77,7 +74,7 @@
 
             <div class="col-md-8 ">
                 <section class="content-header">
-                    <h1>User Notification List </h1>
+                    <h1>Delivery Boy Bell Icon Notification List </h1>
 
                 </section>
                 <div class="box box-primary">
@@ -121,8 +118,8 @@
 @section('js_section')
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
-    $(".on_screen_notification").addClass("active");
-    
+    $(".bell_icon_notification").addClass("active");
+    $(".delivery_boy_notification").addClass("active");
 </script>
 
 <script type="text/javascript">
@@ -130,7 +127,7 @@
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('get-vendor-to-user-notification-datatable','user') }}",
+        ajax: "{{ url('bell-icon-notification-datatable','delivery_boy') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'notification_title', name: 'notification_title'},
