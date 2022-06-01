@@ -39,6 +39,11 @@ class Cn_notification extends Controller
         return view('admin/notification/vw_delivery_boy_notification',compact('class_name','slot_list_data'));
     }
 
+    public function fun_vendor_on_screen_notification_add_for_user()
+    {
+        $class_name = "cn_notification";
+        return view('admin/notification/vw_vendor_on_screen_notification_for_user',compact('class_name'));
+    }
 
     /**
      * This is Add Notification action of all notification.
@@ -82,6 +87,7 @@ class Cn_notification extends Controller
             $formdata['created_by']   = session()->get('*$%&%*id**$%#');
             $formdata['created_ip_address']   = $request->ip();
             $formdata['created_user_type']   = "super_admin";
+            $formdata['approved_status']   = "approved";
             $formdata['category_type_id']   = NULL;
             $formdata['category_type']   = NULL;
             
@@ -140,6 +146,40 @@ class Cn_notification extends Controller
                 ->make(true);
         }
 
+    }
+
+    public function get_data_table_of_notification_added_vendor(Request $request,$user_type)
+    {
+        if ($request->ajax()) {
+            
+            $data = Md_mangao_admin_send_notification::where('status', '<>', 3)->select('notification_title', 'id', 'created_at','message','from_time','to_time','slot_name','notification_image_name')->where('user_type',$user_type)->where('created_user_type','=','vendor')->get();
+            $data->redirect_url = '';
+            if($user_type == 'user'){
+               $data->redirect_url = Crypt::encryptString('user-notification'); 
+            }
+            if($user_type == 'vendor'){ $data->redirect_url = Crypt::encryptString("vendor.notification");}
+            if($user_type == 'delivery_boy'){ $data->redirect_url = Crypt::encryptString("delivery.boy.notification");}
+            
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action-js', function($data){
+                    $btn = ' <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger">Not Approved</a> ';
+                    return $btn;
+                })
+                
+                ->addColumn('date', function($data){
+                    $date_with_format = date('d M Y',strtotime($data->created_at));
+                    return $date_with_format;
+                })
+                ->addColumn('notification_image_name', function($data){
+                    return $admin_img = "<img src=".$data['notification_image_name']." height='80px' width='80px' />";
+                })
+
+                
+                ->rawColumns(['date'])
+                ->rawColumns(['action-js','notification_image_name']) // if you want to add two action coloumn than you need to add two coloumn add in array like this
+                ->make(true);
+        }
     }
 
 

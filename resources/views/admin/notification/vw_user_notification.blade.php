@@ -77,9 +77,19 @@
 
             <div class="col-md-8 ">
                 <section class="content-header">
-                    <h1>User Notification List </h1>
-
+        
+                    <h1 class="mb_10px">
+                        User Notification List
+                        <div class="pull-right">
+                           <a href="{{ url('view-vendor-on-screen-notification-add-for-user')}}" >
+                              <button type="button" class="btn btn-primary"> Vendor Notification</button>
+                           </a>
+                        </div>
+                     </h1>
+                    
+                    
                 </section>
+                <section class="content" style="padding:5px 0px;">
                 <div class="box box-primary">
                     
                         <div class="box-body">
@@ -110,6 +120,7 @@
 
                    
                 </div> <!-- End box-body -->
+            </section>
             </div> <!-- End box -->
         </div>
     </section>

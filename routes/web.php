@@ -126,12 +126,17 @@ Route::get('city-datatable', [App\Http\Controllers\admin\Cn_master_city::class, 
 	// On screen notification route
 	Route::get('user-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_user_notification'])->name('user.notification');
 	Route::post('notification-action', [App\Http\Controllers\admin\Cn_notification::class,'userNotificationAction']);
-Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification']);
+	
+	Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification']);
 	
 	Route::get('vendor-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_vendor_notification'])->name('vendor.notification');
-
-
 	Route::get('delivery-boy-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_delivery_boy_notification'])->name('delivery.boy.notification');
+
+	Route::get('view-vendor-on-screen-notification-add-for-user', [App\Http\Controllers\admin\Cn_notification::class,'fun_vendor_on_screen_notification_add_for_user'])->name('vendor.user.notification');
+
+	Route::get('notification-datatable-added-by-vendor/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification_added_vendor']);
+	
+	
 	
 	// Reward, Redeem Point all routes
 
