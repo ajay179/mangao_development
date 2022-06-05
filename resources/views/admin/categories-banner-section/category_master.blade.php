@@ -26,6 +26,7 @@
                                   <option value="Restaurant">Restaurant</option>
                                   <option value="Pharmacy">Pharmacy</option>
                                   <option value="Parcel">Parcel</option>
+                                   <option value="Other">Other</option>
                             </select>
                             <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($category_data[0]->id) ? $category_data[0]->id : '' }}">
                           </div>

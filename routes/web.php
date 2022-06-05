@@ -66,7 +66,8 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::post('category-action', [App\Http\Controllers\admin\Cn_categories::class,'categoryAction'])->name('category.action');
 	Route::get('category-datatable', [App\Http\Controllers\admin\Cn_categories::class, 'get_data_table_of_category'])->name('category.getDataTable');
 	Route::get('edit-categoryadmin/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_category']);
-
+	Route::post('check_category_position', [App\Http\Controllers\admin\Cn_categories::class, 'fun_check_category_position']);
+	
 
 
 	// Wallet Normal Routes
@@ -94,7 +95,7 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::post('banner-action', [App\Http\Controllers\admin\Cn_banner::class,'bannerAction'])->name('banner.action');
 	Route::get('bannermaster-datatable', [App\Http\Controllers\admin\Cn_banner::class, 'get_data_table_of_banner_master'])->name('bannermaster.getDataTable');
 	Route::get('edit-banner/{id}', [App\Http\Controllers\admin\Cn_banner::class, 'fun_edit_banner']);
-
+	Route::post('check_banner_position', [App\Http\Controllers\admin\Cn_banner::class, 'fun_check_banner_position']);
 
 	// Order routes
 	Route::get('ongoing-orders', [App\Http\Controllers\admin\Cn_ongoing_orders::class,'index'])->name('ongoing.orders');
@@ -125,12 +126,17 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	// On screen notification route
 	Route::get('user-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_user_notification'])->name('user.notification');
 	Route::post('notification-action', [App\Http\Controllers\admin\Cn_notification::class,'userNotificationAction']);
-Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification']);
+	
+	Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification']);
 	
 	Route::get('vendor-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_vendor_notification'])->name('vendor.notification');
-
-
 	Route::get('delivery-boy-notification', [App\Http\Controllers\admin\Cn_notification::class,'fun_delivery_boy_notification'])->name('delivery.boy.notification');
+
+	Route::get('view-vendor-on-screen-notification-add-for-user', [App\Http\Controllers\admin\Cn_notification::class,'fun_vendor_on_screen_notification_add_for_user'])->name('vendor.user.notification');
+
+	Route::get('notification-datatable-added-by-vendor/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification_added_vendor']);
+	
+	
 	
 	// Reward, Redeem Point all routes
 
@@ -139,5 +145,32 @@ Route::get('notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_
 	Route::get('reward-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_reward_point'])->name('reward.points');
 	
 
+	// Slot Master
+	Route::get('banner-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_banner_slot'])->name('banner.slot.master');
+
+	Route::get('vendor-promotion-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_vendor_promotion_slot'])->name('vendor.promotion.slot.master');
+	Route::get('notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_notification_slot'])->name('notification.slot.master');
+
+	Route::post('time-slot-master-action', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_action'])->name('time.slot.master.action');
+
+	Route::get('time-slot-master-getdatatable/{slot_type}', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_get_data_table'])->name('master.time.slot.getDataTable');
+
+	Route::get('on-screen-notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_on_screen_notification_slot'])->name('on.screen.notification.slot.master');
+	
+
+	// Bell Icon Notification
+
+	
+	
+	Route::get('user-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_user_bell_icon_notification'])->name('user.bell.notification');
+	Route::get('vendor-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_vendor_bell_icon_notification'])->name('vendor.bell.notification');
+	Route::get('delivery-boy-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_delivery_boy_bell_icon_notification'])->name('delivery.boy.bell.notification');
+
+	Route::post('bell-icon-notification-action', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'bell_icon_notification_action']);
+
+	Route::get('bell-icon-notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'bell_icon_notification_data_table']);
+
+
+	
 
 });

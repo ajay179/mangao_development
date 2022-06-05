@@ -34,45 +34,55 @@ class Cn_banner extends Controller
     public function bannerAction(Request $request)
     {
        $this->validate($request, [
-           'banner_name' => 'required','banner_position' => 'required'
+           'banner_name' => 'required','banner_position' => 'required|numeric'
         ]);
         
-        // function used for add single array 
-        $Md_mangao_banner = new Md_mangao_banner;
+       $check_banner_position = Md_mangao_banner::where('banner_position',$request->banner_position)->where('status','<>','3');
         if(!empty($request->txtpkey)){
-            $msg = "updated";
-            $txtpkey =  Crypt::decryptString($request->txtpkey);
-            $data = Md_mangao_banner::where('id', $txtpkey)->get();
-            if($data->isEmpty()){
-                return redirect()->route('main.banner')->with('message', 'something went wrong');
-            }else{
-                $Md_mangao_banner = Md_mangao_banner::find($txtpkey);
-                $Md_mangao_banner->updated_at   = date('Y-m-d h:i:s');
-                $Md_mangao_banner->updated_by   = session()->get('*$%&%*id**$%#');
-                $Md_mangao_banner->updated_ip_address   = $request->ip();
-            }
-        }else{
-            $msg = "Added";
-            $Md_mangao_banner->created_at   = date('Y-m-d h:i:s');
-            $Md_mangao_banner->created_by   = session()->get('*$%&%*id**$%#');
-            $Md_mangao_banner->created_ip_address   = $request->ip();
-        }      
-        $filename = '';
-        if($request->has('banner_image')){
-            $filename = time().'_'.$request->file('banner_image')->getClientOriginalName();
-            $filePath = $request->file('banner_image')->storeAs('public/banner_image',$filename);  
-        }else{
-            $filePath = $request->admin_image_old;
+            $check_banner_position = $check_banner_position->where('id','<>', Crypt::decryptString($request->txtpkey));
         }
-        $Md_mangao_banner->banner_name   = $request->banner_name;
-        $Md_mangao_banner->banner_position   = $request->banner_position;
-        $Md_mangao_banner->banner_image   = $filePath;
-        $Md_mangao_banner->save();
+       $check_banner_position = $check_banner_position->get();
+        if ($check_banner_position->isNotEmpty()) {
+             return redirect()->route('main.banner')->with('error', 'This banner position already added.');
+        }else{
 
-        // this statement are used for getting the last inserted id
-       //  $Md_mangao_banner->id;   
+            // function used for add single array 
+            $Md_mangao_banner = new Md_mangao_banner;
+            if(!empty($request->txtpkey)){
+                $msg = "updated";
+                $txtpkey =  Crypt::decryptString($request->txtpkey);
+                $data = Md_mangao_banner::where('id', $txtpkey)->get();
+                if($data->isEmpty()){
+                    return redirect()->route('main.banner')->with('message', 'something went wrong');
+                }else{
+                    $Md_mangao_banner = Md_mangao_banner::find($txtpkey);
+                    $Md_mangao_banner->updated_at   = date('Y-m-d h:i:s');
+                    $Md_mangao_banner->updated_by   = session()->get('*$%&%*id**$%#');
+                    $Md_mangao_banner->updated_ip_address   = $request->ip();
+                }
+            }else{
+                $msg = "Added";
+                $Md_mangao_banner->created_at   = date('Y-m-d h:i:s');
+                $Md_mangao_banner->created_by   = session()->get('*$%&%*id**$%#');
+                $Md_mangao_banner->created_ip_address   = $request->ip();
+            }      
+            $filename = '';
+            if($request->has('banner_image')){
+                $filename = time().'_'.$request->file('banner_image')->getClientOriginalName();
+                $filePath = $request->file('banner_image')->storeAs('public/banner_image',$filename);  
+            }else{
+                $filePath = $request->admin_image_old;
+            }
+            $Md_mangao_banner->banner_name   = $request->banner_name;
+            $Md_mangao_banner->banner_position   = $request->banner_position;
+            $Md_mangao_banner->banner_image   = $filePath;
+            $Md_mangao_banner->save();
 
-        return redirect()->route('main.banner')->with('message', 'Banner '. $msg);
+            // this statement are used for getting the last inserted id
+           //  $Md_mangao_banner->id;   
+
+            return redirect()->route('main.banner')->with('message', 'Banner '. $msg);
+        }
     }
 
      public function get_data_table_of_banner_master(Request $request)
@@ -91,14 +101,44 @@ class Cn_banner extends Controller
                     return $date_with_format;
                 })
                 ->addColumn('banner_image', function($data){
-                    $url =Storage::url($data['banner_image']);
-                    return $admin_img = "<img src=".url($url)." height='80px' width='80px' />";
+                    // $url =Storage::url($data['banner_image']);
+                    return $admin_img = "<img src=".$data['banner_image']." height='80px' width='80px' />";
                 })
                 ->rawColumns(['date'])
                 ->rawColumns(['action','banner_image'])
                 ->make(true);
         }
 
+    }
+
+     /**
+     * This function are used to check the Banner position.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fun_check_banner_position(Request $request)
+    {
+        if ($request->ajax()) {
+            $position_no = $request->banner_position;
+            if(!empty($position_no)){
+                $check_banner_position = Md_mangao_banner::where('banner_position',$position_no)->where('status','<>','3');
+                if(!empty($request->txtpkey)){
+                    $banner_id = Crypt::decryptString($request->txtpkey);
+                    $check_banner_position = $check_banner_position->where('id','<>',$banner_id);
+                }
+               $check_banner_position = $check_banner_position->get();
+                if ($check_banner_position->isEmpty()) {
+                    return "true";
+                }else{
+                    return "false";
+                }
+            }else{
+                return "false";
+            }
+            
+        }else{
+            return "false";
+        }
     }
 
     public function fun_edit_banner($encrypt_id)

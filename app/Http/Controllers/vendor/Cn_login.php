@@ -48,7 +48,8 @@ class Cn_login extends Controller
                 '&%*$^vendorusername$%#' => Auth::guard('vendor')->user()->store_name,
                 '&&*id$##' => Auth::guard('vendor')->user()->id,
                 '$%vendor_email&%*' => Auth::guard('vendor')->user()->vendor_email,
-                '$%vendor_category_type_id&%*' => Auth::guard('vendor')->user()->category_id
+                '$%vendor_category_type_id&%*' => Auth::guard('vendor')->user()->category_id,
+                '$%vendor_category_type&%*' => Auth::guard('vendor')->user()->category_type
             ]);
 
             if ($request->session()->has('&%*$^vendorusername$%#', '&&*id$##', '$%vendor_email&%*')) {

@@ -97,14 +97,14 @@
                                         <div class="upload_img">
                                             <div class="upload_photo">
                                                 <label>Image <small class="text-danger">(size:730*350)</small><span style="color: red;">*</span></label>
-                                                <input type="file" name="admin_image" accept=".jpg,.jpeg,.bmp,.png," id="admin_image" onchange="change_img('admin_image','fileold')" class="form-control">
-                                                <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($vendor_info[0]->admin_img) ? $vendor_info[0]->admin_img : '' }}" class="form-control">
+                                                <input type="file" name="vendor_image" accept=".jpg,.jpeg,.bmp,.png," id="vendor_image" onchange="change_img('vendor_image','fileold')" class="form-control">
+                                                <input type="hidden" name="vendor_image_old" id="vendor_image_old" value="{{ !empty($vendor_info[0]->vendor_image) ? $vendor_info[0]->vendor_image : '' }}" class="form-control">
                                             </div>
                                             <input type="hidden" class="form-control">
 
                                             <div class="img-preview">
                                                 <div class="photo p-relative">
-                                                    <img id="fileold" name="fileold" src="{{ !empty($vendor_info[0]->show_admin_img) ? $vendor_info[0]->show_admin_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
+                                                    <img id="fileold" name="fileold" src="{{ !empty($vendor_info[0]->show_vendor_img) ? $vendor_info[0]->show_vendor_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
                                                 </div>
                                             </div>
 

@@ -34,4 +34,5 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('user-registration', [App\Http\Controllers\api\login\Cn_login::class,'fun_user_registration']);
     //Home Api
 Route::post('home', [App\Http\Controllers\api\home_controller\Cn_home_controller::class,'fun_home_page']);
+Route::post('get-vendor-listing-by-category-id', [App\Http\Controllers\api\home_controller\Cn_home_controller::class,'fun_get_vendor_listing']);
 });

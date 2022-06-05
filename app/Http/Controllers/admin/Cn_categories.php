@@ -45,39 +45,48 @@ class Cn_categories extends Controller
         }
         $check_duplicate_categories = $check_duplicate_categories->where('status','<>', 3)->get();
         if($check_duplicate_categories->isNotEmpty()){
-            return redirect()->route('city')->with('error', 'This city already added.');
+            return redirect()->route('main.categories')->with('error', 'This category already added.');
         }else{
+            $check_category_position = Md_mangao_categories::where('category_position',$request->category_position)->where('status','<>','3');
             if(!empty($request->txtpkey)){
-                $msg = "updated";
-                $txtpkey =  Crypt::decryptString($request->txtpkey);
-                $data = Md_mangao_categories::where('id', $txtpkey)->get();
-                if($data->isEmpty()){
-                    return redirect()->route('main.categories')->with('message', 'something went wrong');
-                }else{
-                    $Md_mangao_categories = Md_mangao_categories::find($txtpkey);
-                    $Md_mangao_categories->updated_at   = date('Y-m-d h:i:s');
-                    $Md_mangao_categories->updated_by   = session()->get('*$%&%*id**$%#');
-                    $Md_mangao_categories->updated_ip_address   = $request->ip();
-                }
-            }else{
-                $msg = "Added";
-                $Md_mangao_categories->created_at   = date('Y-m-d h:i:s');
-                $Md_mangao_categories->created_by   = session()->get('*$%&%*id**$%#');
-                $Md_mangao_categories->created_ip_address   = $request->ip();
-            }      
-            $filename = '';
-            if($request->has('category_image')){
-                $filename = time().'_'.$request->file('category_image')->getClientOriginalName();
-                $filePath = $request->file('category_image')->storeAs('public/category_image',$filename);  
-            }else{
-                $filePath = $request->admin_image_old;
+                $check_category_position = $check_category_position->where('id','<>', Crypt::decryptString($request->txtpkey));
             }
-            $Md_mangao_categories->category_ui   = $request->category_ui;
-            $Md_mangao_categories->category_name   = $request->category_name;
-            $Md_mangao_categories->category_position   = $request->category_position;
-            $Md_mangao_categories->category_image   = $filePath;
-            $Md_mangao_categories->save();
+           $check_category_position = $check_category_position->get();
+            if ($check_category_position->isNotEmpty()) {
+                 return redirect()->route('main.categories')->with('error', 'This category position already added.');
+            }else{
 
+                if(!empty($request->txtpkey)){
+                    $msg = "updated";
+                    $txtpkey =  Crypt::decryptString($request->txtpkey);
+                    $data = Md_mangao_categories::where('id', $txtpkey)->get();
+                    if($data->isEmpty()){
+                        return redirect()->route('main.categories')->with('message', 'something went wrong');
+                    }else{
+                        $Md_mangao_categories = Md_mangao_categories::find($txtpkey);
+                        $Md_mangao_categories->updated_at   = date('Y-m-d h:i:s');
+                        $Md_mangao_categories->updated_by   = session()->get('*$%&%*id**$%#');
+                        $Md_mangao_categories->updated_ip_address   = $request->ip();
+                    }
+                }else{
+                    $msg = "Added";
+                    $Md_mangao_categories->created_at   = date('Y-m-d h:i:s');
+                    $Md_mangao_categories->created_by   = session()->get('*$%&%*id**$%#');
+                    $Md_mangao_categories->created_ip_address   = $request->ip();
+                }      
+                $filename = '';
+                if($request->has('category_image')){
+                    $filename = time().'_'.$request->file('category_image')->getClientOriginalName();
+                    $filePath = $request->file('category_image')->storeAs('public/category_image',$filename);  
+                }else{
+                    $filePath = $request->admin_image_old;
+                }
+                $Md_mangao_categories->category_ui   = $request->category_ui;
+                $Md_mangao_categories->category_name   = $request->category_name;
+                $Md_mangao_categories->category_position   = $request->category_position;
+                $Md_mangao_categories->category_image   = $filePath;
+                $Md_mangao_categories->save();
+            }
             // this statement are used for getting the last inserted id
            //  $Md_city_master->id;   
 
@@ -102,8 +111,7 @@ class Cn_categories extends Controller
                     return $date_with_format;
                 })
                 ->addColumn('category_image', function($data){
-                    $url =Storage::url($data['category_image']);
-                    return $category_image = "<img src=".url($url)."  width='100%' />";
+                    return $category_image = "<img src=".$data['category_image']."  width='100%' />";
                 })
                 ->rawColumns(['date'])
                 ->rawColumns(['action','category_image'])
@@ -112,6 +120,35 @@ class Cn_categories extends Controller
 
     }
 
+     /**
+     * This function are used to check the category position.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fun_check_category_position(Request $request)
+    {
+        if ($request->ajax()) {
+            $position_no = $request->category_position;
+            if(!empty($position_no)){
+                $check_category_position = Md_mangao_categories::where('category_position',$position_no)->where('status','<>','3');
+                if(!empty($request->txtpkey)){
+                    $category_id = Crypt::decryptString($request->txtpkey);
+                    $check_category_position = $check_category_position->where('id','<>',$category_id);
+                }
+               $check_category_position = $check_category_position->get();
+                if ($check_category_position->isEmpty()) {
+                    return "true";
+                }else{
+                    return "false";
+                }
+            }else{
+                return "false";
+            }
+            
+        }else{
+            return "false";
+        }
+    }
 
     public function fun_edit_category($encrypt_id)
     {

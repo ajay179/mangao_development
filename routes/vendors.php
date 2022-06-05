@@ -34,6 +34,14 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		// Vendor Soft delete common function
 		Route::post('soft-delete-of-vendor', [App\Http\Controllers\Cn_vendor_common_controller::class, 'delete_common_function_vendor']);
 
+		// On Screen notification routes for all vendor.
+		Route::get('on-screen-notification-list', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'fun_vendor_to_user_notification'])->name('on.screen.notification.list');
+		Route::post('vendor-to-user-notification-action', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'vendorToUserNotificationAction']);
+		Route::post('get-vendor-to-user-notification-datatable/{user_type}', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'vendorGetOnScreenNotificationDataTable']);
+		
+		
+
+
 		//Vendor Category 
 		Route::get('vendor-category', [App\Http\Controllers\vendor\Cn_category_master::class,'index'])->name('vendor.category');
 		Route::post('vendor-category-action', [App\Http\Controllers\vendor\Cn_category_master::class,'vendorCategoryAction'])->name('vendor.category.action');
@@ -73,12 +81,34 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 		Route::get('vendor-restaurant-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_restaurant_product'])->name('vendor.restaurant.product.getDataTable')->can('isVendorRestaurant');
 		
+		Route::get('edit-restaurant-product/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_restaurant_product'])->can('isVendorRestaurant');
+
 		// Restaurant Vendor product variant route
 		Route::get('add-restaurant-product-variant/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_restaurant_product_variant'])->can('isVendorRestaurant');
 		Route::post('vendor-add-restaurant-product-variant-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddReataurantProductVariantAction'])->name('vendor.add.restaurant.product.variant.action')->can('isVendorRestaurant');
 
 		Route::get('edit-restaurant-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_restaurant_product_variant'])->can('isVendorRestaurant');
 
+		
+		// Pharmacy vendor product
+		Route::get('vendor-pharmacy-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_vendor_pharmacy_product'])->name('vendor.pharmacy.product')->can('isVendorPharmacy');
+		Route::get('vendor-add-pharmacy-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_pharmacy_product'])->name('vendor.add.pharmacy.product')->can('isVendorPharmacy');
+		Route::post('vendor-add-pharmacy-product-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddPharmacyProductAction'])->name('vendor.add.pharmacy.product.action')->can('isVendorPharmacy');
+		Route::get('vendor-pharmacy-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_pharmacy_product'])->name('vendor.pharmacy.product.getDataTable')->can('isVendorPharmacy');
+		Route::get('edit-pharmacy-product/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_pharmacy_product'])->can('isVendorPharmacy');
+
+		// Pharmacy Vendor product variant route
+		Route::get('add-pharmacy-product-variant/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_pharmacy_product_variant'])->can('isVendorPharmacy');
+
+		Route::post('vendor-add-pharmacy-product-variant-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddPharmacyProductVariantAction'])->name('vendor.add.pharmacy.product.variant.action')->can('isVendorPharmacy');
+		Route::get('edit-pharmacy-product-variant/{product_id}/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_pharmacy_product_variant'])->can('isVendorPharmacy');
+
+
+
+		// Promotional Banners routes
+		Route::get('vendor-promotional-banner', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class,'fun_view_promotional_banner'])->name('vendor.promotional.banner');
+		Route::post('vendor-promotional-banner-action', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class,'fun_promotional_banner_action'])->name('vendor.promotional.banner.action');
+		Route::get('vendor-promotional-banner-datatable', [App\Http\Controllers\vendor\Cn_vendor_promotional_banner::class, 'get_data_table_of_vendor_promotional_banner'])->name('vendor.promotional.banner.getDataTable');
 });
 	
 

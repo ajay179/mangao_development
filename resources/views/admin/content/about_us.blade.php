@@ -59,7 +59,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                        <h3> Contant Details :   </h3>
-                                       <p>{{!empty($about_data[0]->content_details) ? $about_data[0]->content_details : ''}}   </p>
+                                       @php echo !empty($about_data[0]->content_details) ? $about_data[0]->content_details : '' @endphp 
                                     </div>
                                 </div>
 
@@ -80,6 +80,12 @@
     $(".s_meun").removeClass("active");
     $(".content_active").addClass("active");
     $(".about_us_active").addClass("active");
+
+    $(document).ready(function() {
+    $('#content_details').summernote({
+      height: 200,
+    });
+  });
 
 </script>
 

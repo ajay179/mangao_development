@@ -98,6 +98,24 @@
 				</li>
 
 
+
+				<li class="treeview s_meun slot_master_section ">
+					<a href="#">
+						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Slot Master</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="s_meun bannet_slot_master_active"><a href="{{ route('banner.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Vendor Banner Promotion Slot</span></a></li>
+						<li class="s_meun vendor_slot_master_active"><a href="{{ route('vendor.promotion.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Vendor Self Promotion slot</span></a></li>
+						<li class="s_meun notification_slot_master_active"><a href="{{ route('notification.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Notification Home Promotion slot</span></a></li>
+						<li class="s_meun on_screen_notification_slot_master_active"><a href="{{ route('on.screen.notification.slot.master') }}"><i class="fa fa-picture-o"></i> <span>On Screen Notification Promotion slot</span></a></li>
+						
+					</ul>
+				</li>
+
+
 				<li class="treeview s_meun content_management_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>User Management</span>
@@ -140,9 +158,9 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun user_notification"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
+						<li class="s_meun user_notification"><a href="{{route('user.bell.notification')}}"><i class="fa fa-picture-o"></i> <span>User</span></a></li>
+						<li class="s_meun vendor_notification"><a href="{{route('vendor.bell.notification')}}"><i class="fa fa-picture-o"></i> <span>Vendor</span></a></li>
+						<li class="s_meun delivery_boy_notification"><a href="{{route('delivery.boy.bell.notification')}}"><i class="fa fa-picture-o"></i> <span>Delivery Boy</span></a></li>
 						
 					</ul>
 				</li>

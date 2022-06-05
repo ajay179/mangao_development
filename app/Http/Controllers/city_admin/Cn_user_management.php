@@ -79,6 +79,14 @@ class Cn_user_management extends Controller
                 $Md_city_admin_vendor->created_by   = session()->get('*$%&%*id**$%#');
                 $Md_city_admin_vendor->created_ip_address   = $request->ip();
             }      
+
+             $filename = '';
+            if($request->has('vendor_image')){
+                $filename = time().'_'.$request->file('vendor_image')->getClientOriginalName();
+                $filePath = $request->file('vendor_image')->storeAs('public/vendor_image',$filename);  
+            }else{
+                $filePath = $request->vendor_image_old;
+            }
             
             $category_type = Md_mangao_categories::where('id','=',$request->category_id)->select('category_ui')->get();
 
@@ -88,6 +96,7 @@ class Cn_user_management extends Controller
             $Md_city_admin_vendor->vendor_latitude   = $request->vendor_latitude;
             $Md_city_admin_vendor->vendor_longitude   = $request->vendor_longitude;
             $Md_city_admin_vendor->vendor_comission   = $request->vendor_comission;
+            $Md_city_admin_vendor->vendor_image   = $filePath;
             $Md_city_admin_vendor->category_type   = !empty($category_type[0]->category_ui) ? $category_type[0]->category_ui : 'other';
             
             $Md_city_admin_vendor->vendor_address   = $request->vendor_address;
@@ -105,7 +114,7 @@ class Cn_user_management extends Controller
         }
     }
 
-     public function get_data_table_of_city_admin_vendor(Request $request)
+    public function get_data_table_of_city_admin_vendor(Request $request)
     {
         if ($request->ajax()) {
             $data = Md_city_admin_vendor::latest()->select('store_name','store_owner_name','vendor_address','vendor_email','vendor_mobile_no','id','created_at')->where('status', '<>', 3)->get();
@@ -134,19 +143,22 @@ class Cn_user_management extends Controller
         try {
             
             $id =  Crypt::decryptString($encrypt_id);
-            $vendor_info = DB::table(Config::get('constants.MANGAO_VENDORS').'  as MV')->where('MV.status', '<>', 3)->where('MV.id', '=', $id)->select('MV.category_id', 'MV.id','MV.store_name','MV.store_owner_name','MV.vendor_latitude','MV.vendor_longitude','MV.vendor_comission','MV.vendor_address','MV.delivery_range','MV.vendor_email','MV.vendor_mobile_no','MV.password','MV.encrypt_password')->get();
+            $vendor_info = DB::table(Config::get('constants.MANGAO_VENDORS').'  as MV')->where('MV.status', '<>', 3)->where('MV.id', '=', $id)->select('MV.category_id', 'MV.id','MV.store_name','MV.store_owner_name','MV.vendor_latitude','MV.vendor_longitude','MV.vendor_comission','MV.vendor_address','MV.delivery_range','MV.vendor_email','MV.vendor_mobile_no','MV.password','MV.encrypt_password','MV.vendor_image')->get();
             $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
             
             // Make id encrypt
             $vendor_info[0]->id = Crypt::encryptString($vendor_info[0]->id);
             
-            //make image url
-            // $url =Storage::url($vendor_info[0]->admin_img);
-            // $vendor_info[0]->show_admin_img = url($url);
+            // make image url
+            $url =Storage::url($vendor_info[0]->vendor_image);
+            $vendor_info[0]->show_vendor_img = url($url);
             
             //decrypt password
             $vendor_info[0]->encrypt_password = Crypt::decryptString($vendor_info[0]->encrypt_password);
             
+
+            // return $vendor_info;
+
             $class_name ='cn_user_management';
            
             if(!empty($vendor_info[0])){
