@@ -15,9 +15,16 @@
 
                 <div class="box box-primary">
                     <div class="box-body light-green-body mob_min_height_auto">
-                          <form method="POST" id="cityForm" enctype='multipart/form-data' action="{{ url('notification-action') }}" >
+                          <form method="POST" id="on_screen_notification_form" enctype='multipart/form-data' action="{{ url('notification-action') }}" >
                           @csrf
-                        
+                            
+                            <div class="col-md-12 form-group no-padd">
+                                <label>Schedule Date<span style="color: red;">*</span></label>
+                                <input type="text" name="schedule_date" id="schedule_date" autocomplete="off" class="form-control" value="">
+                            </div> <!-- End form-group -->
+                            <div class="clearfix"></div>
+
+
                             <div class="col-md-12 form-group no-padd">
                                 <label>Notification Title<span style="color: red;">*</span></label>
                                 <input type="text" name="notification_title" id="notification_title" autocomplete="off" class="form-control" value="">
@@ -134,6 +141,19 @@
     $(".s_meun").removeClass("active");
     $(".onscreen_notification").addClass("active");
     $(".user_notification").addClass("active");
+
+    $(document).ready(function() {
+        $('#schedule_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            changeMonth: true,
+            changeYear: true,
+            mindate:0,
+        });
+    });
+
+
 </script>
 
 <script type="text/javascript">

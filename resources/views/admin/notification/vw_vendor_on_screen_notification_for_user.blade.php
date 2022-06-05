@@ -51,8 +51,8 @@
 @section('js_section')
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
-    $(".orders_management_active").addClass("active");
-    $(".ongoing_order_menu").addClass("active");
+    $(".onscreen_notification").addClass("active");
+    $(".user_notification").addClass("active");
 </script>
 
 
@@ -78,6 +78,8 @@
   function reload_table() {
       table.DataTable().ajax.reload(null, false);
    }
+
+
 
  </script>
 @endsection

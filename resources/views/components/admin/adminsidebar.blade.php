@@ -222,8 +222,8 @@
 				</li>
 
 				<!-- SERVICES -->
-				<li class="s_meun services_active">
-					<a href="<//?= site_url('admin/services') ?>"><i class="fa fa-wrench"></i> <span>Global Settings</span></a>
+				<li class="s_meun global_setting_section">
+					<a href="{{ route('view.global.setting')}}"><i class="fa fa-wrench"></i> <span>Global Settings</span></a>
 				</li>
 
 				

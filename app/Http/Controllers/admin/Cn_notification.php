@@ -82,7 +82,7 @@ class Cn_notification extends Controller
                 $formdata['from_time'] = $check_slot_data->from_time;
                 $formdata['to_time'] = $check_slot_data->to_time;
             }
-
+            $formdata['schedule_date']   = date('Y-m-d',strtotime($formdata['schedule_date']));
             $formdata['created_at']   = date('Y-m-d h:i:s');
             $formdata['created_by']   = session()->get('*$%&%*id**$%#');
             $formdata['created_ip_address']   = $request->ip();
@@ -139,8 +139,7 @@ class Cn_notification extends Controller
                     $date_with_format = date('d M Y',strtotime($data->created_at));
                     return $date_with_format;
                 })
-
-                
+   
                 ->rawColumns(['date'])
                 ->rawColumns(['action-js']) // if you want to add two action coloumn than you need to add two coloumn add in array like this
                 ->make(true);
@@ -152,7 +151,9 @@ class Cn_notification extends Controller
     {
         if ($request->ajax()) {
             
-            $data = Md_mangao_admin_send_notification::where('status', '<>', 3)->select('notification_title', 'id', 'created_at','message','from_time','to_time','slot_name','notification_image_name')->where('user_type',$user_type)->where('created_user_type','=','vendor')->get();
+            $data = Md_mangao_admin_send_notification::where('status', '<>', 3)->select('notification_title', 'id', 'created_at','message','from_time','to_time','slot_name','notification_image_name','approved_status')->where('user_type',$user_type)->where('created_user_type','=','vendor')->get();
+
+            // return $data;
             $data->redirect_url = '';
             if($user_type == 'user'){
                $data->redirect_url = Crypt::encryptString('user-notification'); 
@@ -161,9 +162,19 @@ class Cn_notification extends Controller
             if($user_type == 'delivery_boy'){ $data->redirect_url = Crypt::encryptString("delivery.boy.notification");}
             
             return Datatables::of($data)
+
+                
+
                 ->addIndexColumn()
                 ->addColumn('action-js', function($data){
-                    $btn = ' <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger">Not Approved</a> ';
+
+                    $btn = '<button data-id="' . Crypt::encryptString($data->id) . '" class="btn ';
+                        if($data->approved_status == 'not_approved'){ $btn .=  'btn-danger ';} 
+                        if($data->approved_status == 'approved'){ $btn .=  'btn-primary ';}
+                    $btn .=' approvel-btn-status "> ';
+                         if($data->approved_status == 'not_approved'){  $btn .=  "Not Approved"; }
+                         if($data->approved_status == 'approved') { $btn .=  "Approved";} 
+                    $btn .= '</button> ';
                     return $btn;
                 })
                 
@@ -172,7 +183,7 @@ class Cn_notification extends Controller
                     return $date_with_format;
                 })
                 ->addColumn('notification_image_name', function($data){
-                    return $admin_img = "<img src=".$data['notification_image_name']." height='80px' width='80px' />";
+                    return $admin_img = "<img src='".$data->notification_image_name."' height='80px' width='80px' />";
                 })
 
                 
@@ -181,6 +192,67 @@ class Cn_notification extends Controller
                 ->make(true);
         }
     }
+
+
+    public function check_on_screen_notification_slot_and_approved(Request $request)
+    {
+         if ($request->ajax()) {
+            try {
+                $notification_id =   Crypt::decryptString($request->notification_id);
+               
+                $notification_data = Md_mangao_admin_send_notification::where('id', $notification_id)
+                    ->where('status', '<>', 3)->where('created_user_type','=','vendor')
+                    ->select('schedule_date','from_time','to_time','slot_id','approved_status')
+                    ->get();
+
+                if($notification_data->isEmpty()){
+                    $message = [
+                        'message' =>  'This notification Not Found.',
+                        'status' => false,
+                    ];
+                    return response()->json($message);
+                }else{
+                    if($notification_data[0]->approved_status == 'not_approved'){
+                         $notification_check_already_approved = Md_mangao_admin_send_notification::where('id', $notification_data[0]->schedule_date)
+                        ->where('status', '<>', 3)->where('created_user_type','=','vendor')->where('from_time',$notification_data[0]->from_time)
+                        ->where('to_time',$notification_data[0]->to_time)->where('slot_id',$notification_data[0]->slot_id)
+                        ->where('approved_status','approved')
+                        ->get();
+
+                        if($notification_check_already_approved->isNotEmpty()){
+                            $message = [
+                                'message' =>  'This slot is already booked.',
+                                'status' => false,
+                            ];
+                        return response()->json($message);
+                        }else{
+                            $update_bool = Md_mangao_admin_send_notification::where('id', $notification_id)->update(['approved_status' => 'approved']);
+                            $message = [
+                                'message' =>  "Notification approved successfully.",
+                                'status' => true,
+                            ];
+                            return response()->json($message);
+                        }     
+                    }else{
+                        $update_bool = Md_mangao_admin_send_notification::where('id', $notification_id)->update(['approved_status' => 'not_approved']);
+                            $message = [
+                                'message' =>  "Notification Not approved.",
+                                'status' => true,
+                            ];
+                            return response()->json($message);
+                    }
+                   
+                }
+            } catch (DecryptException $e) {
+                return redirect('view-vendor-on-screen-notification-add-for-user')->with('error', 'something went wrong');
+            }
+        }else{
+            exit('No direct script access allowed');
+        }
+
+    }
+
+    
 
 
 }
