@@ -136,7 +136,8 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 
 	Route::get('notification-datatable-added-by-vendor/{user_type}', [App\Http\Controllers\admin\Cn_notification::class, 'get_data_table_of_notification_added_vendor']);
 	
-	
+	Route::post('check-on-screen-notification-slot-and-approved', [App\Http\Controllers\admin\Cn_notification::class, 'check_on_screen_notification_slot_and_approved']);
+
 	
 	// Reward, Redeem Point all routes
 
@@ -147,30 +148,22 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 
 	// Slot Master
 	Route::get('banner-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_banner_slot'])->name('banner.slot.master');
-
 	Route::get('vendor-promotion-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_vendor_promotion_slot'])->name('vendor.promotion.slot.master');
 	Route::get('notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_notification_slot'])->name('notification.slot.master');
-
 	Route::post('time-slot-master-action', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_action'])->name('time.slot.master.action');
-
 	Route::get('time-slot-master-getdatatable/{slot_type}', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_time_slot_master_get_data_table'])->name('master.time.slot.getDataTable');
-
 	Route::get('on-screen-notification-slot-master', [App\Http\Controllers\admin\Cn_sloat_master::class,'fun_on_screen_notification_slot'])->name('on.screen.notification.slot.master');
 	
 
 	// Bell Icon Notification
-
-	
-	
 	Route::get('user-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_user_bell_icon_notification'])->name('user.bell.notification');
 	Route::get('vendor-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_vendor_bell_icon_notification'])->name('vendor.bell.notification');
 	Route::get('delivery-boy-bell-push-notification', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'fun_delivery_boy_bell_icon_notification'])->name('delivery.boy.bell.notification');
-
 	Route::post('bell-icon-notification-action', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'bell_icon_notification_action']);
-
 	Route::get('bell-icon-notification-datatable/{user_type}', [App\Http\Controllers\admin\Cn_bell_icon_notification::class,'bell_icon_notification_data_table']);
 
-
+	// Global Setting of Mangao Mart
+	Route::get('view-global-setting', [App\Http\Controllers\admin\Cn_global_setting::class,'fun_view_global_setting'])->name('view.global.setting');
 	
 
 });
