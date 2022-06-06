@@ -14,6 +14,7 @@ use App\Models\Md_city_admin_vendor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Config;
 
 class Cn_home_controller extends Cn_base_controller
@@ -25,36 +26,33 @@ class Cn_home_controller extends Cn_base_controller
      */
     public function fun_home_page(Request $request)
     {
-        if(!empty($this->verifiedAppToken($request)) && $this->verifiedAppToken($request) != false){
-            // $validator = Validator::make($request->all(), [
-            //     'limit' => 'required|numeric',
-            // ]);
-       
-            // if($validator->fails()){
-            //     return $this->sendError('Validation Error.', $validator->errors(),'401');       
-            // } 
-            $banner_list= Md_mangao_banner::where('status','=', 1)->select('banner_image','id','banner_name')-> orderBy('banner_position', 'asc')->get();
-            $category_list= Md_mangao_categories::where('status','=', 1)->select('category_ui','category_name','category_image','id','category_ui')-> orderBy('category_position', 'asc');
-            if(!empty($request->limit) && !empty($request->limit)){
-                $category_list = $category_list->offset($request->offset * $request->limit)->limit($request->limit);
-            }
-            $category_list =  $category_list->get();
-            $grocery_id = $this->get_main_category_id('Grocery');
-            $restaurant_id = $this->get_main_category_id('Restaurant');
-            $pharmacy_id = $this->get_main_category_id('Pharmacy');
-            $response = [
-                'banner_list' => $banner_list,
-                'category_list' => $category_list,
-                'grocery_vendor_list' => $this->get_vendor_list($grocery_id,'Grocery'),
-                'restaurant_vendor_list' => $this->get_vendor_list($restaurant_id,'Restaurant'),
-                'pharmacy_vendor_list' => $this->get_vendor_list($pharmacy_id,'Pharmacy'),
-                'other_venddor_list' => $this->get_other_all_vendor_list($grocery_id,$restaurant_id,$pharmacy_id),
-                
-            ];
-             return $this->sendResponse($response, 'Data List Found successfully.');
-        }else{
-            return $this->sendError('User Not Authenticate.', "",'403');
+        // $validator = Validator::make($request->all(), [
+        //     'limit' => 'required|numeric',
+        // ]);
+    
+        // if($validator->fails()){
+        //     return $this->sendError('Validation Error.', $validator->errors(),'401');       
+        // } 
+        $banner_list= Md_mangao_banner::where('status','=', 1)->select('banner_image','id','banner_name')-> orderBy('banner_position', 'asc')->get();
+        $category_list= Md_mangao_categories::where('status','=', 1)->select('category_ui','category_name','category_image','id','category_ui')-> orderBy('category_position', 'asc');
+        if(!empty($request->limit) && !empty($request->limit)){
+            $category_list = $category_list->offset($request->offset * $request->limit)->limit($request->limit);
         }
+        $category_list =  $category_list->get();
+        $grocery_id = $this->get_main_category_id('Grocery');
+        $restaurant_id = $this->get_main_category_id('Restaurant');
+        $pharmacy_id = $this->get_main_category_id('Pharmacy');
+        $response = [
+            'banner_list' => $banner_list,
+            'category_list' => $category_list,
+            'grocery_vendor_list' => $this->get_vendor_list($grocery_id,'Grocery'),
+            'restaurant_vendor_list' => $this->get_vendor_list($restaurant_id,'Restaurant'),
+            'pharmacy_vendor_list' => $this->get_vendor_list($pharmacy_id,'Pharmacy'),
+            'other_venddor_list' => $this->get_other_all_vendor_list($grocery_id,$restaurant_id,$pharmacy_id),
+            
+        ];
+            return $this->sendResponse($response, 'Data List Found successfully.');
+        
     }
 
 
@@ -85,28 +83,24 @@ class Cn_home_controller extends Cn_base_controller
      */
     public function fun_get_vendor_listing(Request $request)
     {
-        if(!empty($this->verifiedAppToken($request)) && $this->verifiedAppToken($request) != false){
-            $validator = Validator::make($request->all(), [
-                'category_id' => 'required|numeric',
-                'category_type' => 'required|numeric',
-            ]);
-       
-            // if($validator->fails()){
-            //     return $this->sendError('Validation Error.', $validator->errors(),'401');       
-            // } 
-            $banner_list= Md_mangao_banner::where('status','=', 1)->select('banner_image','id','banner_name')-> orderBy('banner_position', 'asc')->get();
-            $vendor_list= $this->get_vendor_list($request->category_id,$request->category_type);
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|numeric',
+            'category_type' => 'required|numeric',
+        ]);
+    
+        // if($validator->fails()){
+        //     return $this->sendError('Validation Error.', $validator->errors(),'401');       
+        // } 
+        $banner_list= Md_mangao_banner::where('status','=', 1)->select('banner_image','id','banner_name')-> orderBy('banner_position', 'asc')->get();
+        $vendor_list= $this->get_vendor_list($request->category_id,$request->category_type);
+        
+        $response = [
+            'banner_list' => $banner_list,
+            'vendor_list' => $vendor_list,
             
-            $response = [
-                'banner_list' => $banner_list,
-                'vendor_list' => $vendor_list,
-                
-                
-            ];
-             return $this->sendResponse($response, 'Data List Found successfully.');
-        }else{
-            return $this->sendError('User Not Authenticate.', "",'403');
-        }
+            
+        ];
+            return $this->sendResponse($response, 'Data List Found successfully.');
     }
 
     

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Config;
 
 class Cn_login extends Cn_base_controller
@@ -35,6 +36,7 @@ class Cn_login extends Cn_base_controller
         if (!empty($user)) {  
             $user = User::where('mobile_no',$request->mobile_no)->update([
                 'otp' => $otp,
+                'password'=>Hash::make('admin@123'),
                 'created_ip_address' => $request->ip_address,
                 ]);
             $res = $user;
@@ -42,6 +44,7 @@ class Cn_login extends Cn_base_controller
             $user = User::create([
                 'mobile_no' => $request->mobile_no,
                 'otp' => $otp,
+                'password'=>Hash::make('admin@123'),
                 'created_ip_address' => $request->ip_address,
                 ]);
             $res = $user->id;
@@ -69,12 +72,23 @@ class Cn_login extends Cn_base_controller
             'ip_address' => 'required|ip',
             'otp' => 'required|numeric|digits:4',
         ]);
+
+        
    
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors(),'401');       
         } 
-        $user= User::where('mobile_no','=', $request->mobile_no)->where('otp','=', $request->otp)->where('status','=', 1)->select('first_name','id','last_name','email','mobile_no','otp_verified_status')->first();
-        if (!empty($user)) {  
+
+        $user_form_data=array(
+            'mobile_no'=> $request->mobile_no,
+            'otp'=> $request->otp,
+            'password'=>'admin@123',
+            'status'=> 1
+        );
+        // $user= User::where('mobile_no','=', $request->mobile_no)->where('otp','=', $request->otp)->where('status','=', 1)->select('first_name','id','last_name','email','mobile_no','otp_verified_status')->first();
+        // if (!empty($user)) { 
+        if (Auth::attempt($user_form_data)) {
+            $user = Auth::user();
             $token = $user->createToken('my-app-token')->plainTextToken;
 
             User::where('mobile_no',$request->mobile_no)->update([
@@ -84,7 +98,7 @@ class Cn_login extends Cn_base_controller
                 ]);
             $response = [
                 'token' => $token,
-                'user_id' => Crypt::encryptString($user),
+                // 'user_id' => Crypt::encryptString($user),
             ];
             return $this->sendResponse($response, 'User OTP verification successfully.');
         }else{
@@ -134,36 +148,33 @@ class Cn_login extends Cn_base_controller
      */
     public function fun_user_registration(Request $request)
     {
-        if(!empty($this->verifiedAppToken($request)) && $this->verifiedAppToken($request) != false){
-            $validator = Validator::make($request->all(), [
-                'first_name' => 'required|alpha_num',
-                'last_name' => 'required|alpha_num',
-                'email' => 'required|email',
-                'ip_address' => 'required|ip',
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|alpha_num',
+            'last_name' => 'required|alpha_num',
+            'email' => 'required|email',
+            'ip_address' => 'required|ip',
+        ]);
+    
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(),'401');       
+        } 
+        $user_id = Auth::user()->id;
+        $user = User::where('id',$user_id)->update([
+                'first_name' => $request->first_name,
+                'last_name' =>  $request->last_name,
+                'email' => $request->email,
+                'updated_by' => $user_id,
+                'created_by' => $user_id,
+                'updated_ip_address' => $request->ip_address,
             ]);
-       
-            if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors(),'401');       
-            } 
-        $user = User::where('id',$this->verifiedAppToken($request))->update([
-                    'first_name' => $request->first_name,
-                    'last_name' =>  $request->last_name,
-                    'email' => $request->email,
-                    'updated_by' => $this->verifiedAppToken($request),
-                    'created_by' => $this->verifiedAppToken($request),
-                    'updated_ip_address' => $request->ip_address,
-                ]);
-            if (!empty($user)) {  
-                return $this->sendResponse('','User registration successfull.');
-            }else{
-               return $this->sendError('User not registered', "",'500');
-            }
+        if (!empty($user)) {  
+            return $this->sendResponse('','User registration successfull.');
         }else{
-            return $this->sendError('User Not Authenticate.', "",'403');
+            return $this->sendError('User not registered', "",'500');
         }
+       
     }
 
-    
 
 
 }

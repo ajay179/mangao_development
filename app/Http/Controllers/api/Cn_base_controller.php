@@ -21,8 +21,6 @@ class Cn_base_controller extends Controller
             'message' => $message,
             'data'  => $result,
         ];
-
-
         return response()->json($response, 200);
     }
 
@@ -39,30 +37,28 @@ class Cn_base_controller extends Controller
             'message' => $error,
         ];
 
-
         if(!empty($errorMessages)){
             $response['data'] = $errorMessages;
         }
 
-
         return response()->json($response, $code);
     }
 
-    public function verifiedAppToken(Request $request)
-    {   
-        $access_token = $request->header('Access-Token');
-        if(!empty($access_token)){
-            $user_data = Crypt::decryptString($access_token);
-            $user_data = json_decode($user_data, true);
-            $user= User::where('id','=', $user_data['id'])->where('otp_verified_status','=', 'verified')->where('status','=', 1)->first();
-            if(!empty($user)){
-                return $user_data['id'];
-            }else{
-                return false;
-            }
-        }else{
-            return false;
+    // public function verifiedAppToken(Request $request)
+    // {   
+    //     $access_token = $request->header('Access-Token');
+    //     if(!empty($access_token)){
+    //         $user_data = Crypt::decryptString($access_token);
+    //         $user_data = json_decode($user_data, true);
+    //         $user= User::where('id','=', $user_data['id'])->where('otp_verified_status','=', 'verified')->where('status','=', 1)->first();
+    //         if(!empty($user)){
+    //             return $user_data['id'];
+    //         }else{
+    //             return false;
+    //         }
+    //     }else{
+    //         return false;
             
-        }
-    }
+    //     }
+    // }
 }
