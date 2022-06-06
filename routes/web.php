@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/create_storate_link', function () {
+    Artisan::call('storage:link');
+});
 
 Auth::routes();
 
