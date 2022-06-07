@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MangaoStaticUseradmin;
 use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Facades\Storage;
 
 class Cn_global_setting extends Controller
 {
@@ -14,57 +17,58 @@ class Cn_global_setting extends Controller
      */
     public function fun_view_global_setting()
     {
+        $admin_data = DB::table('mangao_static_useradmin')->where('id','=',session()->get('*$%&%*id**$%#'))->select('name','email','mobile_number','id','admin_image')->where('user_type','=','super_admin')->first();
+
+        $url =Storage::url($admin_data->admin_image);
+            $admin_data->show_admin_img = url($url);
         $class_name ='cn_global_setting';
-        return view('admin/global_setting/vw_add_global_setting',compact('class_name'));
+        return view('admin/global_setting/vw_add_global_setting',compact('class_name','admin_data'));
     }
 
     /**
-     * This are used to add city .
+     * This function are used to update admin data.
      *
      * @return \Illuminate\Http\Response
      */
-    public function cityAction(Request $request)
+    public function fun_admin_data_action(Request $request)
     {
        $this->validate($request, [
-            'city_name' => 'required'
+            'email' => 'required|email'
         ]);
         
         // function used for add single array 
-        $Md_city_master = new Md_city_master;
+        $MangaoStaticUseradmin = new MangaoStaticUseradmin;
 
-        $check_duplicate_city = Md_city_master::where('city_name', $request->city_name);
-        if(!empty($request->txtpkey)){
-          $check_duplicate_city =  $check_duplicate_city->where('id','<>', Crypt::decryptString($request->txtpkey));
-        }
-        $check_duplicate_city = $check_duplicate_city->where('status','<>', 3)->get();
-        if($check_duplicate_city->isNotEmpty()){
-            return redirect()->route('city')->with('error', 'This city already added.');
+        $admin_id = session()->get('*$%&%*id**$%#');
+        $check_duplicate_email = MangaoStaticUseradmin::where('email', $request->email)->where('id','<>', $admin_id)->where('status','<>', 3)->get();
+        if($check_duplicate_email->isNotEmpty()){
+            return redirect()->route('view.global.setting')->with('error', 'This email already added.');
         }else{
-            if(!empty($request->txtpkey)){
-                $msg = "updated";
-                $txtpkey =  Crypt::decryptString($request->txtpkey);
-                $data = Md_city_master::where('id', $txtpkey)->get();
-                if($data->isEmpty()){
-                    return redirect()->route('city')->with('message', 'something went wrong');
-                }else{
-                    $Md_city_master = Md_city_master::find($txtpkey);
-                    $Md_city_master->updated_at   = date('Y-m-d h:i:s');
-                    $Md_city_master->updated_by   = session()->get('*$%&%*id**$%#');
-                    $Md_city_master->updated_ip_address   = $request->ip();
-                }
+
+            $filename = '';
+            if($request->has('admin_image')){
+                $filename = time().'_'.$request->file('admin_image')->getClientOriginalName();
+                $filePath = $request->file('admin_image')->storeAs('public/admin_image',$filename);  
             }else{
-                $msg = "Added";
-                $Md_city_master->created_at   = date('Y-m-d h:i:s');
-                $Md_city_master->created_by   = session()->get('*$%&%*id**$%#');
-                $Md_city_master->created_ip_address   = $request->ip();
-            }           
-            $Md_city_master->city_name   = $request->city_name;
-            $Md_city_master->save();
+              
+                $filePath = $request->admin_image_old;
+            }
 
-            // this statement are used for getting the last inserted id
-           //  $Md_city_master->id;   
-
-            return redirect()->route('city')->with('message', 'City '. $msg);
+            if(!empty($admin_id)){
+                $msg = "updated";
+                $MangaoStaticUseradmin = MangaoStaticUseradmin::find($admin_id);
+                $MangaoStaticUseradmin->updated_at   = date('Y-m-d h:i:s');
+                $MangaoStaticUseradmin->updated_by   = $admin_id;
+                $MangaoStaticUseradmin->updated_ip_address   = $request->ip();
+                $MangaoStaticUseradmin->email = $request->email;
+                $MangaoStaticUseradmin->name = $request->name;
+                $MangaoStaticUseradmin->mobile_number = $request->mobile_number;
+                $MangaoStaticUseradmin->admin_image = $filePath;
+                $MangaoStaticUseradmin->save();
+                return redirect()->route('view.global.setting')->with('message', 'Admin data '. $msg);
+            }else{
+                return redirect()->route('view.global.setting')->with('message', 'Something went wrong');
+            }
         }
     }
 }

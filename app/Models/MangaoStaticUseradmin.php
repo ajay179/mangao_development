@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Auth\User as Authenticatable;
 
 class MangaoStaticUseradmin extends User
@@ -17,4 +18,10 @@ class MangaoStaticUseradmin extends User
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getAdminImageAttribute($value)
+    {
+        // return  !empty($value)? Storage::url($value) :  url('/')."/commonarea/dist/img/default.png";
+        return $url = !empty($value) ? url('/'). Storage::url($value) : '';
+    }
 }

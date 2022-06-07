@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 use DB;
 use Config;
 
-class cn_wallet_offers extends Controller
+class Cn_wallet_offers extends Controller
 {
     /**
 	 * Display a listing of the resource.

@@ -21,6 +21,7 @@ class MangaoAdmin extends Migration
             $table->string('mobile_number');
             $table->ipAddress('ip_address')->nullable();
             $table->string('platform_model')->nullable();
+            $table->text('admin_image')->nullable();
             $table->enum('status', ['1', '2','3'])->default('1')->comment('1-active 2-inactive 3-delete');
             $table->integer('created_by')->nullable();
             $table->dateTime('created_at')->useCurrent();

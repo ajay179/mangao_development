@@ -16,12 +16,12 @@
 
                 <div class="box box-primary">
                     <div class="box-body light-green-body mob_min_height_auto">
-                          <form method="POST" id="categoryForm" enctype='multipart/form-data' action="{{ route('category.action') }}">
+                          <form method="POST" id="categoryForm" enctype='multipart/form-data' action="{{ route('admin.data.action') }}">
                           @csrf
                         
                             <div class="col-md-12 form-group no-padd">
                                 <label>Admin Name<span style="color: red;">*</span></label>
-                                <input type="text" name="category_name" id="category_name" autocomplete="off" class="form-control" value="{{!empty($category_data[0]->category_name) ? $category_data[0]->category_name : ''}}">
+                                <input type="text" name="name" id="name" autocomplete="off" class="form-control" value="{{!empty($admin_data->name) ? $admin_data->name : ''}}">
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
@@ -29,15 +29,15 @@
 
                             <div class="col-md-12 form-group no-padd">
                                 <label>Admin Email<span style="color: red;">*</span></label>
-                                <input type="text" name="category_position" id="category_position" autocomplete="off" class="form-control" value="{{!empty($category_data[0]->category_position) ? $category_data[0]->category_position : ''}}">
+                                <input type="text" name="email" id="email" autocomplete="off" class="form-control" value="{{!empty($admin_data->email) ? $admin_data->email : ''}}">
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
                             <div class="clearfix"></div>
 
                             <div class="col-md-12 form-group no-padd">
-                                <label>Admin Email<span style="color: red;">*</span></label>
-                                <input type="text" name="category_position" id="category_position" autocomplete="off" class="form-control" value="{{!empty($category_data[0]->category_position) ? $category_data[0]->category_position : ''}}">
+                                <label>messages.Admin phone<span style="color: red;">*</span></label>
+                                <input type="text" name="mobile_number" id="mobile_number" autocomplete="off" class="form-control" value="{{!empty($admin_data->mobile_number) ? $admin_data->mobile_number : ''}}">
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
@@ -48,14 +48,13 @@
                               <div class="upload_img">
                                   <div class="upload_photo">
                                       <label>Admin Image <span style="color: red;">*</span></label>
-                                      <input type="file" name="category_image" accept=".jpg,.jpeg,.bmp,.png," id="category_image" onchange="change_img('category_image','fileold')" class="form-control">
-                                      <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($category_data[0]->category_image) ? $category_data[0]->category_image : '' }}" class="form-control">
+                                      <input type="file" name="admin_image" accept=".jpg,.jpeg,.bmp,.png," id="admin_image" onchange="change_img('admin_image','fileold')" class="form-control">
+                                      <input type="hidden" name="admin_image_old" id="admin_image_old" value="{{ !empty($admin_data->admin_image) ? $admin_data->admin_image : '' }}" class="form-control">
                                   </div>
-                                  <input type="hidden" class="form-control">
-
+                                
                                   <div class="img-preview">
                                       <div class="photo p-relative">
-                                          <img id="fileold" name="fileold" src="{{ !empty($category_data[0]->show_category_img) ? $category_data[0]->show_category_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
+                                          <img id="fileold" name="fileold" src="{{ !empty($admin_data->show_admin_img) ? $admin_data->show_admin_img : asset('commonarea/dist/img/default.png') }} " alt="image" style="height:100px; width:140px; margin-top:5px;object-fit: cover;" class="profile-img4">
                                       </div>
                                   </div>
                                 </div>
@@ -65,7 +64,7 @@
 
                             <div class="col-md-12 form-group no-padd">
                                 <label>password<span style="color: red;">*</span></label>
-                                <input type="text" name="category_position" id="category_position" autocomplete="off" class="form-control" value="{{!empty($category_data[0]->category_position) ? $category_data[0]->category_position : ''}}">
+                                <input type="text" name="password" placeholder="enter new password if you want to change the previous password" id="password" autocomplete="off" class="form-control" value="">
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
@@ -74,7 +73,7 @@
 
                             <div class="col-md-12 form-group no-padd">
                                 <label>Retype Password<span style="color: red;">*</span></label>
-                                <input type="text" name="category_position" id="category_position" autocomplete="off" class="form-control" value="{{!empty($category_data[0]->category_position) ? $category_data[0]->category_position : ''}}">
+                                <input type="text" name="re_type_password " placeholder="Retype Password" id="re_type_password" autocomplete="off" class="form-control" value="">
                                
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->

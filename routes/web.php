@@ -82,11 +82,11 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 
 
 	// wallet offer plan routes
-	Route::get('offer-plan-page', [App\Http\Controllers\admin\cn_wallet_offers::class,'offer_plan_page'])->name('offer.plan.page');
-	Route::get('admin/add-offerplan', [App\Http\Controllers\admin\cn_wallet_offers::class,'add_offerplan'])->name('add.offerplan');
-	Route::post('offerplan-action', [App\Http\Controllers\admin\cn_wallet_offers::class,'offerPlanAction'])->name('offerplan.action');
-	Route::get('offerplan-datatable', [App\Http\Controllers\admin\cn_wallet_offers::class, 'get_data_table_of_offer_plan'])->name('offerplan.getDataTable');
-	Route::get('edit-offer-plan/{id}', [App\Http\Controllers\admin\cn_wallet_offers::class, 'fun_edit_offer_plan']);
+	Route::get('offer-plan-page', [App\Http\Controllers\admin\Cn_wallet_offers::class,'offer_plan_page'])->name('offer.plan.page');
+	Route::get('admin/add-offerplan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'add_offerplan'])->name('add.offerplan');
+	Route::post('offerplan-action', [App\Http\Controllers\admin\Cn_wallet_offers::class,'offerPlanAction'])->name('offerplan.action');
+	Route::get('offerplan-datatable', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'get_data_table_of_offer_plan'])->name('offerplan.getDataTable');
+	Route::get('edit-offer-plan/{id}', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'fun_edit_offer_plan']);
 
 
 
@@ -167,6 +167,7 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 
 	// Global Setting of Mangao Mart
 	Route::get('view-global-setting', [App\Http\Controllers\admin\Cn_global_setting::class,'fun_view_global_setting'])->name('view.global.setting');
+	Route::post('admin-data-action', [App\Http\Controllers\admin\Cn_global_setting::class,'fun_admin_data_action'])->name('admin.data.action');
 	
 
 });
