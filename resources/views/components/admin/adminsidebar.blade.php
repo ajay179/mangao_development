@@ -101,7 +101,7 @@
 
 				<li class="treeview s_meun slot_master_section ">
 					<a href="#">
-						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Slot Master</span>
+						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Slot/Promotion Management</span>
 						<span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 						</span>

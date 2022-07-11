@@ -98,7 +98,8 @@ class Cn_login extends Cn_base_controller
                 ]);
             $response = [
                 'token' => $token,
-                // 'user_id' => Crypt::encryptString($user),
+                 // 'user_id' => Crypt::encryptString($user),
+                'user_data' => $user,
             ];
             return $this->sendResponse($response, 'User OTP verification successfully.');
         }else{
@@ -167,8 +168,9 @@ class Cn_login extends Cn_base_controller
                 'created_by' => $user_id,
                 'updated_ip_address' => $request->ip_address,
             ]);
+        $user_data = User::where('id',$user_id)->get();
         if (!empty($user)) {  
-            return $this->sendResponse('','User registration successfull.');
+            return $this->sendResponse($user_data,'User registration successfull.');
         }else{
             return $this->sendError('User not registered', "",'500');
         }

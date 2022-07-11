@@ -10,10 +10,7 @@
             <div class="col-md-12  no-pad">
                 <section class="content-header">
                     <h1>City Admin Withdrwal Request
-                        <div class="pull-right">
-                            <a href="<//?= site_url('admin/cms/associations') ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New 
-                                </button></a>
-                        </div>
+                       
                     </h1>
                 </section>
                 <section class="content" style="padding:5px 0px;">
