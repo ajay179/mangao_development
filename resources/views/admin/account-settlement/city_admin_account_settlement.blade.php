@@ -20,13 +20,16 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <!-- <th width="15%">City</th> -->
-                                        <th width="15%">City Name</th>
-                                        <th width="15%">Mobile No.</th>
-                                        <th width="15%">Email</th>
-                                        <th width="20%">Image </th>
-                                        <th width="20%">Date </th>
+                                        <th width="10%">City Name</th>
+                                        <th width="10%">Name</th>
+                                        <th width="10%">Mobile No.</th>
+                                        <th width="10%">Email</th>
+                                        <th width="10%">Requested Withdrawal Amount </th>
+                                        <th width="10%">Final Amount Transferred</th>
+                                        <th width="10%">Total Amount Settled </th>
+                                        <th width="10%">Unsettled Amount (Wallet Amount) </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
+                                        <th width="10%">Status </th>
                                     </tr>
                                 </thead>
                                 <tbody>

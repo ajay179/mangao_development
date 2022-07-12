@@ -65,7 +65,7 @@
 
 
 
-				<li class="treeview s_meun orders_management_active ">
+				<!-- <li class="treeview s_meun orders_management_active ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Orders</span>
 						<span class="pull-right-container">
@@ -79,6 +79,13 @@
 						<li class="s_meun returned_order_menu"><a href="{{ url('/returned-orders') }}"><i class="fa fa-picture-o"></i> <span>Returned Orders</span></a></li>
 						
 					</ul>
+				</li> -->
+
+
+				<li class="s_meun orders_management_active">
+					<a href="{{ url('/ongoing-orders') }}">
+						<i class="fa fa-dashboard"></i> <span>Orders Master</span>
+					</a>
 				</li>
 
 

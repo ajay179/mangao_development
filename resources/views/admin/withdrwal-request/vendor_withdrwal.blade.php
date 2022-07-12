@@ -20,12 +20,18 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <th width="15%">Vendor  Name</th>
-                                        <th width="15%">Mobile No.</th>
-                                        <th width="15%">Email</th>
-                                        <th width="20%">Image </th>
-                                        <th width="20%">Date </th>
+                                        <th width="10%">City Name</th>
+                                        <th width="10%">Store Name</th>
+                                        <th width="10%">Name</th>
+                                        <th width="10%">Mobile No.</th>
+                                        <th width="10%">Email</th>
+                                        <th width="8%">Withdrawal Amount </th>
+                                        <th width="8%">Convenience Fees(3% + GST) </th>
+                                        <th width="8%">Final Amount To be transfer </th>
+                                        <th width="10%">Date/Time </th>
+                                        <th width="15%">Remark from user </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
+                                        <th width="10%">Status </th>
                                     </tr>
                                 </thead>
                                 <tbody>
