@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-md-6 d-inline-flex p-2" id="form_reedem">
                 <section class="content-header">
-                    <h1>Update Redeem points </h1>
+                    <h1>Redeem Mangao Coins </h1>
                 </section>
 
                 <div class="box box-primary">
@@ -28,11 +28,11 @@
                           <form method="POST" id="reedemForm" action="{{ route('cms.points.action') }}">
                           @csrf
                             <div class="col-md-12 form-group no-padd">
-                                <input type="text" name="points_type" id="points_type" autocomplete="off" class="form-control" value="Redeem Points" readonly>
+                                <input type="text" name="points_type" id="points_type" autocomplete="off" class="form-control" value="Redeem Mangao Coins to Wallet Amount" readonly>
                             </div>
                         
                             <div class="col-md-12 form-group no-padd">
-                                <label>Redeem Points<span style="color: red;">*</span></label>
+                                <label>Redeem Mangao Coins<span style="color: red;">*</span></label>
                                 <input type="text" name="reward_points" id="reward_points" autocomplete="off" class="form-control" value="{{!empty($redeem_point_details[0]->reward_points) ? $redeem_point_details[0]->reward_points : ''}}">
                                 <input type="hidden" name="txtpkey" id="txtpkey" value="{{!empty($redeem_point_details[0]->id) ? $redeem_point_details[0]->id : ''}}">
                                 <div class="text-danger" id="name_error"></div>

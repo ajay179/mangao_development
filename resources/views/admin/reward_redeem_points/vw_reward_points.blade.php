@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-6 d-inline-flex p-2" id="form_reedem">
                 <section class="content-header">
-                    <h1>Update Reward Points </h1>
+                    <h1>Update Mangao Coins </h1>
                 </section>
 
                 <div class="box box-primary">
@@ -28,18 +28,18 @@
                           @csrf
 
                             <div class="col-md-12 form-group no-padd">
-                                <input type="text" name="points_type" id="points_type" autocomplete="off" class="form-control" value="Reward Points" readonly>
+                                <input type="text" name="points_type" id="points_type" autocomplete="off" class="form-control" value="Get Guaranteed Mangao Coins on Every purchase" readonly>
                             </div>
                         
                             <div class="col-md-12 form-group no-padd">
-                                <label>Reward Points<span style="color: red;">*</span></label>
+                                <label>Cart Value<span style="color: red;">*</span></label>
                                 <input type="text" name="reward_points" id="reward_points" autocomplete="off" class="form-control" value="{{!empty($redeem_point_details[0]->reward_points) ? $redeem_point_details[0]->reward_points : ''}}">
                                 <input type="hidden" name="txtpkey" id="txtpkey" value="{{!empty($redeem_point_details[0]->id) ? $redeem_point_details[0]->id : ''}}">
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
 
                             <div class="col-md-12 form-group no-padd">
-                                <label>Value<span style="color: red;">*</span></label>
+                                <label>Mangao Coins<span style="color: red;">*</span></label>
                                 <input type="text" name="value" id="value" autocomplete="off" class="form-control" value="{{!empty($redeem_point_details[0]->value) ? $redeem_point_details[0]->value : ''}}">
                                 <input type="hidden" name="txtpkey" id="txtpkey" value="{{!empty($redeem_point_details[0]->id) ? $redeem_point_details[0]->id : ''}}">
                                 <div class="text-danger" id="name_error"></div>

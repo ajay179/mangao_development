@@ -123,7 +123,7 @@
 				</li>
 
 
-				<li class="treeview s_meun content_management_active ">
+				<li class="treeview s_meun user_management_master ">
 					<a href="#">
 						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>User Management</span>
 						<span class="pull-right-container">
@@ -131,9 +131,9 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="s_meun cms_banner_active"><a href="<//?= site_url('admin/cms/banner') ?>"><i class="fa fa-picture-o"></i> <span>All Users</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>All Vendors</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>All Delivery Boy</span></a></li>
+						<li class="s_meun all_user_active"><a href="{{ route('view.all.user.list')}}"><i class="fa fa-picture-o"></i> <span>All Users</span></a></li>
+						<li class="s_meun all_vendor_active"><a href="{{ route('view.all.vendor.list')}}"><i class="fa fa-picture-o"></i> <span>All Vendors</span></a></li>
+						<li class="s_meun all_delivery_boy_active"><a href="{{ route('view.all.delivery.boy.list')}}"><i class="fa fa-picture-o"></i> <span>All Delivery Boy</span></a></li>
 						
 					</ul>
 				</li>

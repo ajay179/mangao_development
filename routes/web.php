@@ -119,6 +119,13 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('vendor-withdrwal', [App\Http\Controllers\admin\Cn_withdrwal_request::class,'vendor_withdrwal_page'])->name('vendor.withdrwal');
 	Route::get('delivery-boy-withdrwal', [App\Http\Controllers\admin\Cn_withdrwal_request::class,'delivery_boy_withdrwal_page'])->name('delivery.boy.withdrwal');
 
+
+	// Withdrwal Request routes
+	Route::get('view-all-user', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_user'])->name('view.all.user.list');
+	Route::get('view-all-vendor', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_vendor'])->name('view.all.vendor.list');
+	Route::get('view-all-delivery-boy', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_delivery_boy'])->name('view.all.delivery.boy.list');
+
+
 	// Account Settlement routes
 	Route::get('city-admin-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'index'])->name('city.admin.account.settlement');
 	Route::get('vendor-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'vendor_account_settlement_page'])->name('vendor.account.settlement');
