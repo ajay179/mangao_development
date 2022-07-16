@@ -20,7 +20,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="s_meun ca_city_withdrwal_active"><a href="{{ url('/cityadmin/city-admin-withdrwal') }}"><i class="fa fa-picture-o"></i> <span>City Admin Withdrawal Request</span></a></li>
+                        
                         <li class="s_meun ca_vendor_withdrwal_active"><a href="{{ url('/cityadmin/vendor-withdrwal') }}"><i class="fa fa-picture-o"></i> <span>Vendor Withdrawal Request</span></a></li>
                         <li class="s_meun ca_delivery_withdrwal_active"><a href="{{ url('/cityadmin/delivery-boy-withdrwal') }}"><i class="fa fa-picture-o"></i> <span>Delivery Boy Withdrawal Request</span></a></li>
                         
@@ -38,7 +38,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="s_meun ca_city_account_settlement_active"><a href="{{ route('cityadmin.city.admin.account.settlement') }}"><i class="fa fa-picture-o"></i> <span>City Admin Account Settlement</span></a></li>
+                       
                         <li class="s_meun ca_vendor_account_settlement_active"><a href="{{route('cityadmin.vendor.account.settlement') }}"><i class="fa fa-picture-o"></i> <span>Vendor Account Settlement</span></a></li>
                         <li class="s_meun ca_delivery_account_settlement_active"><a href="{{ route('cityadmin.delivery.boy.account.settlement') }}"><i class="fa fa-picture-o"></i> <span>Delivery Boy Account Settlement</span></a></li>
                         

@@ -49,12 +49,11 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 
 // Withdrwal Request routes
 
-	Route::get('cityadmin/city-admin-withdrwal', [App\Http\Controllers\city_admin\Cn_city_admin_withdrwal_request::class,'index'])->name('cityadmin.city.admin.withdrwal');
 	Route::get('cityadmin/vendor-withdrwal', [App\Http\Controllers\city_admin\Cn_city_admin_withdrwal_request::class,'fun_vendor_withdrwal_page'])->name('cityadmin.vendor.withdrwal');
 	Route::get('cityadmin/delivery-boy-withdrwal', [App\Http\Controllers\city_admin\Cn_city_admin_withdrwal_request::class,'fun_delivery_boy_withdrwal_page'])->name('cityadmin.delivery.boy.withdrwal');
 
 	// Account Settlement routes
-	Route::get('cityadmin/city-admin-account-settlement', [App\Http\Controllers\city_admin\Cn_city_admin_account_settlement::class,'index'])->name('cityadmin.city.admin.account.settlement');
+	
 	Route::get('cityadmin/vendor-account-settlement', [App\Http\Controllers\city_admin\Cn_city_admin_account_settlement::class,'vendor_account_settlement_page'])->name('cityadmin.vendor.account.settlement');
 	Route::get('cityadmin/delivery-boy-account-settlement', [App\Http\Controllers\city_admin\Cn_city_admin_account_settlement::class,'delivery_boy_account_settlement_page'])->name('cityadmin.delivery.boy.account.settlement');
 
