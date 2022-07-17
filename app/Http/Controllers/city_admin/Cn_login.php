@@ -47,7 +47,8 @@ class Cn_login extends Controller
             $request->session()->put([
                 '&%*$$cityadminusername$%#' => Auth::guard('city_admin')->user()->admin_name,
                 '&%*id$%#' => Auth::guard('city_admin')->user()->id,
-                '$%#city_admin_email&%*' => Auth::guard('city_admin')->user()->admin_email
+                '$%#city_admin_email&%*' => Auth::guard('city_admin')->user()->admin_email,
+                '$%#city_id&%*' => Auth::guard('city_admin')->user()->city_id
             ]);
 
             if ($request->session()->has('&%*$$cityadminusername$%#', '&%*id$%#', '$%#city_admin_email&%*')) {

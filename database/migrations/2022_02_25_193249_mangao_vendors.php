@@ -16,6 +16,7 @@ class MangaoVendors extends Migration
         Schema::create('mangao_vendors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id');
+             $table->foreignId('vendor_city_id')->constrained('mangao_city_masters','id');
             $table->string('store_name');
             $table->string('store_owner_name');
             $table->decimal('vendor_latitude', 5, 2);

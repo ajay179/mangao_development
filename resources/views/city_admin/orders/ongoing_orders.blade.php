@@ -9,7 +9,39 @@
         <div class="row no-margin">
             <div class="col-md-12  no-pad">
                 <section class="content-header">
-                    <h1>Ongoing Orders </h1>
+                    <h1>Ongoing Orders
+
+                    <div class="pull-right">
+                            <a href="">
+                                <button type="button" class="btn btn-primary jobCard_view" id="pending" style="padding-right: 7px;">
+                                    <i class="fa fa-clock-o"></i> <span class="pr-5">Pending</span> <span class="lk-cnts"> 0</span>
+                                </button>
+                            </a>
+                            <a href="">
+                                <button type="button" class="btn btn-default jobCardInprocess_view" id="pending" style="padding-right: 7px;">
+                                    <i class="fa fa-signal"></i> <span class="pr-5">Ongoing</span> <span class="lk-cnts">0</span>
+                                </button>
+                            </a>
+                             <a href="">
+                                <button type="button" class="btn btn-default jobCrdCompleted_view" id="pending" style="padding-right: 7px;">
+                                    <i class="fa fa-check"></i> <span class="pr-5">Completed</span> <span class="lk-cnts">0 </span>
+                                </button>
+                            </a>
+                            <a href="">
+                                <button type="button" class="btn btn-default jobCardHardnessTesting_view" id="pending" style="padding-right: 7px;">
+                                    <i class="fa fa-clock-o"></i> <span class="pr-5">Scheduled</span> <span class="lk-cnts"> 0</span>
+                                </button>
+                            </a>
+                            
+                            <a href="">
+                                <button type="button" class="btn btn-default jobCardHardnessTesting_view" id="pending" style="padding-right: 7px;">
+                                    <i class="fa fa-clock-o"></i> <span class="pr-5">Cancelled & Returned</span> <span class="lk-cnts"> 0</span>
+                                </button>
+                            </a>
+
+                        </div>
+
+                    </h1>
                 </section>
                 <section class="content" style="padding:5px 0px;">
                     <div class="box box-primary">
@@ -18,13 +50,19 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <!-- <th width="15%">City</th> -->
-                                        <th width="15%">Name</th>
-                                        <th width="15%">Mobile No.</th>
-                                        <th width="15%">Email</th>
-                                        <th width="20%">Image </th>
-                                        <th width="20%">Date </th>
-                                        <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
+                                        <th width="10%">Order ID</th>
+                                        <th width="10%">City Name</th>
+                                        <th width="10%">Store Name</th>
+                                        <th width="10%">Store Type</th>
+                                        <th width="10%">User Name</th>
+                                        <th width="10%">Email</th>
+                                        <th width="10%">Mobile No.</th>
+                                        <th width="10%">Email</th>
+                                        <th width="10%">Order Amount</th>
+                                        <th width="10%">No. of items</th>
+                                        <th width="10%">Date/Time </th>
+                                        <th width="10%">Order Type</th>
+                                        <th width="10%">Order Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>

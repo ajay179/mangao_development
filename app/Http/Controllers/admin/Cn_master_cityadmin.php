@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 use DB;
 use Config;
+use Auth;
 
 class Cn_master_cityadmin extends Controller
 {
@@ -113,7 +115,7 @@ class Cn_master_cityadmin extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/edit-cityadmin") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="City admin" table="' . Crypt::encryptString('mangao_city_admins') . '" redirect-url="' . Crypt::encryptString('admin-dashboard') . '" title="Delete" ><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="'. url("/cityadmin-secret-login") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-primary btn-xs"><i class="fa fa-arrow-right"></i> login</a> <a href="'. url("/edit-cityadmin") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="City admin" table="' . Crypt::encryptString('mangao_city_admins') . '" redirect-url="' . Crypt::encryptString('admin-dashboard') . '" title="Delete" ><i class="fa fa-trash"></i></a>';
                     return $btn;
                 })
                 ->addColumn('date', function($data){
@@ -154,6 +156,46 @@ class Cn_master_cityadmin extends Controller
            
             if(!empty($cityadmin_data[0])){
                 return view('admin/city-cityadmin/add_city_admin_master',compact('class_name','cityadmin_data','city_data'));
+            }else{
+               return redirect('city-admin')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('city-admin')->with('error', 'something went wrong');
+        }
+
+    }
+
+
+
+    public function fun_city_admin_secret_login($encrypt_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($encrypt_id);
+            $cityadmin_data = DB::table(Config::get('constants.MANGAO_CITY_ADMIN').'  as MCA')->where('MCA.status', '<>', 3)->where('MCA.id', '=', $id)->select('MCA.city_id', 'MCA.id','MCA.admin_name','MCA.admin_email','MCA.encrypt_password')->get();
+            
+            if(!empty($cityadmin_data[0])){
+                $admin_data = array(
+                    'admin_email' =>$cityadmin_data[0]->admin_email,
+                    'password' =>  Crypt::decryptString($cityadmin_data[0]->encrypt_password)
+                );  
+                if(Auth::guard('city_admin')->attempt($admin_data)){
+                    // Session::flush();
+                    
+                    Session::put('&%*$$cityadminusername$%#', Auth::guard('city_admin')->user()->admin_name);
+                    Session::put('&%*id$%#', Auth::guard('city_admin')->user()->id);
+                    Session::put('$%#city_admin_email&%*', Auth::guard('city_admin')->user()->admin_email);
+                    Session::put('$%#city_id&%*', Auth::guard('city_admin')->user()->city_id);
+
+                    if (Session::has('&%*$$cityadminusername$%#', '&%*id$%#', '$%#city_admin_email&%*')) {
+                        return redirect('city-admin-dashbord')->with('message', 'Successfully Logged In!');
+                    } else {
+                        return redirect('city-admin')->with('error', 'You have entered wrong credentials.. Please try again...');
+                    }
+                
+                }else{
+                    return redirect('city-admin')->with('error', 'You have entered wrong password.. Please try again...');
+                }
             }else{
                return redirect('city-admin')->with('error', 'something went wrong');
             }

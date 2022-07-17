@@ -29,7 +29,7 @@ return [
     'MANGAO_VENDOR_PRODUCT'=> 'mangao_vendor_product',
     'MANGAO_VENDOR_RESTAURANT_PRODUCT'=>'mangao_vendor_restaurant_product',
     'MANGAO_VENDOR_PHARMACY_PRODUCT' => 'mangao_vendor_pharmacy_product',
-    
+    'MANGAO_CITY_ADMIN_VENDOR' => 'mangao_vendors',    
 ];
 
 ?>

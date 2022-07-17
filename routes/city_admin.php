@@ -59,9 +59,9 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 
 	// Order routes
 	Route::get('cityadmin/ongoing-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'index'])->name('cityadmin.ongoing.orders');
-	Route::get('cityadmin/completed-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_completed_orders'])->name('cityadmin.completed.orders');
-	Route::get('cityadmin/cancelled-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_cancelled_orders'])->name('cityadmin.cancelled.orders');
-	Route::get('cityadmin/returned-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_returned_orders'])->name('cityadmin.returned.orders');
+	// Route::get('cityadmin/completed-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_completed_orders'])->name('cityadmin.completed.orders');
+	// Route::get('cityadmin/cancelled-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_cancelled_orders'])->name('cityadmin.cancelled.orders');
+	// Route::get('cityadmin/returned-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_returned_orders'])->name('cityadmin.returned.orders');
 
 
 });

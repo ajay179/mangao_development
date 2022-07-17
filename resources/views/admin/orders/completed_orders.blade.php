@@ -18,13 +18,19 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <!-- <th width="15%">City</th> -->
-                                        <th width="15%">Name</th>
-                                        <th width="15%">Mobile No.</th>
-                                        <th width="15%">Email</th>
-                                        <th width="20%">Image </th>
-                                        <th width="20%">Date </th>
-                                        <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
+                                        <th width="10%">Order ID</th>
+                                        <th width="10%">City Name</th>
+                                        <th width="10%">Store Name</th>
+                                        <th width="10%">Store Type</th>
+                                        <th width="10%">User Name</th>
+                                        <th width="10%">Email</th>
+                                        <th width="10%">Mobile No.</th>
+                                        <th width="10%">Email</th>
+                                        <th width="10%">Order Amount</th>
+                                        <th width="10%">No. of items</th>
+                                        <th width="10%">Date/Time </th>
+                                        <th width="10%">Order Type</th>
+                                        <th width="10%">Order Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>

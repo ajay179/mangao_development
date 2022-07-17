@@ -23,13 +23,18 @@
                             <table id="example" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th width="7%">Sr No.</th>
-                                        <!-- <th width="15%">City</th> -->
+                                       <th width="7%">Sr No.</th>
+                                        <th width="15%">City Name</th>
                                         <th width="15%">Name</th>
-                                        <th width="15%">Mobile No.</th>
-                                        <th width="15%">Email</th>
-                                        <th width="20%">Image </th>
-                                        <th width="20%">Date </th>
+                                        <th width="10%">Email </th>
+                                        <th width="13%">Phone No. </th>
+                                        <th width="13%">Wallet Amount</th>
+                                        <th width="13%">Total Amount Settled</th>
+                                        <th width="13%">Tip Earned</th>
+                                        <th width="13%">Total Orders (Completed)</th>
+                                        <th width="13%">Ratings</th>
+                                        <th width="10%">Status </th>
+                                        <th width="10%">Date </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -59,6 +64,7 @@
     $(".ct_meun").removeClass("active");
     $(".ct_user_management_active").addClass("active");
     $(".ct_delivery_boy_list_active").addClass("active");
+    $('#example').dataTable({});
 </script>
 <!-- <script type="text/javascript">
   // $(function () {

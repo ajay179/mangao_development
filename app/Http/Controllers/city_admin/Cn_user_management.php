@@ -70,13 +70,13 @@ class Cn_user_management extends Controller
                 }else{
                     $Md_city_admin_vendor = Md_city_admin_vendor::find($txtpkey);
                     $Md_city_admin_vendor->updated_at   = date('Y-m-d h:i:s');
-                    $Md_city_admin_vendor->updated_by   = session()->get('*$%&%*id**$%#');
+                    $Md_city_admin_vendor->updated_by   = session()->get('&&*id$##');
                     $Md_city_admin_vendor->updated_ip_address   = $request->ip();
                 }
             }else{
                 $msg = "Added";
                 $Md_city_admin_vendor->created_at   = date('Y-m-d h:i:s');
-                $Md_city_admin_vendor->created_by   = session()->get('*$%&%*id**$%#');
+                $Md_city_admin_vendor->created_by   = session()->get('&&*id$##');
                 $Md_city_admin_vendor->created_ip_address   = $request->ip();
             }      
 
@@ -90,6 +90,7 @@ class Cn_user_management extends Controller
             
             $category_type = Md_mangao_categories::where('id','=',$request->category_id)->select('category_ui')->get();
 
+            $Md_city_admin_vendor->vendor_city_id   = session()->get('$%#city_id&%*');
             $Md_city_admin_vendor->category_id   = $request->category_id;
             $Md_city_admin_vendor->store_name   = $request->store_name;
             $Md_city_admin_vendor->store_owner_name   = $request->store_owner_name;
@@ -117,7 +118,14 @@ class Cn_user_management extends Controller
     public function get_data_table_of_city_admin_vendor(Request $request)
     {
         if ($request->ajax()) {
-            $data = Md_city_admin_vendor::latest()->select('store_name','store_owner_name','vendor_address','vendor_email','vendor_mobile_no','id','created_at')->where('status', '<>', 3)->get();
+            $data = DB::table(Config::get('constants.MANGAO_CITY_ADMIN_VENDOR').'  as MCAV')
+                ->join(Config::get('constants.MANGAO_CITY_MASTER').' as MCM', 'MCM.id', 'MCAV.vendor_cITY_id')
+                ->where('MCAV.status', '<>', 3)
+                ->where('MCM.status', '<>', 3)
+                ->where('MCAV.created_by', '=', session()->get('&%*id$%#'))
+                ->select('MCAV.store_name','MCAV.store_owner_name','MCAV.vendor_address','MCAV.vendor_email','MCAV.vendor_mobile_no','MCAV.id','MCAV.created_at','MCM.city_name')
+                ->get();
+
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -126,10 +134,14 @@ class Cn_user_management extends Controller
                     return $btn;
                 })
                 ->addColumn('date', function($data){
-                    $date_with_format = date('d M Y',strtotime($data['created_at']));
+                    $date_with_format = date('d M Y',strtotime($data->created_at));
                     return $date_with_format;
                 })
-               
+                ->addColumn('wallet_amount', '0')
+                ->addColumn('total_amount_settled', '0')
+                ->addColumn('total_order_completed', '0')
+                ->addColumn('rating', '0')
+                ->addColumn('status', 'pending')
                 ->rawColumns(['date'])
                 ->rawColumns(['action'])
                 ->make(true);

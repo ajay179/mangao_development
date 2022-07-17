@@ -49,6 +49,8 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	// Soft delete common funtion
 	Route::post('soft-delete', [App\Http\Controllers\Cn_common_controller::class, 'delete_common_function']);
 
+	
+
 	// City Routes
 	Route::get('city', [App\Http\Controllers\admin\Cn_master_city::class,'index'])->name('city');
 	Route::post('city-action', [App\Http\Controllers\admin\Cn_master_city::class,'cityAction'])->name('city.action');
@@ -63,6 +65,8 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::post('cityadmin-action', [App\Http\Controllers\admin\Cn_master_cityadmin::class,'cityAdminAction'])->name('cityadmin.action');
 	Route::get('cityadmin-datatable', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'get_data_table_of_city_admin'])->name('cityadmin.getDataTable');
 	Route::get('edit-cityadmin/{id}', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'fun_edit_city_admin']);
+
+	Route::get('cityadmin-secret-login/{id}', [App\Http\Controllers\admin\Cn_master_cityadmin::class, 'fun_city_admin_secret_login']);
 	
 	// Categories Routes
 	Route::get('categories', [App\Http\Controllers\admin\Cn_categories::class,'index'])->name('main.categories');

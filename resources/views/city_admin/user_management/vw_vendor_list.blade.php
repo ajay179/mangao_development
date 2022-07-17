@@ -24,13 +24,17 @@
                                 <thead>
                                     <tr>
                                         <th width="7%">Sr No.</th>
-                                        <!-- <th width="15%">City</th> -->
+                                        <th width="15%">City Name</th>
                                         <th width="15%">Store name</th>
                                         <th width="15%">Store owner name</th>
-                                        <th width="15%">Address </th>
-                                        <th width="20%">Email </th>
-                                        <th width="20%">Phone No. </th>
-                                        <th width="20%">Date </th>
+                                        <th width="10%">Email </th>
+                                        <th width="13%">Phone No. </th>
+                                        <th width="13%">Wallet Amount</th>
+                                        <th width="13%">Total Amount Settled</th>
+                                        <th width="13%">Total Orders (Completed)</th>
+                                        <th width="13%">Ratings</th>
+                                        <th width="10%">Status </th>
+                                        <th width="10%">Date </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -69,11 +73,16 @@
         ajax: "{{ route('cityadminvendor.getDataTable') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'city_name', name: 'city_name'},
             {data: 'store_name', name: 'store_name'},
             {data: 'store_owner_name', name: 'store_owner_name'},
-            {data: 'vendor_address', name: 'vendor_address'},
             {data: 'vendor_email', name: 'vendor_email'},
             {data: 'vendor_mobile_no', name: 'vendor_mobile_no'},
+            {data: 'wallet_amount', name: 'wallet_amount'},
+            {data: 'total_amount_settled', name: 'total_amount_settled'},
+            {data: 'total_order_completed', name: 'total_order_completed'},
+            {data: 'rating', name: 'rating'},
+            {data: 'status', name: 'status'},
             {data: 'date', name: 'date'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
