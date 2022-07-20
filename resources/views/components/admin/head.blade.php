@@ -79,6 +79,7 @@
   <script src="{{asset('commonarea/dist/js/multiple-select.js')}}"></script> -->
   <script src="{{asset('commonarea/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
   <script src="{{asset('js/jquery.validate.min.js')}}"></script>
+  <!-- <script src="{{asset('js/js_common_validations.js')}}"></script> -->
   
   <style>
     .error {

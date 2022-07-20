@@ -12,7 +12,7 @@ class Md_mangao_time_slot_master extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'from_time', 'to_time', 'slot_category','slot_name','created_by','category_type','created_ip_address','updated_by','updated_ip_address'
+        'from_time', 'to_time', 'slot_category','slot_name','created_by','category_type','created_ip_address','updated_by','updated_ip_address','max_no_of_banners','banners_1_amount','banners_2_amount','banners_3_amount','banners_4_amount','banners_5_amount',
     ];
 
     protected $hidden = [

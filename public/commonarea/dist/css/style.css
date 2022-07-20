@@ -192,6 +192,11 @@ th {
   font-size: 16px !important;
   font-weight: 600;
 }
+
+.content-filter{
+  min-height: 100px !important;
+}
+
 .content {
   padding: 10px;
 }

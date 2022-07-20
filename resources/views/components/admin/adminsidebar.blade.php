@@ -84,7 +84,7 @@
 
 				<li class="s_meun orders_management_active">
 					<a href="{{ url('/ongoing-orders') }}">
-						<i class="fa fa-dashboard"></i> <span>Orders Master</span>
+						<i class="fa fa-dashboard"></i> <span>Orders</span>
 					</a>
 				</li>
 

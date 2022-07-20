@@ -1,6 +1,12 @@
 @extends('admin.layout.layout')
 @section('content')
+<style type="text/css">
+    
+.priority-amount-div{
+  display: none;
+}
 
+</style>
 
  <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -47,7 +53,69 @@
                                     <div class="text-danger" id="name_error"></div>
                                 </div> <!-- End form-group -->
                             </div>
-                                 <div class="clearfix"></div>
+                            <div class="clearfix"></div>
+
+
+                            <div class="col-md-12 form-group no-padd">
+                                <label>Max. No. Of Banner<span style="color: red;">*</span></label>
+                                
+                                 <select class="form-control" name="max_no_of_banners" id="max_no_of_banners">
+                                        <option value="">Select Number</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                       
+                                    </select>
+                                <div class="text-danger" id="name_error"></div>
+                            </div> <!-- End form-group -->
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-12 form-group priority-amount-div no-padd" id="banner_prize_div_1">
+                                <label>1 Banner priority amount<span style="color: red;">*</span></label>
+                                <input type="text" name="banners_1_amount" id="banners_1_amount" autocomplete="off" class="form-control"  oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" value="{{!empty($category_data[0]->banners_1_amount) ? $category_data[0]->banners_1_amount : ''}}">
+                            
+                                <div class="text-danger" id="banners_1_amount_error"></div>
+                            </div> <!-- End form-group -->
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-12 form-group priority-amount-div no-padd" id="banner_prize_div_2">
+                                <label>2 Banner priority amount<span style="color: red;">*</span></label>
+                                <input type="text" name="banners_2_amount" id="banners_2_amount" autocomplete="off"  oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" class="form-control" value="{{!empty($category_data[0]->banners_2_amount) ? $category_data[0]->banners_2_amount : ''}}">
+                            
+                                <div class="text-danger" id="banners_2_amount_error"></div>
+                            </div> <!-- End form-group -->
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-12 form-group priority-amount-div no-padd" id="banner_prize_div_3">
+                                <label>3 Banner priority amount<span style="color: red;">*</span></label>
+                                <input type="text" name="banners_3_amount" id="banners_3_amount" autocomplete="off" class="form-control"  oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" value="{{!empty($category_data[0]->banners_3_amount) ? $category_data[0]->banners_3_amount : ''}}">
+                            
+                                <div class="text-danger" id="banners_3_amount_error"></div>
+                            </div> <!-- End form-group -->
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-12 form-group priority-amount-div no-padd" id="banner_prize_div_4">
+                                <label>4 Banner priority amount<span style="color: red;">*</span></label>
+                                <input type="text" name="banners_4_amount" id="banners_4_amount" autocomplete="off" class="form-control"  oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" value="{{!empty($category_data[0]->banners_4_amount) ? $category_data[0]->banners_4_amount : ''}}">
+                            
+                                <div class="text-danger" id="banners_1_amount_error"></div>
+                            </div> <!-- End form-group -->
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-12 form-group priority-amount-div no-padd" id="banner_prize_div_5">
+                                <label>5 Banner priority amount<span style="color: red;">*</span></label>
+                                <input type="text" name="banners_5_amount" id="banners_5_amount" autocomplete="off" class="form-control"  oninput="this.value=this.value.replace(/[^0-9 ]/g,'');" value="{{!empty($category_data[0]->banners_5_amount) ? $category_data[0]->banners_5_amount : ''}}">
+                            
+                                <div class="text-danger" id="banners_5_amount_error"></div>
+                            </div> <!-- End form-group -->
+
+                            <div class="clearfix"></div>
+
                             <div class="col-md-12 form-group no-padd">
                                 <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-success save_btn submit sub-btn" data-id="submit"><i class="fa fa-plus"></i> Add</button>
                                 <a href=""> <button type="button" class="btn btn-danger cancel-btn"><i class="fa fa-times-circle"></i> Cancel</button></a>

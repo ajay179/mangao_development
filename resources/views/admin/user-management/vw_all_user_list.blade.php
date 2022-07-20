@@ -13,6 +13,35 @@
                        
                     </h1>
                 </section>
+
+                <section class="content  content-filter" style="padding:5px 0px;">
+                  <div class="col-md-12 no-pad">
+                        <div class="box box-primary">
+                            <div class="box-body no-height">
+
+                                <div class="col-md-3 form-group no-pad-left mob-no-pad">
+                                    <label>City<span style="color: red;">*</span></label>
+                                    
+                                    <select class="form-control multiple-select" name="customer_name" id="customer_name">
+                                        <option value="">Select City</option>
+                                        <option value="">Mumbai</option>
+                                        <option value="">Pune</option>
+                                        <option value="">Indore</option>
+                                       
+                                    </select>
+                                    
+                                    <div class="text-danger" id=""></div>
+                                </div>
+                                
+                               
+                                <div class="col-sm-3 form-group mt-26 no-pad-left mob-no-pad">
+                                    <button type="submit" class="btn btn-primary filter-btn"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                                    <a href="" class="btn btn-danger filter-btn"><i class="fa fa-times" aria-hidden="true"></i> Clear</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <section class="content" style="padding:5px 0px;">
                     <div class="box box-primary">
                         <div class="box-body light-green-body">
