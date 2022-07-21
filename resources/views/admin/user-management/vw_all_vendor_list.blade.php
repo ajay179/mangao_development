@@ -51,16 +51,16 @@
                                         <th width="7%">Sr No.</th>
                                         <th width="10%">City Name</th>
                                         <th width="10%">Store Name</th>
-                                        <th width="10%">Name</th>
-                                        <th width="10%">Mobile No.</th>
+                                        <th width="10%">Name</th>                                     
                                         <th width="10%">Email</th>
+                                         <th width="10%">Mobile No.</th>
                                         <th width="8%">Wallet Amount </th>
                                         <th width="10%">Total Amount Settled</th>
-                                        <th width="8%">Total Orders (Completed) </th>
-                                        <th width="8%">Create Date/Time </th>
+                                        <th width="8%">Total Orders (Completed) </th>                                      
                                         <th width="8%">Ratings</th>
-                                        <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                         <th width="10%">Status </th>
+                                        <th width="8%">Create Date/Time </th>
+                                        <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,8 +90,34 @@
     $(".user_management_master").addClass("active");
     $(".all_vendor_active").addClass("active");
 </script>
-<script type="text/javascript">
-  $("#example").dataTable();
+
+ <script type="text/javascript">
+  // $(function () {
+    let table = $('#example').dataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('vendor.list.for.superadmin.getDataTable') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'city_name', name: 'city_name'},
+            {data: 'store_name', name: 'store_name'},
+            {data: 'store_owner_name', name: 'store_owner_name'},
+            {data: 'vendor_email', name: 'vendor_email'},
+            {data: 'vendor_mobile_no', name: 'vendor_mobile_no'},
+            {data: 'wallet_amount', name: 'wallet_amount'},
+            {data: 'total_amount_settled', name: 'total_amount_settled'},
+            {data: 'total_order_completed', name: 'total_order_completed'},
+            {data: 'rating', name: 'rating'},
+            {data: 'status', name: 'status'},
+            {data: 'date', name: 'date'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  // });
+
+  function reload_table() {
+      table.DataTable().ajax.reload(null, false);
+   }
 
  </script>
 @endsection

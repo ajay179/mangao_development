@@ -183,7 +183,7 @@
 					<ul class="treeview-menu">
 						<li class="s_meun reward_point"><a href="{{route('reward.points')}}"><i class="fa fa-picture-o"></i> <span>Reward Points</span></a></li>
 						<li class="s_meun redeem_point"><a href="{{ route('redeem.points')}}"><i class="fa fa-picture-o"></i> <span>Redeem Points</span></a></li>
-						<li class="s_meun cms_association_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>App Refer</span></a></li>
+						<li class="s_meun cms_association_active"><a href="{{ route('app.refer')}}"><i class="fa fa-picture-o"></i> <span>App Refer</span></a></li>
 						
 					</ul>
 				</li>
@@ -201,25 +201,16 @@
 						<li class="s_meun term_condition_active"><a href="{{route('terms.condition')}}"><i class="fa fa-picture-o"></i> <span>Term & Conditions</span></a></li>
 						<li class="s_meun about_us_active"><a href="{{route('about.us')}}"><i class="fa fa-picture-o"></i> <span>About Us</span></a></li>
 						<li class="s_meun privacy_active"><a href="{{route('privacy.policy')}}"><i class="fa fa-picture-o"></i> <span>Privacy Policy</span></a></li>
-						<li class="s_meun return_policy_active"><a href="<//?= site_url('admin/cms/associations') ?>"><i class="fa fa-picture-o"></i> <span>Return & Cancellation Policy</span></a></li>
+						<li class="s_meun return_policy_active"><a href="{{route('return.cancellation.policy')}}"><i class="fa fa-picture-o"></i> <span>Return & Cancellation Policy</span></a></li>
 						
 					</ul>
 				</li>
 
 
-
-				<li class="treeview s_meun wallet_normal_admin ">
-					<a href="#">
-						<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Wallet / Offers</span>
-						<span class="pull-right-container">
-							<i class="fa fa-angle-left pull-right"></i>
-						</span>
+				<li class="s_meun wallet_normal_admin">
+					<a href="{{route('offer.plan.page')}}">
+						<i class="fa fa-newspaper-o"></i> <span>Wallet/Offers </span>
 					</a>
-					<ul class="treeview-menu">
-						<li class="s_meun normal_plan_menu"><a href="{{route('wallet.normal.plan')}}"><i class="fa fa-picture-o"></i> <span>Normal Plan</span></a></li>
-						<li class="s_meun offer_plan_active"><a href="{{route('offer.plan.page')}}"><i class="fa fa-picture-o"></i> <span>Offer Plan</span></a></li>
-						
-					</ul>
 				</li>
 
 

@@ -99,14 +99,14 @@ class Cn_aboutus_term_condition extends Controller
     }
 
 
-      /**
+    /**
      * This are used to add Terms Condition Action .
      *
      * @return \Illuminate\Http\Response
      */
 
 
-        public function privacy_policy_page()
+    public function privacy_policy_page()
     {
 
         $class_name ='Cn_aboutus_term_condition';
@@ -120,15 +120,24 @@ class Cn_aboutus_term_condition extends Controller
        
     }
 
-      /**
-     * This are used to add Privacy Policy Action .
+    /**
+     * This are used to add return cancellation policy Action .
      *
      * @return \Illuminate\Http\Response
      */
+    public function return_cancellation_policy_page()
+    {
 
-   
+        $class_name ='Cn_aboutus_term_condition';
+            $policy_data = DB::table(Config::get('constants.MANGAO_ABOUT_TERMS_MASTERS').'  as MATM')->where('MATM.status', '<>', 3)->where('MATM.title_name', '=', 'Return Cancellation Policy')->select('MATM.content_details', 'MATM.id')->get();
+            if(!empty($policy_data[0]->id)){
+                $policy_data[0]->id = Crypt::encryptString($policy_data[0]->id);
+            }
 
-   
+
+        return view('admin/content/return_cancellation_policy',compact('class_name','policy_data'));
+       
+    }
 
 
 

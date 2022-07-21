@@ -23,12 +23,14 @@
                                 <thead>
                                     <tr>
                                         <th width="10%">Sr No.</th>
-                                        <th width="15%">Offer Amount</th>
-                                        <th width="15%">Discount Type</th>
-                                        <th width="15%">Discount Value</th>
-                                        <th width="15%">Maximum offer</th>
+                                        <th width="10%">Offer Amount</th>
+                                        <th width="10%">Offer Priority</th>
+                                        <th width="8%">Is Offer</th>
+                                        <th width="10%">Discount Type</th>
+                                        <th width="10%">Amount/Percentage</th>
+                                        <th width="15%">Total Calculate Amount</th>
                                         <th width="15%">Offer Image</th>
-                                        <th width="7%">Date </th>
+                                        <th width="10%">Date </th>
                                         <th width="10%" style="min-width: 80px;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -71,9 +73,11 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'offer_amount', name: 'offer_amount'},
+            {data: 'offer_priority', name: 'offer_priority'},
+            {data: 'isoffer_status', name: 'isoffer_status'},
             {data: 'discount_value_type', name: 'discount_value_type'},
             {data: 'discount_amount', name: 'discount_amount'},
-            {data: 'maximum_offer', name: 'maximum_offer'},
+            {data: 'total_calculate_offer_amount', name: 'total_calculate_offer_amount'},
             {data: 'offer_plan_image', name: 'offer_plan_image'},
             {data: 'date', name: 'date'},
             {data: 'action-js', name: 'action-js', orderable: false, searchable: false},

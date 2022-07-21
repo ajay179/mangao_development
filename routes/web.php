@@ -76,15 +76,6 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::post('check_category_position', [App\Http\Controllers\admin\Cn_categories::class, 'fun_check_category_position']);
 	
 
-
-	// Wallet Normal Routes
-	Route::get('normal-plan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'index'])->name('wallet.normal.plan');
-	Route::post('normal-plan-action', [App\Http\Controllers\admin\Cn_wallet_offers::class,'normalPlanAction'])->name('wallet.normal.plan.action');
-	Route::get('normal-plan-datatable', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'get_data_table_of_normal_plan'])->name('normal.plan.getDataTable');
-	Route::post('check-duplicate-plan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'check_duplicate_plan_amount']);
-	Route::get('edit-normal-plan/{id}', [App\Http\Controllers\admin\Cn_wallet_offers::class, 'fun_edit_wallet_normal_plan']);
-
-
 	// wallet offer plan routes
 	Route::get('offer-plan-page', [App\Http\Controllers\admin\Cn_wallet_offers::class,'offer_plan_page'])->name('offer.plan.page');
 	Route::get('admin/add-offerplan', [App\Http\Controllers\admin\Cn_wallet_offers::class,'add_offerplan'])->name('add.offerplan');
@@ -116,6 +107,9 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('terms-condition', [App\Http\Controllers\admin\Cn_aboutus_term_condition::class,'terms_condition_page'])->name('terms.condition');
 	Route::get('privacy_policy', [App\Http\Controllers\admin\Cn_aboutus_term_condition::class,'privacy_policy_page'])->name('privacy.policy');
 
+	Route::get('return-cancellation-policy', [App\Http\Controllers\admin\Cn_aboutus_term_condition::class,'return_cancellation_policy_page'])->name('return.cancellation.policy');
+	
+
 	Route::post('cms-action', [App\Http\Controllers\admin\Cn_aboutus_term_condition::class,'cmsAction'])->name('cms.action');
 
 	// Withdrwal Request routes
@@ -124,11 +118,14 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('delivery-boy-withdrwal', [App\Http\Controllers\admin\Cn_withdrwal_request::class,'delivery_boy_withdrwal_page'])->name('delivery.boy.withdrwal');
 
 
-	// Withdrwal Request routes
+	// User management routes
 	Route::get('view-all-user', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_user'])->name('view.all.user.list');
 	Route::get('view-all-vendor', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_vendor'])->name('view.all.vendor.list');
 	Route::get('view-all-delivery-boy', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_delivery_boy'])->name('view.all.delivery.boy.list');
+	
 
+	Route::get('get-vendor-DataTable', [App\Http\Controllers\admin\Cn_user_mangement::class,'get_vendor_listing_for_superadmin'])->name('vendor.list.for.superadmin.getDataTable');
+	
 
 	// Account Settlement routes
 	Route::get('city-admin-account-settlement', [App\Http\Controllers\admin\Cn_account_settlement::class,'index'])->name('city.admin.account.settlement');

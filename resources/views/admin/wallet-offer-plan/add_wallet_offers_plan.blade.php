@@ -47,7 +47,7 @@
                             <div class="col-md-8 no-pad-left">
                                 <div class="row">
 
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>Amount<span style="color: red;">*</span></label>
                                         <input type="text" class="form-control" id="offer_amount" name="offer_amount" autocomplete="off" value="{{ !empty($offer_plan_data[0]->offer_amount) ? $offer_plan_data[0]->offer_amount : ''}}">
 
@@ -55,27 +55,46 @@
                                         
                                     </div>
 
-                                    <div  class="col-md-6 form- ">
-                                        <label>Discount Value<span style="color: red;">*</span></label>
-                                        @php $discount_value_type =  !empty($offer_plan_data[0]->discount_value_type) ? $offer_plan_data[0]->discount_value_type :  '' @endphp
-                                         <select class="form-control" name="discount_value_type" id="discount_value_type">
+
+                                     <div class="col-md-6 form-group">
+                                        <label>Priority<span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="offer_priority" name="offer_priority" autocomplete="off" value="{{ !empty($offer_plan_data[0]->offer_priority) ? $offer_plan_data[0]->offer_priority : ''}}">
+
+                                        <input type="hidden" name="txtpkey" value="{{ !empty($offer_plan_data[0]->edit_id) ? $offer_plan_data[0]->edit_id : ''}}" >
+                                        
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div  class="col-md-6 form-group ">
+                                        <label>Offer<span style="color: red;">*</span></label>
+                                        @php $isoffer_status =  !empty($offer_plan_data[0]->isoffer_status) ? $offer_plan_data[0]->isoffer_status :  '' @endphp
+                                         <select class="form-control" name="isoffer_status" id="isoffer_status">
                                             <option value="">-- Select --</option>
-                                            <option value="percentage"  @if ($discount_value_type == "percentage") selected @endif >messages.Precentage</option>
-                                            <option value="price"  @if ($discount_value_type == "price") selected @endif>Price</option>
+                                            <option value="Yes"  @if ($isoffer_status == "Yes") selected @endif >Yes</option>
+                                            <option value="No"  @if ($isoffer_status == "No") selected @endif>No</option>
                                         </select>
                                     </div>
 
+                                    <div  class="col-md-6 form-group ">
+                                        <label>Discount Type<span style="color: red;">*</span></label>
+                                        @php $discount_value_type =  !empty($offer_plan_data[0]->discount_value_type) ? $offer_plan_data[0]->discount_value_type :  '' @endphp
+                                         <select class="form-control" name="discount_value_type" id="discount_value_type">
+                                            <option value="">-- Select --</option>
+                                            <option value="percentage"  @if ($discount_value_type == "percentage") selected @endif >In Precentage</option>
+                                            <option value="price"  @if ($discount_value_type == "price") selected @endif>In value</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
                                     <div  class="col-md-6 form-group">
-                                        <label>Amount<span style="color: red;">*</span></label>
+                                        <label>Percentage/Amount<span style="color: red;">*</span></label>
                                          <input type="text" class="form-control" id="discount_amount" name="discount_amount" autocomplete="off" value="{{ !empty($offer_plan_data[0]->discount_amount) ? $offer_plan_data[0]->discount_amount : ''}}">
 
                                     </div>
                                     
-                                    <div class="col-md-12 form-group ">
-                                        <label>Maximum Offer <span style="color: red;">*</span></label>
-                                        <input type="text" class="form-control" id="maximum_offer" name="maximum_offer" autocomplete="off" value="{{ !empty($offer_plan_data[0]->maximum_offer) ? $offer_plan_data[0]->maximum_offer : ''}}">
+                                    <div class="col-md-6 form-group ">
+                                        <label>Total calculate Offer amount <span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="total_calculate_offer_amount" name="total_calculate_offer_amount" autocomplete="off" value="{{ !empty($offer_plan_data[0]->total_calculate_offer_amount) ? $offer_plan_data[0]->total_calculate_offer_amount : ''}}">
                                     </div>
-
+                                    <div class="clearfix"></div>
 
                                     
                                

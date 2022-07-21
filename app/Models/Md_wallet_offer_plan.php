@@ -11,6 +11,6 @@ class Md_wallet_offer_plan extends Model
     protected $table ='mangao_wallet_offers_plan';    
    
     protected $fillable = [
-        'offer_amount', 'discount_value_type', 'discount_amount','maximum_offer','created_by','created_ip_address','offer_plan_image'
+        'offer_amount', 'offer_priority', 'isoffer_status','discount_value_type','discount_amount','total_calculate_offer_amount','created_by','created_ip_address','offer_plan_image'
     ];
 }
