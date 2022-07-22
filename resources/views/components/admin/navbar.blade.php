@@ -17,8 +17,23 @@
       <span class="sr-only">Toggle navigation</span>
     </a>
     <!-- <//?php $profile = (!empty($this->session->userdata('profile_path')) ? base_url($this->session->userdata('profile_path')) : base_url('assets/commonarea/dist/img/user2-160x160.jpg')); ?> -->
-    <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav">
+
+    
+    <div class="navbar-custom-menu row col-md-3">
+      @if(session()->has('super@dmin|ogin') && session()->get('super@dmin|ogin') == '^&*%123$%')
+      <div class="col-md-3">
+
+        @if(session()->has('super@dmin|oginTYpe') && session()->get('super@dmin|oginTYpe') == 'city_admin')
+        <a href="{{url('city-admin')}}" type="button" onclick="return confirm('Are you sure you want to back to super admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to superadmin</a>
+        @endif
+        @if(session()->has('super@dmin|oginTYpe') && session()->get('super@dmin|oginTYpe') == 'vendor')
+        <a href="{{url('view-all-vendor')}}" type="button" onclick="return confirm('Are you sure you want to back to super admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to superadmin</a>
+        @endif
+    </div>
+    @else 
+    <div class="col-md-6">
+       <ul class="nav navbar-nav">
+
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{asset('commonarea/dist/img/avatar5.png')}}" class="user-image" alt="User Image">
@@ -62,6 +77,8 @@
         </li>
 
       </ul>
+    </div>
+    @endif
     </div>
   </nav>
 </header>

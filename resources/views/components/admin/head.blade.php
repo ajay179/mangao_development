@@ -85,6 +85,18 @@
     .error {
       color: #FF0000;
     }
+
+    .back-to-login-btn{
+      margin-top: 7px;
+      color: white;
+      background-color: #760707;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .back-to-login-btn:hover {
+      color: white !important;
+    }
   </style>
 
   

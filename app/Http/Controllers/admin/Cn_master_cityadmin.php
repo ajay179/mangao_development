@@ -25,6 +25,13 @@ class Cn_master_cityadmin extends Controller
     public function index()
     {
         $class_name ='Cn_master_cityadmin';
+        Session::pull('&%*$$cityadminusername$%#', null);
+        Session::pull('&%*id$%#', null);
+        Session::pull('$%#city_admin_email&%*', null);
+        Session::pull('$%#city_id&%*',null);
+        Session::pull('super@dmin|ogin', null);
+        Session::pull('super@dmin|oginTYpe', null);
+        
         return view('admin/city-cityadmin/city_admin_master',compact('class_name'));
     }
 
@@ -115,7 +122,7 @@ class Cn_master_cityadmin extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/cityadmin-secret-login") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-primary btn-xs"><i class="fa fa-arrow-right"></i> login</a> <a href="'. url("/edit-cityadmin") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="City admin" table="' . Crypt::encryptString('mangao_city_admins') . '" redirect-url="' . Crypt::encryptString('admin-dashboard') . '" title="Delete" ><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="'. url("/cityadmin-secret-login") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-primary btn-xs"><i class="fa fa-sign-in"></i> login</a> <a href="'. url("/edit-cityadmin") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="City admin" table="' . Crypt::encryptString('mangao_city_admins') . '" redirect-url="' . Crypt::encryptString('admin-dashboard') . '" title="Delete" ><i class="fa fa-trash"></i></a>';
                     return $btn;
                 })
                 ->addColumn('date', function($data){
@@ -186,6 +193,9 @@ class Cn_master_cityadmin extends Controller
                     Session::put('&%*id$%#', Auth::guard('city_admin')->user()->id);
                     Session::put('$%#city_admin_email&%*', Auth::guard('city_admin')->user()->admin_email);
                     Session::put('$%#city_id&%*', Auth::guard('city_admin')->user()->city_id);
+                    Session::put('super@dmin|ogin', '^&*%123$%');
+                    Session::put('super@dmin|oginTYpe', 'city_admin');
+                     
 
                     if (Session::has('&%*$$cityadminusername$%#', '&%*id$%#', '$%#city_admin_email&%*')) {
                         return redirect('city-admin-dashbord')->with('message', 'Successfully Logged In!');

@@ -49,6 +49,9 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	// Soft delete common funtion
 	Route::post('soft-delete', [App\Http\Controllers\Cn_common_controller::class, 'delete_common_function']);
 
+	//Superadmin change user status
+	Route::post('superadmin-change-status-of-user', [App\Http\Controllers\Cn_common_controller::class, 'fun_superadmin_change_user_status']);
+	
 	
 
 	// City Routes
@@ -122,9 +125,9 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('view-all-user', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_user'])->name('view.all.user.list');
 	Route::get('view-all-vendor', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_vendor'])->name('view.all.vendor.list');
 	Route::get('view-all-delivery-boy', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_all_delivery_boy'])->name('view.all.delivery.boy.list');
-	
-
 	Route::get('get-vendor-DataTable', [App\Http\Controllers\admin\Cn_user_mangement::class,'get_vendor_listing_for_superadmin'])->name('vendor.list.for.superadmin.getDataTable');
+	
+	Route::get('vendor-secret-login/{id}', [App\Http\Controllers\admin\Cn_user_mangement::class,'fun_vendor_secret_login']);
 	
 
 	// Account Settlement routes
@@ -155,6 +158,10 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('redeem-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_redeem_point'])->name('redeem.points');
 	Route::post('cms-points-action', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'cmsPointsAction'])->name('cms.points.action');
 	Route::get('reward-points', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_reward_point'])->name('reward.points');
+	Route::get('app-refer', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_app_refer'])->name('app.refer');
+	Route::post('app-refer-action', [App\Http\Controllers\admin\Cn_reward_redeem_points::class,'fun_app_refer_points_action'])->name('app.refer.points.action');
+
+
 	
 
 	// Slot Master

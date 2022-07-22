@@ -5,7 +5,6 @@
 
  <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-
     <style type="text/css">
         #form_reedem {
             left      : 57%;
@@ -20,28 +19,24 @@
         <div class="row">
             <div class="col-md-6 d-inline-flex p-2" id="form_reedem">
                 <section class="content-header">
-                    <h1>Redeem Mangao Coins </h1>
+                    <h1>App Refer</h1>
                 </section>
 
                 <div class="box box-primary">
                     <div class="box-body light-green-body mob_min_height_auto">
-                          <form method="POST" id="reedemForm" action="{{ route('cms.points.action') }}">
+                          <form method="POST" id="reedemForm" action="{{ route('app.refer.points.action') }}">
                           @csrf
                             <div class="col-md-12 form-group no-padd">
-                                <input type="text" name="points_type" id="points_type" autocomplete="off" class="form-control" value="Redeem Mangao Coins to Wallet Amount" readonly>
-                            </div>
-                        
-                            <div class="col-md-12 form-group no-padd">
-                                <label>Redeem Mangao Coins<span style="color: red;">*</span></label>
-                                <input type="text" name="reward_points" id="reward_points" autocomplete="off" class="form-control" value="{{!empty($redeem_point_details[0]->reward_points) ? $redeem_point_details[0]->reward_points : ''}}">
-                               
+                                <label>Welcome Coins<span style="color: red;">*</span></label>
+                                <input type="text" name="welcome_coins" id="welcome_coins" autocomplete="off" class="form-control" value="{{!empty($app_refer_details[0]->welcome_coins) ? $app_refer_details[0]->welcome_coins : ''}}">
+                                <input type="hidden" name="txtpkey" id="txtpkey" value="{{!empty($app_refer_details[0]->id) ? $app_refer_details[0]->id : ''}}">
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
 
                             <div class="col-md-12 form-group no-padd">
-                                <label>Value<span style="color: red;">*</span></label>
-                                <input type="text" name="value" id="value" autocomplete="off" class="form-control" value="{{!empty($redeem_point_details[0]->value) ? $redeem_point_details[0]->value : ''}}">
-                                <input type="hidden" name="txtpkey" id="txtpkey" value="{{!empty($redeem_point_details[0]->id) ? $redeem_point_details[0]->id : ''}}">
+                                <label>Text<span style="color: red;">*</span></label>
+                                <textarea name="welcome_coins_text" id="welcome_coins_text" autocomplete="off" class="form-control" >{{!empty($app_refer_details[0]->welcome_coins_text) ? $app_refer_details[0]->welcome_coins_text : ''}}</textarea>
+                                <input type="hidden" name="txtpkey" id="txtpkey" value="{{!empty($app_refer_details[0]->id) ? $app_refer_details[0]->id : ''}}">
                                 <div class="text-danger" id="name_error"></div>
                             </div> <!-- End form-group -->
 
@@ -67,6 +62,6 @@
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
     $(".reward_redeem_point").addClass("active");
-    $(".redeem_point").addClass("active");
+    $(".app_refer_point").addClass("active");
 </script>
 @endsection

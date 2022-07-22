@@ -183,7 +183,7 @@
 					<ul class="treeview-menu">
 						<li class="s_meun reward_point"><a href="{{route('reward.points')}}"><i class="fa fa-picture-o"></i> <span>Reward Points</span></a></li>
 						<li class="s_meun redeem_point"><a href="{{ route('redeem.points')}}"><i class="fa fa-picture-o"></i> <span>Redeem Points</span></a></li>
-						<li class="s_meun cms_association_active"><a href="{{ route('app.refer')}}"><i class="fa fa-picture-o"></i> <span>App Refer</span></a></li>
+						<li class="s_meun app_refer_point"><a href="{{ route('app.refer')}}"><i class="fa fa-picture-o"></i> <span>App Refer</span></a></li>
 						
 					</ul>
 				</li>
