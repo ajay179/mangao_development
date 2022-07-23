@@ -32,6 +32,7 @@ class Cn_master_cityadmin extends Controller
         Session::pull('super@dmin|ogin', null);
         Session::pull('super@dmin|oginTYpe', null);
         
+        Auth::guard('city_admin')->logout();
         return view('admin/city-cityadmin/city_admin_master',compact('class_name'));
     }
 

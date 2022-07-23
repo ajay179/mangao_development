@@ -34,6 +34,12 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 	// city admin Soft delete common function
 	Route::post('soft-delete-of-city-admin', [App\Http\Controllers\Cn_city_common_controller::class, 'delete_common_function_city_admin']);
 
+	Route::post('cityadmin-update-profile', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_cityadmin_update_profile'])->name('cityadmin.my.profile.action');
+
+	
+	//Superadmin change user status
+	Route::post('cityadmin-change-status-of-user', [App\Http\Controllers\Cn_city_common_controller::class, 'fun_cityadmin_change_user_status']);
+
 	// User Management Vendor Routing
 	Route::get('cityadmin/view-vendor', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_vendor_list'])->name('cityadmin.view.vendor.list');
 	
@@ -45,6 +51,8 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 
 	Route::get('cityadmin/view-delivery-boy', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_delivery_boy_list'])->name('cityadmin.view.delivery.boy.list');
 	Route::get('cityadmin/add-delivery-boy', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_add_delivery_boy'])->name('cityadmin.add.delivery.boy');
+	Route::get('vendor-secret-login-by-cityadmin/{id}', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_secret_login_by_cityadmin'])
+	;
 
 
 // Withdrwal Request routes
@@ -63,7 +71,9 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 	// Route::get('cityadmin/cancelled-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_cancelled_orders'])->name('cityadmin.cancelled.orders');
 	// Route::get('cityadmin/returned-orders', [App\Http\Controllers\city_admin\Cn_city_admin_orders::class,'fun_returned_orders'])->name('cityadmin.returned.orders');
 
-
+	//City admin total management
+	Route::get('cityadmin-delivery-management', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_delivery_management'])->name('cityadmin.view.delivery.management');
+	Route::get('cityadmin-profile-management', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_management_management'])->name('cityadmin.view.profile.management');
 });
 	
 

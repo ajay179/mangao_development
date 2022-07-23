@@ -146,6 +146,7 @@
                                                       <th width="5%">Slot Name</th>
                                                       <th width="5%">From Time</th>
                                                       <th width="5%">To Time</th>
+                                                      <th width="5%">Status</th>
                                                       <th width="5%">Created At</th>
                                                       <th width="3%" >Action</th>
                                                    </tr>
@@ -193,6 +194,7 @@
             {data: 'slot_name', name: 'slot_name'},
             {data: 'from_time', name: 'from_time'},
             {data: 'to_time', name: 'to_time'},
+            {data: 'status', name: 'status'},
             {data: 'date', name: 'date'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]

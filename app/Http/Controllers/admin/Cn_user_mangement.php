@@ -46,6 +46,7 @@ class Cn_user_mangement extends Controller
             'super@dmin|ogin' => null,
             'super@dmin|oginTYpe' => null
         ]);
+        Auth::guard('vendor')->logout();
         return view('admin/user-management/vw_all_vendor_list',compact('class_name'));
     }
 

@@ -65,7 +65,7 @@
 
                 <li class="s_meun orders_management_active">
                     <a href="{{ url('/cityadmin/ongoing-orders') }}">
-                        <i class="fa fa-dashboard"></i> <span>Orders Master</span>
+                        <i class="fa fa-dashboard"></i> <span>Orders</span>
                     </a>
                 </li>
 
@@ -84,7 +84,22 @@
                         
                     </ul>
                 </li>
-            
+                
+
+                 <li class="treeview ct_meun ct_management_active ">
+                    <a href="#">
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Management</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        
+                        <li class="s_meun ct_delivery_management_active"><a href="{{ route('cityadmin.view.delivery.management') }}"><i class="fa fa-picture-o"></i> <span>Delivery Management</span></a></li>
+                        <li class="s_meun ct_profile_management_active"><a href="{{ route('cityadmin.view.profile.management') }}"><i class="fa fa-picture-o"></i> <span>Profile Management</span></a></li>
+                        
+                    </ul>
+                </li>
 
 
                 <!--Settings end-->

@@ -88,7 +88,7 @@ class Cn_sloat_master extends Controller
     {
         if ($request->ajax()) {
             
-            $data = Md_mangao_time_slot_master::where('status', '<>', 3)->select('slot_name', 'id', 'created_at','from_time','to_time')->where('slot_category',$slot_type)->get();
+            $data = Md_mangao_time_slot_master::where('status', '<>', 3)->select('slot_name', 'id', 'created_at','from_time','to_time','status')->where('slot_category',$slot_type)->get();
             $data->redirect_url = '';
             if($slot_type == 'banner_promotion'){ $data->redirect_url = "banner.slot.master"; }
             if($slot_type == 'vendor_promotion'){ $data->redirect_url = "vendor.promotion.slot.master";}
@@ -101,14 +101,17 @@ class Cn_sloat_master extends Controller
                     return $btn;
                 })
                 
+                ->addColumn('status', function($data){
+                    $status_class = (!empty($data->status)) && ($data->status == 1) ? 'tgle-on' : 'tgle-off'; 
+                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_time_slot_master') . '" data-id="' . Crypt::encryptString($data->id) . '"  class="superadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
+                    return $status;
+                })
                 ->addColumn('date', function($data){
                     $date_with_format = date('d M Y',strtotime($data->created_at));
                     return $date_with_format;
                 })
 
-                
-                ->rawColumns(['date'])
-                ->rawColumns(['action']) // if you want to add two action coloumn than you need to add two coloumn add in array like this
+                ->rawColumns(['date','status','action']) // if you want to add two action coloumn than you need to add two coloumn add in array like this
                 ->make(true);
         }
     }

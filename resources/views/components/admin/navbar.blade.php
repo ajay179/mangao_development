@@ -18,19 +18,31 @@
     </a>
     <!-- <//?php $profile = (!empty($this->session->userdata('profile_path')) ? base_url($this->session->userdata('profile_path')) : base_url('assets/commonarea/dist/img/user2-160x160.jpg')); ?> -->
 
+    {{session()->get('&%*$^vendorusername$%#')}}
     
-    <div class="navbar-custom-menu row col-md-3">
-      @if(session()->has('super@dmin|ogin') && session()->get('super@dmin|ogin') == '^&*%123$%')
-      <div class="col-md-3">
+    <div class="navbar-custom-menu row col-md-6">
+      @if((session()->has('super@dmin|ogin') && session()->get('super@dmin|ogin') == '^&*%123$%') || (session()->has('city@dmin|ogin') && session()->get('city@dmin|ogin') == '^&*548$%'))
+        @if(session()->has('city@dmin|ogin') && session()->get('city@dmin|ogin') == '^&*548$%')
+       
+          <div class="col-md-4">
+            @if(session()->has('city@dmin|oginTYpe') && session()->get('city@dmin|oginTYpe') == 'vendor')
+            <a href="{{url('cityadmin/view-vendor')}}" type="button" onclick="return confirm('Are you sure you want to back to city admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to city admin</a>
+            @endif
+        </div>
+        @endif
+        @if(session()->has('super@dmin|ogin') && session()->get('super@dmin|ogin') == '^&*%123$%')
+        <div class="col-md-4">
 
-        @if(session()->has('super@dmin|oginTYpe') && session()->get('super@dmin|oginTYpe') == 'city_admin')
-        <a href="{{url('city-admin')}}" type="button" onclick="return confirm('Are you sure you want to back to super admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to superadmin</a>
-        @endif
-        @if(session()->has('super@dmin|oginTYpe') && session()->get('super@dmin|oginTYpe') == 'vendor')
-        <a href="{{url('view-all-vendor')}}" type="button" onclick="return confirm('Are you sure you want to back to super admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to superadmin</a>
-        @endif
-    </div>
-    @else 
+          @if(session()->has('super@dmin|oginTYpe') && session()->get('super@dmin|oginTYpe') == 'city_admin')
+          <a href="{{url('city-admin')}}" type="button" onclick="return confirm('Are you sure you want to back to super admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to superadmin</a>
+          @endif
+          @if(session()->has('super@dmin|oginTYpe') && session()->get('super@dmin|oginTYpe') == 'vendor')
+          <a href="{{url('view-all-vendor')}}" type="button" onclick="return confirm('Are you sure you want to back to super admin?')" class="btn  back-to-login-btn"><i class="fa fa-sign-out"></i> Back to superadmin</a>
+          @endif
+      </div>
+       @endif 
+
+     @else
     <div class="col-md-6">
        <ul class="nav navbar-nav">
 

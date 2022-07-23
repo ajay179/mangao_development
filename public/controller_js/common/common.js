@@ -1,62 +1,6 @@
     let base_url = $('#base_url').val();
     let _token   = $('meta[name="csrf-token"]').attr('content');
-    $(function() {
-        $(document).on("click", ".change-status", function() {
-            if (confirm("Do you really want to change status?")) {
-
-                var actionDiv = $(this); 
-                var id = actionDiv.attr('data-id');  
-                var flash = actionDiv.attr('flash');
-                var table = actionDiv.attr('table');
-                let status = actionDiv.attr('status').trim() === "1" ? "2" : "1";
-    
-                $.ajax({
-                    url: base_url+'change-status',
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        pk_id: id,
-                        table: table,
-                        flashdata_message: flash,
-                        status: status
-                    },
-                    beforeSend: function() {
-                        actionDiv.html(
-                            "<i class='fa fa-spin fa-spinner' style='color: #0c0c0c !important;'></i>"
-                        );
-                    },
-                    success: function(data) {
-                        if (data.status == true) {
-                            /*$this.html("<span class='text-success text-black' >Success</span>");*/
-                            actionDiv.attr("status", status);
-                            success_toast(data.name, data.message);
-                            setTimeout(function() {
-                                if (status == "1") {
-                                    actionDiv.html(
-                                        "<i class='fa fa-toggle-on tgle-on' aria-hidden='true' title='Active'></i>"
-                                    );
-                                } else {
-                                    actionDiv.html(
-                                        "<i class='fa fa-toggle-on tgle-off fa-rotate-180' aria-hidden='true' title='In-Active'></i>"
-                                    );
-                                }
-                            }, 1000);
-                        } else {
-                            fail_toast(data.error, data.message);
-                            setTimeout(function() {
-                                actionDiv.html(
-                                    "<i class='fa fa-toggle-on tgle-off fa-rotate-180' aria-hidden='true' title='In-Active'></i>"
-                                );
-                            }, 1000);
-                        }
-                    }
-                });
-            }
-        });
-    });
-
-
-    
+   
     
     $(document).on('click', '.superadmin-change-vendor-status', function() 
     {           
@@ -72,6 +16,39 @@
         if (confirm('Do you really want to delete this record ?')) {
             $.ajax({
                 url: base_url + '/superadmin-change-status-of-user',                    
+                type: 'POST',
+                dataType: 'json',
+                headers:headers,
+                data: {id:id,flashdata_message:flash,table:table,status:status},
+                beforeSend: function() {
+                    actionDiv.html(
+                        "<i class='fa fa-spin fa-spinner' style='color: #0c0c0c !important;'></i>"
+                    );
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        success_toast('', data.message);
+                        reload_table();
+                    }                         
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.cityadmin-change-vendor-status', function() 
+    {           
+        var actionDiv = $(this); 
+        var id = actionDiv.attr('data-id');  
+        var flash = actionDiv.attr('flash');
+        var table = actionDiv.attr('table');
+        var status = actionDiv.attr('status');
+        
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        if (confirm('Do you really want to delete this record ?')) {
+            $.ajax({
+                url: base_url + '/cityadmin-change-status-of-user',                    
                 type: 'POST',
                 dataType: 'json',
                 headers:headers,
