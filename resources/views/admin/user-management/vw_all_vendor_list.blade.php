@@ -17,28 +17,32 @@
                 <section class="content  content-filter" style="padding:5px 0px;">
                   <div class="col-md-12 no-pad">
                         <div class="box box-primary">
-                            <div class="box-body no-height">
+                            <!-- <form method="get"> -->
+                                <div class="box-body no-height">
 
-                                <div class="col-md-3 form-group no-pad-left mob-no-pad">
-                                    <label>City<span style="color: red;">*</span></label>
+                                    <div class="col-md-3 form-group no-pad-left mob-no-pad">
+                                        <label>City<span style="color: red;">*</span></label>
+                                        <select class="form-control multiple-select" name="city_name" id="city_name">
+                                            <option value="">Select City</option>
+                                            @if (!empty($city_data)) 
+                                               @foreach ($city_data as $key => $value)
+                                                    <option value="{{ $value['id'] }}" > {{ ucwords($value['city_name']) }}</option>
+                                               @endforeach
+                                            @endif
+                                           
+                                        </select>
+                                        
+                                        <div class="text-danger" id=""></div>
+                                    </div>
                                     
-                                    <select class="form-control multiple-select" name="customer_name" id="customer_name">
-                                        <option value="">Select City</option>
-                                        <option value="">Mumbai</option>
-                                        <option value="">Pune</option>
-                                        <option value="">Indore</option>
-                                       
-                                    </select>
-                                    
-                                    <div class="text-danger" id=""></div>
-                                </div>
-                                
                                
-                                <div class="col-sm-3 form-group mt-26 no-pad-left mob-no-pad">
-                                    <button type="submit" class="btn btn-primary filter-btn"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
-                                    <a href="" class="btn btn-danger filter-btn"><i class="fa fa-times" aria-hidden="true"></i> Clear</a>
+                                    <div class="col-sm-3 form-group mt-26 no-pad-left mob-no-pad">
+                                        <button type="button" class="btn btn-primary filter-btn" onclick="reload_table()"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                                        <a href="" class="btn btn-danger filter-btn"><i class="fa fa-times" aria-hidden="true"></i> Clear</a>
+                                    </div>
                                 </div>
-                            </div>
+                            <!-- </form> -->
+                            
                         </div>
                     </div>
                 </section>
@@ -93,10 +97,20 @@
 
  <script type="text/javascript">
   // $(function () {
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('vendor.list.for.superadmin.getDataTable') }}",
+        ajax:{
+            url:"{{ route('vendor.list.for.superadmin.getDataTable') }}",
+            data: function (d) {
+                d.city_name = $('#city_name').val()
+            }
+        } ,
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'city_name', name: 'city_name'},
@@ -111,7 +125,8 @@
             {data: 'status', name: 'status'},
             {data: 'date', name: 'date'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+        ],
+        order: [[0, 'desc']]
     });
   // });
 

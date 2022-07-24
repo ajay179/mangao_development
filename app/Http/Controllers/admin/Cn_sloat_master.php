@@ -97,13 +97,13 @@ class Cn_sloat_master extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="Time Slot" table="' . Crypt::encryptString('mangao_time_slot_master') . '" redirect-url="' . $data->redirect_url . '" title="Delete" ><i class="fa fa-trash"></i></a> ';
+                    $btn = ' <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="Time Slot" alert_status="'.$data->status.'" table="' . Crypt::encryptString('mangao_time_slot_master') . '" redirect-url="' . $data->redirect_url . '" title="Delete" ><i class="fa fa-trash"></i></a> ';
                     return $btn;
                 })
                 
                 ->addColumn('status', function($data){
                     $status_class = (!empty($data->status)) && ($data->status == 1) ? 'tgle-on' : 'tgle-off'; 
-                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_time_slot_master') . '" data-id="' . Crypt::encryptString($data->id) . '"  class="superadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
+                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_time_slot_master') . '" alert_status="'.$data->status.'" data-id="' . Crypt::encryptString($data->id) . '"  class="superadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
                     return $status;
                 })
                 ->addColumn('date', function($data){

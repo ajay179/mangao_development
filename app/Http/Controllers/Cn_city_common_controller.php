@@ -96,4 +96,6 @@ class Cn_city_common_controller extends Controller
             exit('No direct script access allowed');
         }
     }
+
+    
 }

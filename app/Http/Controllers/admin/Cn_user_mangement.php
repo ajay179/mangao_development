@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Md_city_master;
 use App\Models\Md_city_admin_vendor;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use DB;
 use Config;
 use Auth;
+use Input;
 
 class Cn_user_mangement extends Controller
 {
@@ -47,7 +49,9 @@ class Cn_user_mangement extends Controller
             'super@dmin|oginTYpe' => null
         ]);
         Auth::guard('vendor')->logout();
-        return view('admin/user-management/vw_all_vendor_list',compact('class_name'));
+
+        $city_data = Md_city_master::latest()->where('status','<>',3)->select('city_name','id','created_at')->get();
+        return view('admin/user-management/vw_all_vendor_list',compact('class_name','city_data'));
     }
 
     /**
@@ -63,13 +67,17 @@ class Cn_user_mangement extends Controller
 
     public function get_vendor_listing_for_superadmin(Request $request)
     { 
+
         if ($request->ajax()) {
             $data = DB::table(Config::get('constants.MANGAO_CITY_ADMIN_VENDOR').'  as MCAV')
                 ->join(Config::get('constants.MANGAO_CITY_MASTER').' as MCM', 'MCM.id', 'MCAV.vendor_cITY_id')
                 ->where('MCAV.status', '<>', 3)
-                ->where('MCM.status', '<>', 3)
+                ->where('MCM.status', '<>', 3);
+                if($request->city_name){
+                    $data = $data->where('MCAV.vendor_cITY_id', '=', $request->city_name);
+                }
                 // ->where('MCAV.created_by', '=', session()->get('&%*id$%#'))
-                ->select('MCAV.store_name','MCAV.store_owner_name','MCAV.vendor_address','MCAV.vendor_email','MCAV.vendor_mobile_no','MCAV.id','MCAV.created_at','MCM.city_name','MCAV.status')
+               $data = $data->select('MCAV.store_name','MCAV.store_owner_name','MCAV.vendor_address','MCAV.vendor_email','MCAV.vendor_mobile_no','MCAV.id','MCAV.created_at','MCM.city_name','MCAV.status')
                 ->get();
 
 
@@ -77,12 +85,12 @@ class Cn_user_mangement extends Controller
              
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0);" status="'.Crypt::encryptString(3).'" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs superadmin-change-vendor-status" flash="Vendor" table="' . Crypt::encryptString('mangao_vendors') . '"  title="Delete" ><i class="fa fa-trash"></i></a> <a href="'. url("/vendor-secret-login") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-primary btn-xs"><i class="fa fa-sign-in"></i> login</a> ';
+                    $btn = '<a href="javascript:void(0);" status="'.Crypt::encryptString(3).'" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs superadmin-change-vendor-status" alert_status="3" flash="Vendor" table="' . Crypt::encryptString('mangao_vendors') . '"  title="Delete" ><i class="fa fa-trash"></i></a> <a href="'. url("/vendor-secret-login") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-primary btn-xs"><i class="fa fa-sign-in"></i> login</a> ';
                     return $btn;
                 })
                 ->addColumn('status', function($data){
                     $status_class = (!empty($data->status)) && ($data->status == 1) ? 'tgle-on' : 'tgle-off'; 
-                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_vendors') . '" data-id="' . Crypt::encryptString($data->id) . '"  class="superadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
+                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_vendors') . '" alert_status="'.$data->status.'" data-id="' . Crypt::encryptString($data->id) . '"  class="superadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
                     return $status;
                 })
                 ->addColumn('date', function($data){

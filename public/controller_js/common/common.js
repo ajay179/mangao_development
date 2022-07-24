@@ -9,11 +9,21 @@
         var flash = actionDiv.attr('flash');
         var table = actionDiv.attr('table');
         var status = actionDiv.attr('status');
-        
+        var alert_status = actionDiv.attr('alert_status');
+
+        if(alert_status == 1){
+            var on_alert_msg = "disable"
+        }else if(alert_status == 2){
+            var on_alert_msg = "enable"
+        }else if(alert_status == 3){
+            var on_alert_msg = "delete"
+        }else{
+            var on_alert_msg = "change status of"
+        }
         var headers = {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        if (confirm('Do you really want to delete this record ?')) {
+        if (confirm('Do you really want to '+ on_alert_msg+' this record ?')) {
             $.ajax({
                 url: base_url + '/superadmin-change-status-of-user',                    
                 type: 'POST',
@@ -42,11 +52,22 @@
         var flash = actionDiv.attr('flash');
         var table = actionDiv.attr('table');
         var status = actionDiv.attr('status');
+        var alert_status = actionDiv.attr('alert_status');
+
+        if(alert_status == 1){
+            var on_alert_msg = "disable"
+        }else if(alert_status == 2){
+            var on_alert_msg = "enable"
+        }else if(alert_status == 3){
+            var on_alert_msg = "delete"
+        }else{
+            var on_alert_msg = "change status of"
+        }
         
         var headers = {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        if (confirm('Do you really want to delete this record ?')) {
+        if (confirm('Do you really want to '+ on_alert_msg+' this record ?')) {
             $.ajax({
                 url: base_url + '/cityadmin-change-status-of-user',                    
                 type: 'POST',

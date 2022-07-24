@@ -134,7 +134,7 @@
 
                             <div class="col-md-12 form-group no-padd">
 
-                                <button type="submit" disabled class="btn btn-success save_btn submit" data-id="submit" id="blogbtn"><i class="fa fa-check-circle" ></i>Update</button>
+                                <button type="submit" class="btn btn-success save_btn submit" data-id="submit" id="blogbtn"><i class="fa fa-check-circle" ></i>Update</button>
 
                                 <a href="{{ route('city.add.admin')}}"> <button type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Clear</button></a>
                             </div>

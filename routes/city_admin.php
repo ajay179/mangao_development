@@ -33,9 +33,6 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 
 	// city admin Soft delete common function
 	Route::post('soft-delete-of-city-admin', [App\Http\Controllers\Cn_city_common_controller::class, 'delete_common_function_city_admin']);
-
-	Route::post('cityadmin-update-profile', [App\Http\Controllers\city_admin\Cn_user_management::class,'fun_cityadmin_update_profile'])->name('cityadmin.my.profile.action');
-
 	
 	//Superadmin change user status
 	Route::post('cityadmin-change-status-of-user', [App\Http\Controllers\Cn_city_common_controller::class, 'fun_cityadmin_change_user_status']);
@@ -73,7 +70,13 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 
 	//City admin total management
 	Route::get('cityadmin-delivery-management', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_delivery_management'])->name('cityadmin.view.delivery.management');
+	
 	Route::get('cityadmin-profile-management', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_management_management'])->name('cityadmin.view.profile.management');
+
+	Route::post('cityadmin-update-profile', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_cityadmin_update_profile'])->name('cityadmin.my.profile.action');
+	Route::post('delivery-management-action', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_delivery_management_action'])->name('delivery.Management.action');
+
+	
 });
 	
 

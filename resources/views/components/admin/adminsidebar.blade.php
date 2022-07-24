@@ -116,7 +116,7 @@
 					<ul class="treeview-menu">
 						<li class="s_meun bannet_slot_master_active"><a href="{{ route('banner.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Vendor Banner Promotion Slot</span></a></li>
 						<li class="s_meun vendor_slot_master_active"><a href="{{ route('vendor.promotion.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Vendor Self Promotion slot</span></a></li>
-						<li class="s_meun notification_slot_master_active"><a href="{{ route('notification.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Notification Home Promotion slot</span></a></li>
+						<li class="s_meun notification_slot_master_active"><a href="{{ route('notification.slot.master') }}"><i class="fa fa-picture-o"></i> <span>Deal Promotion slot</span></a></li>
 						<li class="s_meun on_screen_notification_slot_master_active"><a href="{{ route('on.screen.notification.slot.master') }}"><i class="fa fa-picture-o"></i> <span>On Screen Notification Promotion slot</span></a></li>
 						
 					</ul>

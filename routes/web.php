@@ -51,8 +51,7 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 
 	//Superadmin change user status
 	Route::post('superadmin-change-status-of-user', [App\Http\Controllers\Cn_common_controller::class, 'fun_superadmin_change_user_status']);
-	
-	
+
 
 	// City Routes
 	Route::get('city', [App\Http\Controllers\admin\Cn_master_city::class,'index'])->name('city');

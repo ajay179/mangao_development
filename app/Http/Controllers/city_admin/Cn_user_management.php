@@ -142,7 +142,7 @@ class Cn_user_management extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){
-                    $btn = '<a href="'. url("/cityadmin/edit-cityadmin-vendor") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-city-admin" flash="Vendor" table="' . Crypt::encryptString('mangao_vendors') . '" redirect-url="' . Crypt::encryptString('cityadmin/view-vendor') . '" title="Delete" ><i class="fa fa-trash"></i></a><br>
+                    $btn = '<a href="'. url("/cityadmin/edit-cityadmin-vendor") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record-of-city-admin" flash="Vendor" table="' . Crypt::encryptString('mangao_vendors') . '" alert_status="'.$data->status.'" redirect-url="' . Crypt::encryptString('cityadmin/view-vendor') . '" title="Delete" ><i class="fa fa-trash"></i></a><br>
 
                         <a href="'. url("/vendor-secret-login-by-cityadmin") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-primary btn-xs"><i class="fa fa-sign-in"></i> login</a>
                     ';
@@ -151,7 +151,7 @@ class Cn_user_management extends Controller
 
                 ->addColumn('status', function($data){
                     $status_class = (!empty($data->status)) && ($data->status == 1) ? 'tgle-on' : 'tgle-off'; 
-                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_vendors') . '" data-id="' . Crypt::encryptString($data->id) . '"  class="cityadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
+                    $status = '<a href="javascript:void(0);" flash="Vendor" status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_vendors') . '" alert_status="'.$data->status.'"  data-id="' . Crypt::encryptString($data->id) . '"  class="cityadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
                     return $status;
                 })
                 ->addColumn('date', function($data){

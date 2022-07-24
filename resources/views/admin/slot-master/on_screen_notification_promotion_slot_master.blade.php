@@ -105,7 +105,7 @@
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
     $(".slot_master_section").addClass("active");
-    $(".notification_slot_master_active").addClass("active");
+    $(".on_screen_notification_slot_master_active").addClass("active");
 
      $(document).ready(function() {
 
