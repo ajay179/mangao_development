@@ -97,6 +97,8 @@
                         
                         <li class="s_meun ct_delivery_management_active"><a href="{{ route('cityadmin.view.delivery.management') }}"><i class="fa fa-picture-o"></i> <span>Delivery Management</span></a></li>
                         <li class="s_meun ct_profile_management_active"><a href="{{ route('cityadmin.view.profile.management') }}"><i class="fa fa-picture-o"></i> <span>Profile Management</span></a></li>
+                        <li class="s_meun ct_withdrawal_management_active"><a href="{{ route('cityadmin.view.Withdrawal.management') }}"><i class="fa fa-picture-o"></i> <span>Wallet/ Withdrawal</span></a></li>
+                        <li class="s_meun ct_mis_management_active"><a href=""><i class="fa fa-picture-o"></i> <span>MIS</span></a></li>
                         
                     </ul>
                 </li>

@@ -76,6 +76,7 @@ Route::group(['middleware'=>['isCityAdmin','can:isCityAdmin']], function(){
 	Route::post('cityadmin-update-profile', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_cityadmin_update_profile'])->name('cityadmin.my.profile.action');
 	Route::post('delivery-management-action', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_delivery_management_action'])->name('delivery.Management.action');
 
+	Route::get('withdrwal-view-management', [App\Http\Controllers\city_admin\Cn_cityadmin_management::class,'fun_withdrawal_management_view'])->name('cityadmin.view.Withdrawal.management');
 	
 });
 	

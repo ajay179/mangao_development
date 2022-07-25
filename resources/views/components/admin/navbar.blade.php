@@ -21,6 +21,15 @@
     {{session()->get('&%*$^vendorusername$%#')}}
     
     <div class="navbar-custom-menu row col-md-6">
+      @if ((!empty(Auth::guard('city_admin')->user())) && (Auth::guard('city_admin')->user()->can('isCityAdmin')))
+      <div class="col-md-2" style="margin-right: 20px;">
+        <a  type="button" class="btn btn-primary btn-lg">Wallet ₹200</a>
+      </div>
+      <div class="col-md-2">
+        <a  type="button" class="btn btn-success btn-lg"><i class="fa fa-money"></i> Withdrwal</a>
+        
+      </div>
+      @endif
       @if((session()->has('super@dmin|ogin') && session()->get('super@dmin|ogin') == '^&*%123$%') || (session()->has('city@dmin|ogin') && session()->get('city@dmin|ogin') == '^&*548$%'))
         @if(session()->has('city@dmin|ogin') && session()->get('city@dmin|ogin') == '^&*548$%')
        
@@ -43,7 +52,7 @@
        @endif 
 
      @else
-    <div class="col-md-6">
+    <div class="col-md-6" style="float: right;">
        <ul class="nav navbar-nav">
 
         <li class="dropdown user user-menu">

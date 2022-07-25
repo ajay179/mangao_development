@@ -33,6 +33,16 @@ class Cn_cityadmin_management extends Controller
         return view('city_admin.management.vw_delivery_management',compact('delivery_mangement_details'));
     }
 
+    public function fun_withdrawal_management_view()
+    {
+        // $delivery_mangement_details = Md_delivery_management_charge::where('status', '<>', 3)->select('upto_3_km_charge','charge_after_3_km','deli_boy_charge_upto_3km','deli_boy_charge_after_3km', 'id')->get();
+        // if(!empty($delivery_mangement_details[0]->id)){
+        //     $delivery_mangement_details[0]->id = Crypt::encryptString($delivery_mangement_details[0]->id);
+        // }
+            
+        return view('city_admin.management.vw_withdrawal_management');
+    }
+
 
     public function fun_management_management()
     {
