@@ -77,6 +77,15 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('edit-categoryadmin/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_category']);
 	Route::post('check_category_position', [App\Http\Controllers\admin\Cn_categories::class, 'fun_check_category_position']);
 	
+	Route::get('view-store-type', [App\Http\Controllers\admin\Cn_categories::class, 'fun_store_type_master'])->name('master.store.type');
+
+	Route::post('store_type_master_action', [App\Http\Controllers\admin\Cn_categories::class, 'fun_store_type_action'])->name('store.type.master.action');
+	
+	Route::get('get_store_type_data_table', [App\Http\Controllers\admin\Cn_categories::class, 'fun_get_store_type_datatable'])->name('store.type.getDataTable');
+	
+	Route::get('edit-store-type-master/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_store_type_master']);
+	
+	
 
 	// wallet offer plan routes
 	Route::get('offer-plan-page', [App\Http\Controllers\admin\Cn_wallet_offers::class,'offer_plan_page'])->name('offer.plan.page');

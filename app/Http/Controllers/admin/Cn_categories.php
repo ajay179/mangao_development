@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Md_mangao_categories;
+use App\Models\Md_mangao_store_type_master;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,46 @@ class Cn_categories extends Controller
         return view('admin/categories-banner-section/category_master',compact('class_name'));
     }
 
+    /**
+     * Display a listing of the store type.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fun_store_type_master()
+    {
+       $class_name ='Cn_categories';
+       $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
+        return view('admin/categories-banner-section/store_type_master',compact('class_name','vendor_data'));
+    }
+
      /**
+     * function to view store type edit view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fun_edit_store_type_master($encrypt_id)
+    {
+        try {
+            
+            $id =  Crypt::decryptString($encrypt_id);
+            $store_type_master_details = DB::table('mangao_store_type_master  as MSTM')->where('MSTM.status', '<>', 3)->where('MSTM.id', '=', $id)->select('MSTM.store_category_id','MSTM.store_type_name','MSTM.id')->get();
+
+            $store_type_master_details[0]->id = Crypt::encryptString($store_type_master_details[0]->id);
+            $class_name ='cn_categories';
+            
+            if(!empty($store_type_master_details[0])){
+                $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
+                return view('admin/categories-banner-section/store_type_master',compact('class_name','vendor_data','store_type_master_details'));
+            }else{
+               return redirect('view-store-type')->with('error', 'something went wrong');
+            }
+        } catch (DecryptException $e) {
+            return redirect('view-store-type')->with('error', 'something went wrong');
+        }
+
+    }
+
+    /**
      * This are used to add category Action .
      *
      * @return \Illuminate\Http\Response
@@ -175,5 +215,92 @@ class Cn_categories extends Controller
 
     }
 
+    /**
+     * This are used to add store type Action .
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fun_store_type_action(Request $request)
+    {
+       $this->validate($request, [
+            'store_category_id' => 'required|numeric','store_type_name' => 'required'
+        ]);
+        
+        // function used for add single array 
+        $Md_mangao_store_type_master = new Md_mangao_store_type_master;
+
+        $check_duplicate_store_type = Md_mangao_store_type_master::where('store_type_name', $request->store_type_name);
+        if(!empty($request->txtpkey)){
+          $check_duplicate_store_type =  $check_duplicate_store_type->where('id','<>', Crypt::decryptString($request->txtpkey));
+        }
+        $check_duplicate_store_type = $check_duplicate_store_type->where('status','<>', 3)->get();
+        if($check_duplicate_store_type->isNotEmpty()){
+            return redirect()->route('main.categories')->with('error', 'This store type already added.');
+        }else{
+           
+            if(!empty($request->txtpkey)){
+                $msg = "updated";
+                $txtpkey =  Crypt::decryptString($request->txtpkey);
+                $data = Md_mangao_store_type_master::where('id', $txtpkey)->get();
+                if($data->isEmpty()){
+                    return redirect()->route('main.categories')->with('message', 'something went wrong');
+                }else{
+                    $Md_mangao_store_type_master = Md_mangao_store_type_master::find($txtpkey);
+                    $Md_mangao_store_type_master->updated_at   = date('Y-m-d h:i:s');
+                    $Md_mangao_store_type_master->updated_by   = session()->get('*$%&%*id**$%#');
+                    $Md_mangao_store_type_master->updated_ip_address   = $request->ip();
+                }
+            }else{
+                $msg = "Added";
+                $Md_mangao_store_type_master->created_at   = date('Y-m-d h:i:s');
+                $Md_mangao_store_type_master->created_by   = session()->get('*$%&%*id**$%#');
+                $Md_mangao_store_type_master->created_ip_address   = $request->ip();
+            }      
+           
+            $Md_mangao_store_type_master->store_category_id   = $request->store_category_id;
+            $Md_mangao_store_type_master->store_type_name   = $request->store_type_name;
+            $Md_mangao_store_type_master->save();
+        
+            return redirect()->route('master.store.type')->with('message', 'Categories '. $msg);
+        }
+    }
+
+    
+    
+    public function fun_get_store_type_datatable(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('mangao_store_type_master  as MSTM')
+                ->join('mangao_categories as MCM', 'MCM.id','=', 'MSTM.store_category_id')
+                ->where('MSTM.status', '<>', 3)
+                ->where('MCM.status', '<>', 3)
+                ->select('MSTM.store_type_name','MCM.category_name','MSTM.id','MSTM.created_at','MSTM.status')
+                ->get();
+
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($data){
+                    $btn = '<a href="'. url("edit-store-type-master") ."/". Crypt::encryptString($data->id).'" class="edit btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>  <a href="javascript:void(0);" data-id="' . Crypt::encryptString($data->id) . '" class="btn btn-danger btn-xs delete-record" flash="Store type" table="' . Crypt::encryptString('mangao_store_type_master') . '" alert_status="3" title="Delete" ><i class="fa fa-trash"></i></a><br>
+                    ';
+                    return $btn;
+                })
+
+                ->addColumn('status', function($data){
+                    $status_class = (!empty($data->status)) && ($data->status == 1) ? 'tgle-on' : 'tgle-off'; 
+                    $status = '<a href="javascript:void(0);" flash="Store type " status="'.Crypt::encryptString($data->status).'" table="' . Crypt::encryptString('mangao_store_type_master') . '" alert_status="'.$data->status.'"  data-id="' . Crypt::encryptString($data->id) . '"  class="superadmin-change-vendor-status"  > <i class="fa fa-toggle-on '. $status_class.' " aria-hidden="true" title="Active"></i></a>';
+                    return $status;
+                })
+                ->addColumn('date', function($data){
+                    $date_with_format = date('d M Y',strtotime($data->created_at));
+                    return $date_with_format;
+                })
+            
+                ->rawColumns(['date'])
+                ->rawColumns(['action','status'])
+                ->make(true);
+        }
+
+    }
 
 }

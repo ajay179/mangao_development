@@ -100,6 +100,8 @@
 					<ul class="treeview-menu">
 						<li class="s_meun categories_active"><a href="{{ route('main.categories') }}"><i class="fa fa-picture-o"></i> <span>Categories</span></a></li>
 						<li class="s_meun cms_association_active"><a href="{{ route('main.banner') }}"><i class="fa fa-picture-o"></i> <span>Main Banner</span></a></li>
+
+						<li class="s_meun store_type_active"><a href="{{ route('master.store.type') }}"><i class="fa fa-picture-o"></i> <span>Store type master</span></a></li>
 						
 					</ul>
 				</li>
