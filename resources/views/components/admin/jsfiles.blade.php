@@ -47,6 +47,7 @@
 <script src="{{asset('commonarea/plugins/file-manager/js/jquery.dm-uploader.min.js')}}"></script>
 <script src="{{asset('commonarea/plugins/file-manager/js/ui.js')}}"></script>
 
+<script src="{{asset('commonarea/multiple-select-assets/multiple-select.js')}}"></script>
 
 <!-- AdminLTE for summernote -->
 <script src="{{asset('commonarea/plugins/summernote/summernote.js')}}"></script>

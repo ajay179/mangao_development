@@ -3,7 +3,7 @@
 
 <style>
     .ms-parent.form-control {
-        padding: 0px;
+        padding: 0px !important;
         width: 100% !important;
     }
 
@@ -69,10 +69,18 @@
                                          <input type="text" class="form-control" placeholder="store.owner name" id="store_owner_name" name="store_owner_name" autocomplete="off" value="{{ !empty($vendor_info[0]->store_owner_name) ? $vendor_info[0]->store_owner_name : ''}}">
 
                                     </div>
-                                    <div  class="col-md-6 form-group no-pad-left">
-                                        <label>Comission<span style="color: red;">*</span></label>
-                                         <input type="text" class="form-control" placeholder="Enter Comission in Percentage" id="vendor_comission" name="vendor_comission" autocomplete="off" value="{{ !empty($vendor_info[0]->vendor_comission) ? $vendor_info[0]->vendor_comission : ''}}">
-
+                                    <div class="col-md-6 form-group no-pad-left">
+                                        <label>Vendor Store Type<span style="color: red;">*</span></label>
+                                        @php $vendor_store_type =  !empty($vendor_info[0]->vendor_store_type) ? $vendor_info[0]->vendor_store_type :  '' @endphp
+                                        <select class="form-control" multiple="multiple" name="vendor_store_type" id="vendor_store_type">
+                                          
+                                            @if (!empty($Store_type_list)) 
+                                               @foreach ($Store_type_list as $key => $value)
+                                            <option value="{{ $value['id'] }}"  @if ($value->id == $vendor_store_type) selected @endif> {{ ucwords($value['store_type_name']) }}</option>
+                                               @endforeach
+                                            @endif
+                                        </select>
+                                        <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($vendor_info[0]->id) ? $vendor_info[0]->id : '' }}">
                                     </div>
 
                                     <div  class="col-md-6 form-group">
@@ -124,9 +132,14 @@
 
                             <div class="clearfix"></div>
 
-                            <div class="col-md-12 form-group no-pad-left ">
+                            <div class="col-md-6 form-group no-pad-left ">
                                 <label>messages.delivery range <span style="color: red;">*</span></label>
                                <input type="text" class="form-control" id="delivery_range" name="delivery_range" autocomplete="off" value="{{ !empty($vendor_info[0]->delivery_range) ? $vendor_info[0]->delivery_range : '' }}" placeholder="messages.how many kilometer you have to delivered">
+                            </div>
+                            <div  class="col-md-6 form-group no-pad-left">
+                                <label>Comission<span style="color: red;">*</span></label>
+                                 <input type="text" class="form-control" placeholder="Enter Comission in Percentage" id="vendor_comission" name="vendor_comission" autocomplete="off" value="{{ !empty($vendor_info[0]->vendor_comission) ? $vendor_info[0]->vendor_comission : ''}}">
+
                             </div>
                             <div class="clearfix"></div>
 
@@ -193,7 +206,8 @@
     $(".ct_meun").removeClass("active");
     $(".ct_user_management_active").addClass("active");
     $(".ct_vendor_list_active").addClass("active");
-
+    $('#vendor_store_type').multipleSelect();
+    
     function change_img(img, preview_img) {
        var oFReader = new FileReader();
        oFReader.readAsDataURL($('#' + img)[0].files[0]);

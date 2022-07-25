@@ -57,6 +57,7 @@
 
   <link rel="stylesheet" href="{{asset('commonarea/dist/css/jquery.datatables.css')}}">
 
+  <link rel="stylesheet" href="{{asset('commonarea/multiple-select-assets/multiple-select.css')}}">
   
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
