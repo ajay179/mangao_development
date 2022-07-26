@@ -18,7 +18,7 @@
     </a>
     <!-- <//?php $profile = (!empty($this->session->userdata('profile_path')) ? base_url($this->session->userdata('profile_path')) : base_url('assets/commonarea/dist/img/user2-160x160.jpg')); ?> -->
 
-    {{session()->get('&%*$^vendorusername$%#')}}
+   
     
     <div class="navbar-custom-menu row col-md-6">
       @if ((!empty(Auth::guard('city_admin')->user())) && (Auth::guard('city_admin')->user()->can('isCityAdmin')))

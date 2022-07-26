@@ -18,26 +18,26 @@ class Cn_sloat_master extends Controller
     public function fun_banner_slot()
     {
         $slot_category =  Crypt::encryptString('banner_promotion');
-        $class_name = 'Cn_sloat_master';
+        $class_name = 'cn_sloat_master';
         return view('admin/slot-master/banner_slot_master',compact('slot_category','class_name'));
     }
     public function fun_vendor_promotion_slot()
     {
         $slot_category =  Crypt::encryptString('vendor_promotion');
-        $class_name = 'Cn_sloat_master';
+        $class_name = 'cn_sloat_master';
         return view('admin/slot-master/vendor_promotion_slot_master',compact('slot_category','class_name'));
     }
     public function fun_notification_slot()
     {
         $slot_category =  Crypt::encryptString('notification_promotion');
-        $class_name = 'Cn_sloat_master';
+        $class_name = 'cn_sloat_master';
         return view('admin/slot-master/notification_promotion_slot_master',compact('slot_category','class_name'));
     }
 
     public function fun_on_screen_notification_slot()
     {
         $slot_category =  Crypt::encryptString('on_screen_notification_promotion');
-        $class_name = 'Cn_sloat_master';
+        $class_name = 'cn_sloat_master';
         return view('admin/slot-master/on_screen_notification_promotion_slot_master',compact('slot_category','class_name'));
     }
 

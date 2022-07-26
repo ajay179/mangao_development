@@ -110,3 +110,50 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$('#category_id').on('change',function() {
+   var category_id = $('#category_id').val(); 
+   if(category_id != ''){
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+       
+        // alert();
+        $.ajax({
+            url: base_url + '/get-store-type-of-category-id',
+            type: "POST",
+            dataType: "json",
+            headers:headers,
+            data:{
+                category_id : category_id,
+            },
+            success:function(result) {
+
+                if(result.status == true){
+                    $('#vendor_store_type').empty();
+                    $('#vendor_store_type').append('');
+                    var dataObj = jQuery.parseJSON(result.store_type_list);
+                    if (dataObj) {
+                      $(dataObj).each(function() {
+                        var option = $('<option />');
+                        option.attr('value', this.id).text(this.store_type_name);
+                        $('#vendor_store_type').append(option);
+                      });
+                    }
+                }
+                if(result.status == false){
+                     $('#vendor_store_type').empty();
+                    $('#vendor_store_type').append('');
+                    $('#vendor_store_type').html('<option value=""></option>');
+                }
+                $('#vendor_store_type').multipleSelect({
+                    placeholder: 'Select Sloat Type',
+                    filter: true
+                });
+            }
+        });
+    }else{
+        $('#vendor_store_type').html('<option value=""></option>');
+    }
+});

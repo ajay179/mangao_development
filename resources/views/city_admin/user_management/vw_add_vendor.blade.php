@@ -71,12 +71,14 @@
                                     </div>
                                     <div class="col-md-6 form-group no-pad-left">
                                         <label>Vendor Store Type<span style="color: red;">*</span></label>
-                                        @php $vendor_store_type =  !empty($vendor_info[0]->vendor_store_type) ? $vendor_info[0]->vendor_store_type :  '' @endphp
-                                        <select class="form-control" multiple="multiple" name="vendor_store_type" id="vendor_store_type">
+                                        
+                                        <select class="form-control" multiple="multiple" name="vendor_store_type[]" id="vendor_store_type" >
                                           
                                             @if (!empty($Store_type_list)) 
                                                @foreach ($Store_type_list as $key => $value)
-                                            <option value="{{ $value['id'] }}"  @if ($value->id == $vendor_store_type) selected @endif> {{ ucwords($value['store_type_name']) }}</option>
+
+                                        @php $vendor_store_type = (!empty($vendor_info[0]->vendor_store_type))  && (in_array($value["id"], explode(',', $vendor_info[0]->vendor_store_type))) ? "selected" : ''  @endphp
+                                            <option value="{{ $value['id'] }}" {{ $vendor_store_type }} > {{ ucwords($value['store_type_name']) }}</option>
                                                @endforeach
                                             @endif
                                         </select>
@@ -206,7 +208,10 @@
     $(".ct_meun").removeClass("active");
     $(".ct_user_management_active").addClass("active");
     $(".ct_vendor_list_active").addClass("active");
-    $('#vendor_store_type').multipleSelect();
+  $('#vendor_store_type').multipleSelect({
+    placeholder: 'Select Sloat Type',
+                    filter: true
+  });
     
     function change_img(img, preview_img) {
        var oFReader = new FileReader();

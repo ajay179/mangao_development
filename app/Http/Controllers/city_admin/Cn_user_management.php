@@ -40,17 +40,15 @@ class Cn_user_management extends Controller
     {
         $class_name ='cn_user_management';
         $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
-        $Store_type_list = Md_mangao_store_type_master::latest()->where('status','<>',3)->select('store_type_name','id')->get();
-        
         return view('city_admin.user_management.vw_add_vendor',compact('class_name','vendor_data','Store_type_list'));
     }
 
-    public function add_cityadmin_vendor()
-    {
-        $class_name ='cn_user_management';
-        $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
-        return view('city_admin/user_management/vw_add_vendor',compact('class_name','vendor_data'));
-    }
+    // public function add_cityadmin_vendor()
+    // {
+    //     $class_name ='cn_user_management';
+    //     $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
+    //     return view('city_admin/user_management/vw_add_vendor',compact('class_name','vendor_data'));
+    // }
 
     /**
      * This are used to add city .
@@ -61,7 +59,7 @@ class Cn_user_management extends Controller
     public function vendorCityAdminAction(Request $request)
     {
        $this->validate($request, [
-            'category_id' => 'required','store_name' => 'required','store_owner_name' => 'required','vendor_latitude' => 'required','vendor_longitude' => 'required','vendor_comission' => 'required','vendor_address' => 'required','delivery_range' => 'required','vendor_email' => 'required','vendor_mobile_no' => 'required','password' => 'required'
+            'category_id' => 'required','store_name' => 'required','store_owner_name' => 'required','vendor_latitude' => 'required','vendor_longitude' => 'required','vendor_comission' => 'required','vendor_address' => 'required','delivery_range' => 'required','vendor_email' => 'required','vendor_mobile_no' => 'required','password' => 'required','vendor_store_type'=>'required'
         ]);
         
         // function used for add single array 
@@ -119,6 +117,7 @@ class Cn_user_management extends Controller
             $Md_city_admin_vendor->delivery_range   = $request->delivery_range;
             $Md_city_admin_vendor->vendor_email   = $request->vendor_email;
             $Md_city_admin_vendor->vendor_mobile_no   = $request->vendor_mobile_no;
+            $Md_city_admin_vendor->vendor_store_type   = !empty($request->vendor_store_type) ? implode(',', $request->vendor_store_type) : NULL;
             $Md_city_admin_vendor->password   = Hash::make($request->password);
             $Md_city_admin_vendor->encrypt_password   = Crypt::encryptString($request->password);
             $Md_city_admin_vendor->save();
@@ -179,9 +178,12 @@ class Cn_user_management extends Controller
         try {
             
             $id =  Crypt::decryptString($encrypt_id);
-            $vendor_info = DB::table(Config::get('constants.MANGAO_VENDORS').'  as MV')->where('MV.status', '<>', 3)->where('MV.id', '=', $id)->select('MV.category_id', 'MV.id','MV.store_name','MV.store_owner_name','MV.vendor_latitude','MV.vendor_longitude','MV.vendor_comission','MV.vendor_address','MV.delivery_range','MV.vendor_email','MV.vendor_mobile_no','MV.password','MV.encrypt_password','MV.vendor_image')->get();
+            $vendor_info = DB::table(Config::get('constants.MANGAO_VENDORS').'  as MV')->where('MV.status', '<>', 3)->where('MV.id', '=', $id)->select('MV.category_id', 'MV.id','MV.store_name','MV.store_owner_name','MV.vendor_latitude','MV.vendor_longitude','MV.vendor_comission','MV.vendor_address','MV.delivery_range','MV.vendor_email','MV.vendor_mobile_no','MV.password','MV.encrypt_password','MV.vendor_image','MV.vendor_store_type')->get();
             $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
             
+
+            // dd($vendor_info);
+            // die;
             // Make id encrypt
             $vendor_info[0]->id = Crypt::encryptString($vendor_info[0]->id);
             
@@ -192,13 +194,16 @@ class Cn_user_management extends Controller
             //decrypt password
             $vendor_info[0]->encrypt_password = Crypt::decryptString($vendor_info[0]->encrypt_password);
             
+            //store type list
+            $Store_type_list = Md_mangao_store_type_master::where('store_category_id','=',$vendor_info[0]->category_id)->where('status','<>',3)->select('store_type_name','id')->get();
+        
 
             // return $vendor_info;
 
             $class_name ='cn_user_management';
            
             if(!empty($vendor_info[0])){
-                return view('city_admin/user_management/vw_add_vendor',compact('class_name','vendor_info','vendor_data'));
+                return view('city_admin/user_management/vw_add_vendor',compact('class_name','vendor_info','vendor_data','Store_type_list'));
             }else{
                return redirect('cityadmin.view.vendor.list')->with('error', 'something went wrong');
             }
@@ -263,5 +268,38 @@ class Cn_user_management extends Controller
 
     }
 
+
+    public function fun_store_type_of_category_type_id(Request $request)
+    {
+         if ($request->ajax()) {
+            try {
+                $id =  $request->category_id;
+                $store_type = Md_mangao_store_type_master::where('store_category_id','=', $id)
+                    ->where('status', '<>', 3)
+                    ->select('store_type_name')
+                    ->get();
+
+                if($store_type->isEmpty()){
+                    $message = [
+                        'message' =>  'Category Not Found.',
+                        'status' => false,
+                    ];
+                    return response()->json($message);
+                }else{
+                    $message = [
+                        'message' =>  "Store type list found successfully.",
+                        'status' => true,
+                        'store_type_list' => json_encode($store_type)
+                    ];
+                    return response()->json($message);
+                  
+                }
+            } catch (DecryptException $e) {
+                return redirect('cityadmin/add-vendor')->with('error', 'something went wrong');
+            }
+        }else{
+            exit('No direct script access allowed');
+        }
+    }
     
 }

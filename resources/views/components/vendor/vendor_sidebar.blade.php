@@ -30,6 +30,11 @@
                     </a>
                 </li>
 
+                 <li class="s_meun my_banner_active">
+                    <a href="{{ url('vendor-my-banner') }}">
+                        <i class="fa fa-dashboard"></i> <span>My Banner</span>
+                    </a>
+                </li>
 
                 <li class="s_meun category_active">
                     <a href="{{ url('vendor-category') }}">
