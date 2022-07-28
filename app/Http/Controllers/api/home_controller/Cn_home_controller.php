@@ -11,6 +11,8 @@ use App\Models\Md_mangao_banner;
 use App\Models\Md_mangao_categories;
 use App\Models\vendor\Md_vendor_category_master;
 use App\Models\Md_city_admin_vendor;
+use App\Models\vendor\Md_mangao_vendor_promotional_banner;
+use App\Models\Md_mangao_store_type_master;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
@@ -56,7 +58,7 @@ class Cn_home_controller extends Cn_base_controller
     }
 
 
-    private function get_vendor_list($category_id='',$category_type='')
+    private function get_vendor_list($category_id='',$category_type='',$store_type_id ='')
     {
         $vendor_list = Md_city_admin_vendor::latest()->select('store_owner_name','id','created_at','vendor_latitude','vendor_longitude','delivery_range','vendor_image')->where('category_id', '=', $category_id)->where('category_type', '=', $category_type)->where('status', '<>', 3)->get();
         return $vendor_list;
@@ -76,6 +78,18 @@ class Cn_home_controller extends Cn_base_controller
     } 
 
 
+    public function get_vendor_list_for_perticuler_category($category_id='',$category_type='',$store_type_id ='',$limit='',$offset='')
+    {
+        $vendor_list = Md_city_admin_vendor::latest()->select('store_owner_name','id','vendor_store_type','created_at','vendor_latitude','vendor_longitude','delivery_range','vendor_image')->where('category_id', '=', $category_id)->where('category_type', '=', $category_type)->where('status', '<>', 3);
+
+        if(!empty($store_type_id)){
+            $vendor_list = $vendor_list->whereRaw('FIND_IN_SET("'.$store_type_id.'", vendor_store_type)');
+        }
+
+        $vendor_list = $vendor_list->offset($offset*$limit)->limit($limit)->get();
+        return $vendor_list;
+    }
+
      /**
      * This function are used get all vendor list on there category id.
      *
@@ -85,20 +99,26 @@ class Cn_home_controller extends Cn_base_controller
     {
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|numeric',
-            'category_type' => 'required|numeric',
+            'category_type' => 'required|in:Grocery,Restaurant,Pharmacy,Parcel,other',
+            'limit' => 'required|numeric',
+            'offset' => 'required|numeric',
         ]);
     
-        // if($validator->fails()){
-        //     return $this->sendError('Validation Error.', $validator->errors(),'401');       
-        // } 
-        $banner_list= Md_mangao_banner::where('status','=', 1)->select('banner_image','id','banner_name')-> orderBy('banner_position', 'asc')->get();
-        $vendor_list= $this->get_vendor_list($request->category_id,$request->category_type);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(),'401');       
+        } 
+        $banner_list= Md_mangao_vendor_promotional_banner::where('status','=', 1)->select('promotion_banner_image','id')-> orderBy('id', 'asc')->get();
+        $store_type_list= Md_mangao_store_type_master::where('status','=', 1)->where('store_category_id','=', $request->category_id)->select('store_type_name','id')-> orderBy('id', 'asc')->get();
+
+        $store_type_id = !empty($request->store_type_id) ? $request->store_type_id : '';
+        $vendor_list= $this->get_vendor_list_for_perticuler_category($request->category_id,$request->category_type,$store_type_id,$request->limit,$request->offset);
         
         $response = [
             'banner_list' => $banner_list,
+            'store_type_list' => $store_type_list,
+            // 'promotional_vendor_list' => $vendor_list,
             'vendor_list' => $vendor_list,
-            
-            
+
         ];
             return $this->sendResponse($response, 'Data List Found successfully.');
     }

@@ -63,13 +63,9 @@
                                              <thead>
                                                    <tr role="row">
                                                       <th width="5%" class="text-center">Sr No.</th>
-                                                      <th width="8%">Date</th>
-                                                       <!-- <th width="8%">Sloat</th> -->
-                                                       <th width="8%">From time</th>
-                                                       <th width="8%">To time</th>
                                                       <th width="15%">Banner Image</th>
+                                                      <!-- <th width="15%">Status</th> -->
                                                       <th width="8%" >created at</th>
-                                                      <!-- <th width="8%" >Status</th> -->
                                                       <th width="3%" >Action</th>
                                                    </tr>
                                              </thead>
@@ -115,13 +111,11 @@
     let table = $('#example').dataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('vendor.promotional.banner.getDataTable') }}",
+        ajax: "{{ route('vendor.my.banner.getDataTable') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'promotion_date', name: 'promotion_date'},
-            {data: 'from_time', name: 'from_time'},
-            {data: 'to_time', name: 'to_time'},
-            {data: 'promotion_banner_image', name: 'promotion_banner_image'},
+           
+            {data: 'vendor_banner_img', name: 'vendor_banner_img'},
             {data: 'date', name: 'date'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]

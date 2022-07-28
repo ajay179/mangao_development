@@ -44,6 +44,7 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		Route::get('vendor-my-banner', [App\Http\Controllers\vendor\Cn_vendor_my_banner::class,'fun_vendor_my_banner'])->name('vendor.my.banner');
 		Route::post('vendor-my-banner-action', [App\Http\Controllers\vendor\Cn_vendor_my_banner::class, 'fun_vendor_my_banner_action'])->name('vendor.my.banner.action');
 		
+		Route::get('vendor-get-banner-datatable', [App\Http\Controllers\vendor\Cn_vendor_my_banner::class, 'fun_vendor_my_banner_datatable'])->name('vendor.my.banner.getDataTable');
 
 
 		//Vendor Category 
