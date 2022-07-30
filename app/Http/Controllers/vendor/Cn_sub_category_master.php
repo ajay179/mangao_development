@@ -22,7 +22,7 @@ class Cn_sub_category_master extends Controller
      */
     public function index()
     {
-        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
         $class_name = 'cn_vendor_category';
         return view('vendor.master.sub_category',compact('class_name','get_vendor_category'));
     }
@@ -57,7 +57,8 @@ class Cn_sub_category_master extends Controller
        
         $Md_sub_category_master->vendor_category_id   = $request->vendor_category_id;
         $Md_sub_category_master->vendor_sub_category_name   = $request->vendor_sub_category_name;
-        $Md_sub_category_master->category_type   = session()->get('$%vendor_category_type_id&%*');
+        $Md_sub_category_master->category_id   = session()->get('$%vendor_category_type_id&%*');
+        $Md_sub_category_master->category_type   = session()->get('$%vendor_category_type&%*');
         $Md_sub_category_master->save();
 
         // this statement are used for getting the last inserted id
@@ -73,7 +74,7 @@ class Cn_sub_category_master extends Controller
             ->join(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').' as MVCM', 'MVCM.id', 'MVSCM.vendor_category_id')
             ->where('MVSCM.status', '<>', 3)
             ->where('MVCM.status', '<>', 3)
-            ->where('MVSCM.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVSCM.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVSCM.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVSCM.vendor_sub_category_name', 'MVSCM.id', 'MVCM.vendor_category_name','MVSCM.created_at')
             ->get();
@@ -105,14 +106,14 @@ class Cn_sub_category_master extends Controller
             $id =  Crypt::decryptString($encrypt_id);
             $vendor_sub_category_data = DB::table(Config::get('constants.MANGAO_VENDOR_SUB_CATEGORY_MASTER').'  as MVSCM')
             ->where('MVSCM.status', '<>', 3)->where('MVSCM.id', '=', $id)
-            ->where('MVSCM.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVSCM.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVSCM.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVSCM.vendor_sub_category_name','MVSCM.id','MVSCM.vendor_category_id')->get();
 
             $vendor_sub_category_data[0]->id = Crypt::encryptString($vendor_sub_category_data[0]->id);
             $class_name ='cn_vendor_category';
             
-            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
         
             if(!empty($vendor_sub_category_data[0])){
                 return view('vendor.master.sub_category',compact('class_name','vendor_sub_category_data','get_vendor_category'));

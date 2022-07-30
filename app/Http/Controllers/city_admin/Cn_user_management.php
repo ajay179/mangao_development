@@ -40,7 +40,7 @@ class Cn_user_management extends Controller
     {
         $class_name ='cn_user_management';
         $vendor_data = Md_mangao_categories::latest()->where('status','<>',3)->select('category_name','id','created_at')->get();
-        return view('city_admin.user_management.vw_add_vendor',compact('class_name','vendor_data','Store_type_list'));
+        return view('city_admin.user_management.vw_add_vendor',compact('class_name','vendor_data'));
     }
 
     // public function add_cityadmin_vendor()

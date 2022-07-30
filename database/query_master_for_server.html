@@ -7,3 +7,22 @@ ALTER TABLE `mangao_time_slot_master` CHANGE `slot_category` `slot_category` ENU
 /** Second query **/
 
 ALTER TABLE `mangao_admin_send_notification` ADD `notification_image_name` TEXT NULL AFTER `user_type`, ADD `slot_id` INT NULL AFTER `notification_image_name`, ADD `slot_name` VARCHAR(255) NULL AFTER `slot_id`, ADD `from_time` TIME NULL AFTER `slot_name`, ADD `to_time` TIME NULL AFTER `from_time`;
+
+
+/** query in my banner **/
+
+ALTER TABLE `mangao_vendor_my_banner` ADD `vendor_id` BIGINT NOT NULL AFTER `id`, ADD `category_id` BIGINT NOT NULL AFTER `vendor_id`, ADD `category_type` ENUM('Grocery','Restaurant','Pharmacy','Parcel','other') NOT NULL AFTER `category_id`;
+
+
+`mangao_vendor_category_master` DROP `category_type`;
+
+
+ALTER TABLE `mangao_vendor_category_master` ADD `category_id` BIGINT NOT NULL AFTER `vendor_category_image`, ADD `category_type` ENUM('Grocery','Restaurant','Pharmacy','Parcel','other') NOT NULL AFTER `vendor_category_id`;
+
+
+ALTER TABLE `mangao_vendor_product` ADD `product_type_id` BIGINT NULL AFTER `product_image`;
+
+ALTER TABLE `mangao_vendor_sub_category_master` CHANGE `category_type` `category_id` BIGINT NOT NULL;
+
+
+ALTER TABLE `mangao_vendor_sub_category_master` ADD `category_type` ENUM('Grocery','Restaurant','Pharmacy','Parcel','other') NOT NULL AFTER `category_id`;

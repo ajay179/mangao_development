@@ -5,6 +5,8 @@ namespace App\Models\vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Model\Md_mangao_product_type_master;
+
 class Md_vendor_product extends Model
 {
     use HasFactory;
@@ -18,4 +20,8 @@ class Md_vendor_product extends Model
     protected $hidden = [
         'remember_token',
     ];
+
+    //  public function vendor_product_type(){
+    //     return $this->belongsTo(Md_mangao_product_type_master::class);
+    // }
 }

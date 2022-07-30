@@ -152,7 +152,24 @@
                             </div>
                             <div class="clearfix"></div>
 
-                            
+                            <div class="col-md-12 no-pad-left">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Product Type<span style="color: red;">*</span></label>
+                                        @php $product_type_id =  !empty($product_data[0]->product_type_id) ? $product_data[0]->product_type_id :  '' @endphp
+                                        <select class="form-control" name="product_type_id" id="product_type_id">
+                                            <option value="">Select Product type</option>
+                                            @if (!empty($product_type_list)) 
+                                               @foreach ($product_type_list as $key => $value)
+                                            <option value="{{ $value['id'] }}"  @if ($value->id == $product_type_id) selected @endif> {{ ucwords($value['product_type_name']) }}</option>
+                                               @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+
+                                   
+                                </div>
+                            </div>
 
 
                             <div class="col-md-12 form-group no-padd">

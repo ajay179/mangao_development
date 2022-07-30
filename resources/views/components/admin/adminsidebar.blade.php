@@ -102,6 +102,8 @@
 						<li class="s_meun cms_association_active"><a href="{{ route('main.banner') }}"><i class="fa fa-picture-o"></i> <span>Main Banner</span></a></li>
 
 						<li class="s_meun store_type_active"><a href="{{ route('master.store.type') }}"><i class="fa fa-picture-o"></i> <span>Store type master</span></a></li>
+
+						<li class="s_meun product_type_active"><a href="{{ route('master.product.type') }}"><i class="fa fa-picture-o"></i> <span>Product type master</span></a></li>
 						
 					</ul>
 				</li>

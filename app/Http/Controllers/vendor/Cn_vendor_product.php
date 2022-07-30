@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Arr;
 use App\Models\vendor\Md_vendor_product;
+use App\Models\Md_mangao_product_type_master;
 use App\Models\vendor\Md_vendor_category_master;
 use App\Models\vendor\Md_sub_category_master;
 use App\Models\vendor\Md_vendor_product_variant_list;
@@ -33,10 +34,12 @@ class Cn_vendor_product extends Controller
 
     public function fun_add_product($value='')
     {
-        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+
+        $product_type_list = Md_mangao_product_type_master::latest()->where('status','<>',3)->where('product_category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('product_type_name','id')->get();
         
         $class_name = 'cn_vendor_product';
-        return view('vendor.product.vw_add_product',compact('class_name','get_vendor_category'));
+        return view('vendor.product.vw_add_product',compact('class_name','get_vendor_category','product_type_list'));
     }
 
     public function vendorAddProductAction(Request $request)
@@ -90,7 +93,7 @@ class Cn_vendor_product extends Controller
                 $category_data = Md_vendor_category_master::where('id','=', $id)
                     ->where('status', '<>', 3)
                     ->where('created_by','=',session()->get('&&*id$##'))
-                    ->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+                    ->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))
                     ->get();
 
                 if($category_data->isEmpty()){
@@ -101,7 +104,7 @@ class Cn_vendor_product extends Controller
                     return response()->json($message);
                 }else{
                     $sub_category_id = Md_sub_category_master::where('vendor_category_id','=', $id)->where('vendor_id','=',session()->get('&&*id$##'))->select('vendor_sub_category_name','id')
-                    ->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->get();
+                    ->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->get();
                     
                     $html ='<option value="">Select Sub Category </option>';
                     foreach ($sub_category_id as $key => $value) {
@@ -135,7 +138,7 @@ class Cn_vendor_product extends Controller
             ->where('MVP.status', '<>', 3)
             ->where('MVCM.status', '<>', 3)
             ->where('MVSCM.status', '<>', 3)
-            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVCM.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVCM.vendor_category_name','MVP.created_at','MVSCM.vendor_sub_category_name')
             ->get();
@@ -173,26 +176,27 @@ class Cn_vendor_product extends Controller
             ->where('MVP.status', '<>', 3)
             ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
-            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.vendor_sub_category_id','MVP.product_description','MVP.unit','MVP.stock')
+            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.vendor_sub_category_id','MVP.product_description','MVP.unit','MVP.stock','MVP.product_type_id')
             ->get();
 
 
             $product_data[0]->id = Crypt::encryptString($product_data[0]->id);
             $class_name ='cn_vendor_product';
             
+            $product_type_list = Md_mangao_product_type_master::latest()->where('status','<>',3)->where('product_category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('product_type_name','id')->get();
             //make image url
             $url =Storage::url($product_data[0]->product_image);
             $product_data[0]->show_product_image = url($url);
 
-            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
 
             if(!empty($product_data[0])){
                 $get_vendor_sub_category = Md_sub_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))
-                ->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+                ->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))
                 ->where('vendor_category_id','=',$product_data[0]->vendor_category_id)
                 ->select('vendor_sub_category_name','id')->get();
 
-                return view('vendor.product.vw_add_product',compact('class_name','product_data','get_vendor_category','get_vendor_sub_category'));
+                return view('vendor.product.vw_add_product',compact('class_name','product_data','get_vendor_category','get_vendor_sub_category','product_type_list'));
             }else{
                return redirect('vendor-product')->with('error', 'something went wrong');
             }
@@ -321,10 +325,13 @@ class Cn_vendor_product extends Controller
 
     public function fun_add_restaurant_product($value='')
     {
-        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+
+        $product_type_list = Md_mangao_product_type_master::latest()->where('status','<>',3)->where('product_category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('product_type_name','id')->get();
+
         
         $class_name = 'cn_vendor_restaurant_product';
-        return view('vendor.product.vw_add_restaurant_product',compact('class_name','get_vendor_category'));
+        return view('vendor.product.vw_add_restaurant_product',compact('class_name','get_vendor_category','product_type_list'));
     }
 
 
@@ -350,7 +357,7 @@ class Cn_vendor_product extends Controller
             $url =Storage::url($product_data[0]->product_image);
             $product_data[0]->show_product_image = url($url);
 
-            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
 
             if(!empty($product_data[0])){
                 
@@ -416,7 +423,7 @@ class Cn_vendor_product extends Controller
             ->join(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').' as MVCM', 'MVCM.id', 'MVP.vendor_category_id')
             ->where('MVP.status', '<>', 3)
             ->where('MVCM.status', '<>', 3)
-            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVCM.vendor_category_name','MVP.created_at')
             ->get();
@@ -561,10 +568,12 @@ class Cn_vendor_product extends Controller
 
     public function fun_add_pharmacy_product($value='')
     {
-        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+        $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+
+        $product_type_list = Md_mangao_product_type_master::latest()->where('status','<>',3)->where('product_category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('product_type_name','id')->get();
         
         $class_name = 'cn_vendor_pharmacy_product';
-        return view('vendor.product.vw_add_pharmacy_product',compact('class_name','get_vendor_category'));
+        return view('vendor.product.vw_add_pharmacy_product',compact('class_name','get_vendor_category','product_type_list'));
     }
 
 
@@ -589,7 +598,7 @@ class Cn_vendor_product extends Controller
             $url =Storage::url($product_data[0]->product_image);
             $product_data[0]->show_product_image = url($url);
 
-            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_type', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
+            $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
 
             if(!empty($product_data[0])){
                 
@@ -655,7 +664,7 @@ class Cn_vendor_product extends Controller
             ->join(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').' as MVCM', 'MVCM.id', 'MVP.vendor_category_id')
             ->where('MVP.status', '<>', 3)
             ->where('MVCM.status', '<>', 3)
-            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVCM.vendor_category_name','MVP.created_at')
             ->get();

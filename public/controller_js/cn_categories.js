@@ -54,3 +54,42 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+
+$(document).ready(function () {
+    $(function () {
+        $("#productTypeMasterForm").validate({
+            onfocusout: false,
+             rules: {
+                product_category_id: {
+                    required: true,
+                },
+                product_type_name: {
+                    required: true,
+                },
+                
+            },
+            // Specify the validation error messages
+            messages: {
+                product_category_id: {
+                    required: '* Please select category.',
+                },
+                product_type_name: {
+                    required: '* Please enter product Name.',
+                },
+               
+            },
+            submitHandler: function (form) {
+                $(".submit").text("Please wait..");
+                $(".submit").attr("disabled", true);
+
+               form.submit();
+            }
+        });
+    });
+});
+
+
+

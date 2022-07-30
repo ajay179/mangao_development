@@ -46,13 +46,13 @@ class Cn_vendor_my_banner extends Controller
             }else{
                 $Md_mangao_vendor_banner = Md_mangao_vendor_banner::find($txtpkey);
                 $Md_mangao_vendor_banner->updated_at   = date('Y-m-d h:i:s');
-                $Md_mangao_vendor_banner->updated_by   = session()->get('*$%&%*id**$%#');
+                $Md_mangao_vendor_banner->updated_by   = session()->get('&&*id$##');
                 $Md_mangao_vendor_banner->updated_ip_address   = $request->ip();
             }
         }else{
             $msg = "Added";
             $Md_mangao_vendor_banner->created_at   = date('Y-m-d h:i:s');
-            $Md_mangao_vendor_banner->created_by   = session()->get('*$%&%*id**$%#');
+            $Md_mangao_vendor_banner->created_by   = session()->get('&&*id$##');
             $Md_mangao_vendor_banner->created_ip_address   = $request->ip();
         }      
         $filename = '';
@@ -62,6 +62,9 @@ class Cn_vendor_my_banner extends Controller
         }else{
             $filePath = $request->admin_image_old;
         }
+        $Md_mangao_vendor_banner->vendor_id   = session()->get('&&*id$##');
+        $Md_mangao_vendor_banner->category_id   = session()->get('$%vendor_category_type_id&%*');
+        $Md_mangao_vendor_banner->category_type   = session()->get('$%vendor_category_type&%*');
         $Md_mangao_vendor_banner->vendor_banner_img   = $filePath;
         $Md_mangao_vendor_banner->save();
 

@@ -4,6 +4,8 @@ namespace App\Models\vendor;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
 
 class Md_vendor_category_master extends Model
 {
@@ -19,4 +21,12 @@ class Md_vendor_category_master extends Model
     protected $hidden = [
         'remember_token',
     ];
+
+
+     public function getVendorCategoryImageAttribute($value)
+    {
+        return $url = !empty($value) ? url('/'). Storage::url($value) : '';
+    }
+
+    
 }

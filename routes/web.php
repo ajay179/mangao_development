@@ -76,15 +76,18 @@ Route::post('check-login-for-admin',[App\Http\Controllers\admin\Cn_login::class,
 	Route::get('category-datatable', [App\Http\Controllers\admin\Cn_categories::class, 'get_data_table_of_category'])->name('category.getDataTable');
 	Route::get('edit-categoryadmin/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_category']);
 	Route::post('check_category_position', [App\Http\Controllers\admin\Cn_categories::class, 'fun_check_category_position']);
-	
-	Route::get('view-store-type', [App\Http\Controllers\admin\Cn_categories::class, 'fun_store_type_master'])->name('master.store.type');
 
+	// Store Type Routes
+	Route::get('view-store-type', [App\Http\Controllers\admin\Cn_categories::class, 'fun_store_type_master'])->name('master.store.type');
 	Route::post('store_type_master_action', [App\Http\Controllers\admin\Cn_categories::class, 'fun_store_type_action'])->name('store.type.master.action');
-	
 	Route::get('get_store_type_data_table', [App\Http\Controllers\admin\Cn_categories::class, 'fun_get_store_type_datatable'])->name('store.type.getDataTable');
-	
 	Route::get('edit-store-type-master/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_store_type_master']);
 	
+	// Product type Routes
+	Route::get('view-product-type', [App\Http\Controllers\admin\Cn_categories::class, 'fun_product_type_master'])->name('master.product.type');
+	Route::post('product_type_master_action', [App\Http\Controllers\admin\Cn_categories::class, 'fun_product_type_action'])->name('product.type.master.action');
+	Route::get('get_product_type_data_table', [App\Http\Controllers\admin\Cn_categories::class, 'fun_get_product_type_datatable'])->name('product.type.getDataTable');
+	Route::get('edit-product-type-master/{id}', [App\Http\Controllers\admin\Cn_categories::class, 'fun_edit_product_type_master']);
 	
 
 	// wallet offer plan routes
