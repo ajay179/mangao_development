@@ -4,6 +4,7 @@ namespace App\Models\vendor;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Md_mangao_vendor_promotional_banner extends Model
 {
@@ -20,9 +21,15 @@ class Md_mangao_vendor_promotional_banner extends Model
         'remember_token',
     ];
 
-     public function getPromotionDateAtAttribute($date)
+    public function getPromotionDateAtAttribute($date)
     {
         // return ucfirst($value);
         return $date = !empty($date) ? date('d M Y',strtotime($date)) : '';
+    }
+
+    public function getPromotionBannerImageAttribute($value)
+    {
+        // return ucfirst($value);
+        return $url = !empty($value) ? url('/'). Storage::url($value) : '';
     }
 }

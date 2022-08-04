@@ -101,6 +101,9 @@ class Cn_user_management extends Controller
                 $filePath = $request->vendor_image_old;
             }
             
+            $store_type =  Md_mangao_store_type_master::whereIn('id',$request->vendor_store_type)->selectRaw('GROUP_CONCAT(store_type_name) as store_type_name')->get();
+         
+
             $category_type = Md_mangao_categories::where('id','=',$request->category_id)->select('category_ui')->get();
 
             $Md_city_admin_vendor->vendor_city_id   = session()->get('$%#city_id&%*');
@@ -118,6 +121,7 @@ class Cn_user_management extends Controller
             $Md_city_admin_vendor->vendor_email   = $request->vendor_email;
             $Md_city_admin_vendor->vendor_mobile_no   = $request->vendor_mobile_no;
             $Md_city_admin_vendor->vendor_store_type   = !empty($request->vendor_store_type) ? implode(',', $request->vendor_store_type) : NULL;
+            $Md_city_admin_vendor->vendor_store_type_name = !empty($store_type[0]->store_type_name) ? $store_type[0]->store_type_name : NULL;
             $Md_city_admin_vendor->password   = Hash::make($request->password);
             $Md_city_admin_vendor->encrypt_password   = Crypt::encryptString($request->password);
             $Md_city_admin_vendor->save();

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Config;
+use DB;
 
 class Cn_home_controller extends Cn_base_controller
 {
@@ -60,8 +61,18 @@ class Cn_home_controller extends Cn_base_controller
 
     private function get_vendor_list($category_id='',$category_type='',$store_type_id ='')
     {
-        $vendor_list = Md_city_admin_vendor::latest()->select('store_owner_name','id','created_at','vendor_latitude','vendor_longitude','delivery_range','vendor_image')->where('category_id', '=', $category_id)->where('category_type', '=', $category_type)->where('status', '<>', 3)->get();
-        return $vendor_list;
+        $vendor_list = Md_city_admin_vendor::latest()->select('store_owner_name','id','created_at','vendor_latitude','vendor_longitude','delivery_range','vendor_image','vendor_store_type_name')->where('category_id', '=', $category_id)->where('category_type', '=', $category_type)->where('status', '<>', 3)->get();
+
+
+        $collection = collect($vendor_list);
+        $collection->map(function ($collection) {            
+            $collection['star_rating'] = '3.5';
+            $collection['user_rating_count'] = '10';
+            $collection['offer_status'] = false; 
+            $collection['wishlist_status'] = false; 
+            return $collection;
+        });
+        return $collection;
 
     }
 
@@ -80,13 +91,22 @@ class Cn_home_controller extends Cn_base_controller
 
     public function get_vendor_list_for_perticuler_category($category_id='',$category_type='',$store_type_id ='',$limit='',$offset='')
     {
-        $vendor_list = Md_city_admin_vendor::latest()->select('store_owner_name','id','vendor_store_type','created_at','vendor_latitude','vendor_longitude','delivery_range','vendor_image')->where('category_id', '=', $category_id)->where('category_type', '=', $category_type)->where('status', '<>', 3);
+        $vendor_list = Md_city_admin_vendor::latest()->select('store_owner_name','id','vendor_store_type','created_at','vendor_latitude','vendor_longitude','delivery_range','vendor_image','vendor_store_type_name')->where('category_id', '=', $category_id)->where('category_type', '=', $category_type)->where('status', '<>', 3);
 
         if(!empty($store_type_id)){
             $vendor_list = $vendor_list->whereRaw('FIND_IN_SET("'.$store_type_id.'", vendor_store_type)');
         }
 
         $vendor_list = $vendor_list->offset($offset*$limit)->limit($limit)->get();
+
+        $collection = collect($vendor_list);
+        $collection->map(function ($collection) {            
+            $collection['star_rating'] = '3.5';
+            $collection['user_rating_count'] = '10';
+            $collection['offer_status'] = false; 
+            $collection['wishlist_status'] = false; 
+            return $collection;
+        });
         return $vendor_list;
     }
 

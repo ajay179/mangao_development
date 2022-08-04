@@ -89,6 +89,7 @@ class Cn_login extends Cn_base_controller
         // if (!empty($user)) { 
         if (Auth::attempt($user_form_data)) {
             $user = Auth::user();
+            $user_details = User::where('id', $user->id)->where('status','=', 1)->select('first_name','last_name','mobile_no','email','user_type','otp_verified_status')->first();
             $token = $user->createToken('my-app-token')->plainTextToken;
 
             User::where('mobile_no',$request->mobile_no)->update([
@@ -99,7 +100,7 @@ class Cn_login extends Cn_base_controller
             $response = [
                 'token' => $token,
                  // 'user_id' => Crypt::encryptString($user),
-                'user_data' => $user,
+                'user_data' => $user_details,
             ];
             return $this->sendResponse($response, 'User OTP verification successfully.');
         }else{
