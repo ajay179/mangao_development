@@ -14,7 +14,7 @@ class Md_vendor_restaurant_product extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'vendor_category_id', 'product_name','quantity', 'price', 'offer_price','product_description', 'unit','product_image','created_by','category_type','created_ip_address','updated_by','updated_ip_address','vendor_id'
+        'vendor_category_id','vendor_sub_category_id', 'product_name','quantity', 'price', 'offer_price','product_description', 'unit','product_image','created_by','category_type','created_ip_address','updated_by','updated_ip_address','vendor_id'
     ];
     protected $hidden = [
         'remember_token',

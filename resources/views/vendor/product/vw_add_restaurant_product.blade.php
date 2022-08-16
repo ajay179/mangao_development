@@ -59,6 +59,21 @@
                                         <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($product_data[0]->id) ? $product_data[0]->id : '' }}">
                                     </div>
 
+                                    <div class="col-md-6 form-group">
+                                        <label>Vendor Sub Category<span style="color: red;">*</span></label>
+                                        @php $vendor_sub_category_id =  !empty($product_data[0]->vendor_sub_category_id) ? $product_data[0]->vendor_sub_category_id :  '' @endphp
+                                        <select class="form-control" name="vendor_sub_category_id" id="vendor_sub_category_id">
+                                            <option value="">Select Sub Category</option>
+                                            @if (!empty($get_vendor_sub_category)) 
+                                               @foreach ($get_vendor_sub_category as $key => $value)
+                                            <option value="{{ $value['id'] }}"  @if ($value->id == $vendor_sub_category_id) selected @endif> {{ ucwords($value['vendor_sub_category_name']) }}</option>
+                                               @endforeach
+                                            @endif
+                                        </select>
+                                        
+                                    </div>
+
+
                                    <div class="col-md-6 form-group">
                                        <label>Quantity<span style="color: red;">*</span></label>
                                          <input type="text" class="form-control" placeholder="Quantity" id="quantity" name="quantity" autocomplete="off" value="{{ !empty($product_data[0]->quantity) ? $product_data[0]->quantity : ''}}">

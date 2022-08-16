@@ -55,10 +55,10 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 
 
 		//Vendor Sub Category 
-		Route::get('vendor-sub-category', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'index'])->name('vendor.sub.category')->can('isVendorGrocery');
-		Route::post('vendor-sub-category-action', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'vendorSubCategoryAction'])->name('vendor.sub.category.action')->can('isVendorGrocery');
-		Route::get('vendor-sub-category-datatable', [App\Http\Controllers\vendor\Cn_sub_category_master::class, 'get_data_table_of_vendor_sub_category'])->name('vendor.sub.category.getDataTable')->can('isVendorGrocery');
-		Route::get('edit-sub-vendor-category/{id}', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'fun_edit_sub_vendor_category'])->can('isVendorGrocery');
+		Route::get('vendor-sub-category', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'index'])->name('vendor.sub.category');
+		Route::post('vendor-sub-category-action', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'vendorSubCategoryAction'])->name('vendor.sub.category.action');
+		Route::get('vendor-sub-category-datatable', [App\Http\Controllers\vendor\Cn_sub_category_master::class, 'get_data_table_of_vendor_sub_category'])->name('vendor.sub.category.getDataTable');
+		Route::get('edit-sub-vendor-category/{id}', [App\Http\Controllers\vendor\Cn_sub_category_master::class,'fun_edit_sub_vendor_category']);
 
 
 		// Grocery Vendor Product 
@@ -66,7 +66,7 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		Route::get('vendor-add-product', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_add_product'])->name('vendor.add.product')->can('isVendorGrocery');
 		Route::post('vendor-add-product-action', [App\Http\Controllers\vendor\Cn_vendor_product::class,'vendorAddProductAction'])->name('vendor.add.product.action')->can('isVendorGrocery');
 		
-		Route::post('get-sub-category-list-on-category-id', [App\Http\Controllers\vendor\Cn_vendor_product::class,'get_sub_category_list_on_category_id'])->can('isVendorGrocery');
+		Route::post('get-sub-category-list-on-category-id', [App\Http\Controllers\vendor\Cn_vendor_product::class,'get_sub_category_list_on_category_id']);
 		Route::get('vendor-product-datatable', [App\Http\Controllers\vendor\Cn_vendor_product::class, 'get_data_table_of_vendor_product'])->name('vendor.product.getDataTable')->can('isVendorGrocery');
 		Route::get('edit-product/{id}', [App\Http\Controllers\vendor\Cn_vendor_product::class,'fun_edit_product'])->can('isVendorGrocery');
 		

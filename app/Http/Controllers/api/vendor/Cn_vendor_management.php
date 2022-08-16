@@ -27,7 +27,8 @@ class Cn_vendor_management extends Cn_base_controller
     {
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|numeric',
-            'category_type' => 'required|in:Grocery,Restaurant,Pharmacy,Parcel,other',
+            // 'category_type' => 'required|in:Grocery,Restaurant,Pharmacy,Parcel,other',
+            'category_type' => 'required|in:Grocery',
             'vendor_id' => 'required|numeric',
             'limit' => 'required|numeric',
             'offset' => 'required|numeric',

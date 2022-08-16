@@ -123,8 +123,39 @@ $(document).ready(function () {
 });
 
 
+// Get subcategory on category
+ $('#vendor_category_id').on('change',function(){
+    var category_id = $(this).val();
+    if(category_id != ''){
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        // alert();
+        $.ajax({
+            url: base_url + '/get-sub-category-list-on-category-id',
+            type: "POST",
+            dataType: "json",
+            headers:headers,
+            data:{
+                category_id : category_id,
+            },
+            success:function(result) {
+                if(result.status == true){
+                    $('#vendor_sub_category_id').html(result.sub_category_list);
+                }
+                if(result.status == false){
+                    $('#vendor_sub_category_id').html('<option value="">Select Sub Category </option>');
+                }
+            }
+        });
+    }else{
+        $('#vendor_sub_category_id').html('<option value="">Select Sub Category </option>');
+    }
     
-    // Delete Product varient
+ });
+
+
+// Delete Product varient
 $(document).on('click', '.delete-product-variant', function() 
 {           
     var actionDiv = $(this); 

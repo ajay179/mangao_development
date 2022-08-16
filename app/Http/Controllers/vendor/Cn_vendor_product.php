@@ -346,7 +346,7 @@ class Cn_vendor_product extends Controller
             ->where('MVP.status', '<>', 3)
             ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
-            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.product_description','MVP.unit')
+            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.vendor_sub_category_id','MVP.product_description','MVP.unit')
             ->get();
 
 
@@ -361,8 +361,12 @@ class Cn_vendor_product extends Controller
 
             if(!empty($product_data[0])){
                 
+                 $get_vendor_sub_category = Md_sub_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))
+                ->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))
+                ->where('vendor_category_id','=',$product_data[0]->vendor_category_id)
+                ->select('vendor_sub_category_name','id')->get();
 
-                return view('vendor.product.vw_add_restaurant_product',compact('class_name','product_data','get_vendor_category'));
+                return view('vendor.product.vw_add_restaurant_product',compact('class_name','product_data','get_vendor_category','get_vendor_sub_category'));
             }else{
                return redirect('vendor-restaurant-product')->with('error', 'something went wrong');
             }
@@ -423,7 +427,7 @@ class Cn_vendor_product extends Controller
             ->join(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').' as MVCM', 'MVCM.id', 'MVP.vendor_category_id')
             ->where('MVP.status', '<>', 3)
             ->where('MVCM.status', '<>', 3)
-            ->where('MVP.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVCM.vendor_category_name','MVP.created_at')
             ->get();
@@ -587,7 +591,7 @@ class Cn_vendor_product extends Controller
             ->where('MVP.status', '<>', 3)
             ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
-            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.product_description','MVP.unit')
+            ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVP.created_at','MVP.quantity','MVP.vendor_category_id','MVP.vendor_sub_category_id','MVP.product_description','MVP.unit')
             ->get();
 
 
@@ -601,9 +605,12 @@ class Cn_vendor_product extends Controller
             $get_vendor_category = Md_vendor_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))->select('vendor_category_name','id')->get();
 
             if(!empty($product_data[0])){
-                
+                $get_vendor_sub_category = Md_sub_category_master::latest()->where('status','<>',3)->where('vendor_id','=',session()->get('&&*id$##'))
+                ->where('category_id', '=', session()->get('$%vendor_category_type_id&%*'))
+                ->where('vendor_category_id','=',$product_data[0]->vendor_category_id)
+                ->select('vendor_sub_category_name','id')->get();
 
-                return view('vendor.product.vw_add_pharmacy_product',compact('class_name','product_data','get_vendor_category'));
+                return view('vendor.product.vw_add_pharmacy_product',compact('class_name','product_data','get_vendor_category','get_vendor_sub_category'));
             }else{
                return redirect('vendor-add-pharmacy-product')->with('error', 'something went wrong');
             }
@@ -664,7 +671,7 @@ class Cn_vendor_product extends Controller
             ->join(Config::get('constants.MANGAO_VENDOR_CATEGORY_MASTER').' as MVCM', 'MVCM.id', 'MVP.vendor_category_id')
             ->where('MVP.status', '<>', 3)
             ->where('MVCM.status', '<>', 3)
-            ->where('MVP.category_id', '=', session()->get('$%vendor_category_type_id&%*'))
+            ->where('MVP.category_type', '=', session()->get('$%vendor_category_type_id&%*'))
             ->where('MVP.vendor_id','=',session()->get('&&*id$##'))
             ->select('MVP.product_name','MVP.product_image','MVP.price','MVP.offer_price','MVP.status' ,'MVP.id', 'MVCM.vendor_category_name','MVP.created_at')
             ->get();
