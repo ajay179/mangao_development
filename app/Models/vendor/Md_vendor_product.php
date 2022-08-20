@@ -4,7 +4,7 @@ namespace App\Models\vendor;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Storage;
 use App\Model\Md_mangao_product_type_master;
 
 class Md_vendor_product extends Model
@@ -24,4 +24,15 @@ class Md_vendor_product extends Model
     //  public function vendor_product_type(){
     //     return $this->belongsTo(Md_mangao_product_type_master::class);
     // }
+
+    public function getProductImageAttribute($value)
+    {
+        // return ucfirst($value);
+        return $url = !empty($value) ? url('/'). Storage::url($value) : '';
+    }
+
+    public function variant_of_product()
+    {
+        return $this->hasMany(Md_vendor_product_variant_list::class,'product_id','id')->select('id','product_id','variant_quantity','variant_price','variant_offer_price','variant_unit');
+    }
 }

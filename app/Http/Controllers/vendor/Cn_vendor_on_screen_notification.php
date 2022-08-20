@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Md_mangao_time_slot_master;
 use App\Models\Md_mangao_admin_send_notification;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Crypt;
 use DataTables;
 use DB;
 use Config;
