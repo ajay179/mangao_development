@@ -209,7 +209,7 @@
     $(".ct_user_management_active").addClass("active");
     $(".ct_vendor_list_active").addClass("active");
   $('#vendor_store_type').multipleSelect({
-    placeholder: 'Select Sloat Type',
+    placeholder: 'Select Store Type',
                     filter: true
   });
     

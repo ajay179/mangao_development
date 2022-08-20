@@ -280,7 +280,7 @@ class Cn_user_management extends Controller
                 $id =  $request->category_id;
                 $store_type = Md_mangao_store_type_master::where('store_category_id','=', $id)
                     ->where('status', '<>', 3)
-                    ->select('store_type_name')
+                    ->select('id','store_type_name')
                     ->get();
 
                 if($store_type->isEmpty()){

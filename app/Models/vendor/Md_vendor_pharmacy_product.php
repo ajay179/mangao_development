@@ -4,6 +4,7 @@ namespace App\Models\vendor;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Md_vendor_pharmacy_product extends Model
 {
@@ -19,4 +20,10 @@ class Md_vendor_pharmacy_product extends Model
     protected $hidden = [
         'remember_token',
     ];
+
+    public function getProductImageAttribute($value)
+    {
+        // return ucfirst($value);
+        return $url = !empty($value) ? url('/'). Storage::url($value) : '';
+    }
 }
