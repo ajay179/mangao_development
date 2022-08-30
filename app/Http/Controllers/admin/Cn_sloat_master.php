@@ -29,7 +29,7 @@ class Cn_sloat_master extends Controller
     }
     public function fun_notification_slot()
     {
-        $slot_category =  Crypt::encryptString('notification_promotion');
+        $slot_category =  Crypt::encryptString('deal_notification_promotion');
         $class_name = 'cn_sloat_master';
         return view('admin/slot-master/notification_promotion_slot_master',compact('slot_category','class_name'));
     }

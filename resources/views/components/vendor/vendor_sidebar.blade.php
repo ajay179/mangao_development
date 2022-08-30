@@ -12,22 +12,32 @@
                 </li>
                 <!-- Dashboard end-->
 
-
-                <li class="s_meun on_screen_notification">
-                    <a href="{{ url('on-screen-notification-list') }}">
-                        <i class="fa fa-dashboard"></i> <span>On Screen Notification</span>
+                <li class="treeview s_meun promotion_management_menu ">
+                    <a href="#">
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Promotion Management </span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
-                </li>
-
-                <li class="s_meun promotional_banner_active">
-                    <a href="{{ url('vendor-promotional-banner') }}">
-                        <i class="fa fa-dashboard"></i> <span>Promotional Banner</span>
-                    </a>
-                </li>
-                <li class="s_meun category_active">
-                    <a href="{{ url('vendor-promotional-listing') }}">
-                        <i class="fa fa-dashboard"></i> <span>Promotional Listing</span>
-                    </a>
+                    <ul class="treeview-menu">
+                       
+                        <li class="s_meun on_screen_notification">
+                            <a href="{{ url('on-screen-notification-list') }}">
+                                <i class="fa fa-dashboard"></i> <span>On Screen Popup Promotion</span>
+                            </a>
+                        </li>
+                        <li class="s_meun promotional_banner_active">
+                            <a href="{{ url('vendor-promotional-banner') }}">
+                                <i class="fa fa-dashboard"></i> <span>Promotional Banner</span>
+                            </a>
+                        </li>
+                        <li class="s_meun category_active">
+                            <a href="{{ url('vendor-promotional-listing') }}">
+                                <i class="fa fa-dashboard"></i> <span>Promotional Listing</span>
+                            </a>
+                        </li>
+                        
+                    </ul>
                 </li>
 
                  <li class="s_meun my_banner_active">

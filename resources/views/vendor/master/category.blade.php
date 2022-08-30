@@ -22,7 +22,7 @@
 
                             <div class="col-md-12 form-group no-padd">
                                 <label>Category Name<span style="color: red;">*</span></label>
-                                <input type="text" name="vendor_category_name" id="vendor_category_name" autocomplete="off" class="form-control" value="{{!empty($vendor_category_data[0]->vendor_category_name) ? $vendor_category_data[0]->vendor_category_name : ''}}">
+                                <input type="text" name="vendor_category_name" id="vendor_category_name" autocomplete="off" class="form-control" maxlength="100" value="{{!empty($vendor_category_data[0]->vendor_category_name) ? $vendor_category_data[0]->vendor_category_name : ''}}">
                                 
                                 <input type="hidden" class="form-control" id="txtpkey" name="txtpkey" autocomplete="off" value="{{ !empty($vendor_category_data[0]->id) ? $vendor_category_data[0]->id : '' }}">
                                 <div class="text-danger" id="name_error"></div>
@@ -33,7 +33,7 @@
                             <div class="col-md-12 form-group no-pad">
                               <div class="upload_img">
                                   <div class="upload_photo">
-                                      <label>Image <span style="color: red;">*</span></label>
+                                      <label>Image <span style="color: red;">*(png,jpg,jpeg 500 X 300)</span></label>
                                       <input type="file" name="vendor_category_image" accept=".jpg,.jpeg,.bmp,.png," id="vendor_category_image" onchange="change_img('vendor_category_image','fileold')" class="form-control">
                                       <input type="hidden" name="vcategory_image_old" id="vcategory_image_old" value="{{ !empty($vendor_category_data[0]->vendor_category_image) ? $vendor_category_data[0]->vendor_category_image : '' }}" class="form-control">
                                   </div>

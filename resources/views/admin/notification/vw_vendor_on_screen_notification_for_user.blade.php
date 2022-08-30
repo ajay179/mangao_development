@@ -1,6 +1,16 @@
 @extends('admin.layout.layout')
 @section('content')
-
+<style type="text/css">
+    .modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -43,6 +53,33 @@
     </section>
 </div>
 
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #c3a5a5;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3>Add Remark</h3>
+        </div>
+        <div class="modal-body">
+           
+            <div class="col-md-12 form-group no-padd">
+                <label style="font-size: 16px;">Remark<span style="color: red;">*</span></label>
+                <input type="hidden" class="form-control" id="vendor_notification_id" value="">
+                <input type="hidden" class="form-control" id="vendor_notification_status" value="">
+                <textarea id="admin_not_approved_remark" class="form-control" rows="4"></textarea>
+            </div> <!-- End form-group -->
+            
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default btn-success" id="submit_notification_status_form">Submit</button>
+          <button type="submit" class="btn btn-default btn-default" data-dismiss="modal"> Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- /.row -->
 @endsection

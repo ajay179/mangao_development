@@ -120,6 +120,7 @@
 @section('js_section')
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
+    $('.promotion_management_menu').addClass('active');
     $(".promotional_banner_active").addClass("active");
 
     $(document).ready(function() {

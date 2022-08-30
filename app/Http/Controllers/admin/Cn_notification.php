@@ -168,13 +168,42 @@ class Cn_notification extends Controller
                 ->addIndexColumn()
                 ->addColumn('action-js', function($data){
 
-                    $btn = '<button data-id="' . Crypt::encryptString($data->id) . '" class="btn ';
-                        if($data->approved_status == 'not_approved'){ $btn .=  'btn-danger ';} 
-                        if($data->approved_status == 'approved'){ $btn .=  'btn-primary ';}
-                    $btn .=' approvel-btn-status "> ';
-                         if($data->approved_status == 'not_approved'){  $btn .=  "Not Approved"; }
-                         if($data->approved_status == 'approved') { $btn .=  "Approved";} 
-                    $btn .= '</button> ';
+                    // $btn = '<button data-id="' . Crypt::encryptString($data->id) . '" class="btn ';
+                    //     if($data->approved_status == 'not_approved'){ $btn .=  'btn-danger ';} 
+                    //     if($data->approved_status == 'approved'){ $btn .=  'btn-primary ';}
+                    // $btn .=' approvel-btn-status "> ';
+                    //      if($data->approved_status == 'not_approved'){  $btn .=  "Not Approved"; }
+                    //      if($data->approved_status == 'approved') { $btn .=  "Approved";} 
+                    // $btn .= '</button> ';
+                    $not_approved_status = '';
+                    $approved_status = '';
+                    $pending_status = '';
+                    $status_color = '';
+                    if($data->approved_status == 'not_approved') { 
+                      $not_approved_status = "selected";
+                      $status_color = "style='color:red;'";
+                    } 
+                    if($data->approved_status == 'approved') { 
+                      $approved_status = "selected";
+                      $status_color = "style='color:green;'";
+                    } 
+                    if($data->approved_status == 'pending') { 
+                      $pending_status = "selected";
+                      $status_color = "style='color:blue;'";
+                    } 
+                    $approved_status = ($data->approved_status == 'approved') ?   "selected" : '';
+                    $pending_status = ($data->approved_status == 'pending') ?   "selected" : '';
+
+
+                    $not_approved_status = ($data->approved_status == 'not_approved') ? "selected" : ''; 
+                    $approved_status = ($data->approved_status == 'approved') ?   "selected" : '';
+                    $pending_status = ($data->approved_status == 'pending') ?   "selected" : '';
+
+                    $btn="<select class='approvel-btn-status form-control' ".$status_color."  data-id='" . Crypt::encryptString($data->id) . "'>
+                        <option value='pending' ".$pending_status.">Pending</option>
+                        <option value='approved' ".$approved_status.">Approved</option>
+                        <option value='not_approved' ".$not_approved_status.">Not Approved</option>
+                        </select>";
                     return $btn;
                 })
                 
@@ -212,8 +241,7 @@ class Cn_notification extends Controller
                     ];
                     return response()->json($message);
                 }else{
-                    if($notification_data[0]->approved_status == 'not_approved'){
-                         $notification_check_already_approved = Md_mangao_admin_send_notification::where('id', $notification_data[0]->schedule_date)
+                    $notification_check_already_approved = Md_mangao_admin_send_notification::where('id', $notification_data[0]->schedule_date)
                         ->where('status', '<>', 3)->where('created_user_type','=','vendor')->where('from_time',$notification_data[0]->from_time)
                         ->where('to_time',$notification_data[0]->to_time)->where('slot_id',$notification_data[0]->slot_id)
                         ->where('approved_status','approved')
@@ -225,23 +253,14 @@ class Cn_notification extends Controller
                                 'status' => false,
                             ];
                         return response()->json($message);
-                        }else{
-                            $update_bool = Md_mangao_admin_send_notification::where('id', $notification_id)->update(['approved_status' => 'approved']);
-                            $message = [
-                                'message' =>  "Notification approved successfully.",
-                                'status' => true,
-                            ];
-                            return response()->json($message);
-                        }     
                     }else{
-                        $update_bool = Md_mangao_admin_send_notification::where('id', $notification_id)->update(['approved_status' => 'not_approved']);
-                            $message = [
-                                'message' =>  "Notification Not approved.",
-                                'status' => true,
-                            ];
-                            return response()->json($message);
-                    }
-                   
+                        $update_bool = Md_mangao_admin_send_notification::where('id', $notification_id)->update(['approved_status' => $request->notification_status_value,'admin_not_approved_remark' => $request->admin_not_approved_remark]);
+                        $message = [
+                            'message' =>  "Notification approved successfully.",
+                            'status' => true,
+                        ];
+                        return response()->json($message);
+                    }     
                 }
             } catch (DecryptException $e) {
                 return redirect('view-vendor-on-screen-notification-add-for-user')->with('error', 'something went wrong');

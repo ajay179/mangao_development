@@ -38,8 +38,13 @@ Route::group(['middleware'=>['isVendor','can:isVendorAdmin']], function(){
 		Route::get('on-screen-notification-list', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'fun_vendor_to_user_notification'])->name('on.screen.notification.list');
 		Route::post('vendor-to-user-notification-action', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'vendorToUserNotificationAction']);
 		Route::get('get-vendor-to-user-notification-datatable/{user_type}', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'vendorGetOnScreenNotificationDataTable']);
+		Route::post('get-slot-position-number-for-notification', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'getSlotPositionNumber']);
+		Route::post('check-slot-booking-and-get-price', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'checkSlotBookingAndGetPrice']);
+
+		Route::post('check-user-schedule-date-notification', [App\Http\Controllers\vendor\Cn_vendor_on_screen_notification::class, 'checkSlotBookingOnScheduleDate']);
 		
 		
+
 
 		Route::get('vendor-my-banner', [App\Http\Controllers\vendor\Cn_vendor_my_banner::class,'fun_vendor_my_banner'])->name('vendor.my.banner');
 		Route::post('vendor-my-banner-action', [App\Http\Controllers\vendor\Cn_vendor_my_banner::class, 'fun_vendor_my_banner_action'])->name('vendor.my.banner.action');

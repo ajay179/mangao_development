@@ -1,6 +1,11 @@
 @extends('vendor.layout.layout')
 @section('content')
 
+<style type="text/css">
+    .slot_info_div{
+        display: none;
+    }
+</style>
 
  <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -52,22 +57,50 @@
                                 </div>
                             </div>
 
+                             <div class="col-md-12 form-group no-padd">
+                                <label>Date<span style="color: red;">*</span></label>
+                                <input type="text" name="schedule_date" id="schedule_date" autocomplete="off" class="form-control" value="">
+                               
+                                <div class="text-danger" id="schedule_date_error"></div>
+                            </div> <!-- End form-group -->
+
                             <div class="col-md-12 form-group no-pad">
-                                        <label>Select Slot<span style="color: red;">*</span></label>
-                                        @php $time_slot_id =  !empty($cityadmin_data[0]->time_slot_id) ? $cityadmin_data[0]->time_slot_id :  '' @endphp
-                                        <select class="form-control" name="time_slot_id" id="time_slot_id">
-                                            <option value="">Select Slot</option>
-                                            @if (!empty($slot_list_data)) 
-                                               @foreach ($slot_list_data as $key => $value)
-        <option value="{{ $value['id'] }}"  @if ($value->id == $time_slot_id) selected @endif> {{ ucwords($value['slot_name']) }}</option>
-                                               @endforeach
-                                            @endif
-                                        </select>
-                                        
-                                    </div>
+                                <label>Select Slot<span style="color: red;">*</span></label>
+                                @php $time_slot_id =  !empty($cityadmin_data[0]->time_slot_id) ? $cityadmin_data[0]->time_slot_id :  '' @endphp
+                                <select class="form-control" name="time_slot_id" id="time_slot_id">
+                                    <option value="">Select Slot</option>
+                                    @if (!empty($slot_list_data)) 
+                                       @foreach ($slot_list_data as $key => $value)
+                                            <option value="{{ $value['id'] }}"  @if ($value->id == $time_slot_id) selected @endif> {{ ucwords($value['slot_name']) }}</option>
+                                       @endforeach
+                                    @endif
+                                </select>
+                                <div class="text-danger" id="slot_id_error"></div>
+                            </div>
+
+                            <div class="col-md-12 form-group no-pad">
+                                <label>Select Slot Position Number<span style="color: red;">*</span></label>
+                                <select class="form-control" name="slot_position_number" id="slot_position_number">
+                                    <option value="">-- Select Position --</option>
+                                   
+                                </select>
+                                <div class="text-danger" id="slot_position_number_error"></div>
+                            </div>
+
+                            <div class="col-md-12 form-group slot_info_div" >
+
+                                <span><b>Amount :- </b><span id="amount_text">100</span></span>
+                                <!-- <span style="margin-left: 40px;"><b>Slot Name :-</b> <span id="slot_name_text">100</span></span> -->
+                            </div>
+                            <div class="col-md-12 form-group slot_info_div" >
+                                <!-- <span><b>From Time :- </b><span id="from_time_text">100</span></span>
+                                <span style="margin-left: 40px;"><b>To Time :-</b> <span id="to_time_text">100</span></span> -->
+                                
+                                <input type="hidden" name="slot_amount" id="slot_amount" value="">
+                            </div>
 
                             <div class="col-md-12 form-group no-padd">
-                                <button type="submit" id="submit_btn" class="btn btn-success save_btn submit sub-btn" data-id="submit">Send Notification</button>
+                                <button type="submit" id="notification_submit_btn" class="btn btn-success save_btn submit sub-btn" data-id="submit">Send Notification</button>
                                 <a href=""> <button type="button" class="btn btn-danger cancel-btn"><i class="fa fa-times-circle"></i> Cancel</button></a>
                             </div> <!-- End form-group -->
                           </form>
@@ -121,8 +154,19 @@
 @section('js_section')
 <script type="text/javascript">
     $(".s_meun").removeClass("active");
+    $('.promotion_management_menu').addClass('active');
     $(".on_screen_notification").addClass("active");
-    
+     $(document).ready(function() {
+
+        $('#schedule_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            changeMonth: true,
+            changeYear: true,
+            mindate:0,
+        });
+    });
 </script>
 
 <script type="text/javascript">

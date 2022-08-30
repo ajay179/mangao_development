@@ -39,27 +39,67 @@ $(document).ready(function () {
 
 
 
-   $('#example').on('click','.approvel-btn-status',function() {
+    $('#example').on('change','.approvel-btn-status',function() {
         var notification_id = $(this).attr('data-id');
+        var notification_status_value = $(this).val();
+        if(notification_status_value == 'not_approved'){
+            $('#vendor_notification_id').val(notification_id);
+            $('#vendor_notification_status').val(notification_status_value);
+            $("#myModal").modal('show');
+        }else{
+            if(notification_id != ''){
+                var headers = {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                $.ajax({
+                    url: base_url + '/check-on-screen-notification-slot-and-approved',
+                    type: "POST",
+                    dataType: "json",
+                    headers:headers,
+                    data:{
+                        notification_status_value : notification_status_value,
+                        notification_id : notification_id,
+                        admin_not_approved_remark : '',
+                    },
+                    success:function(result) {
+                        if (result.status == true) {
+                            success_toast('', result.message);
+                            reload_table();
+                        }    
+                    }
+                });
+            }
+        }
+    });
 
-        if(notification_id != ''){
+
+
+    $('#submit_notification_status_form').on('click',function() {
+        var notification_id = $('#vendor_notification_id').val();
+        var notification_status_value = $('#vendor_notification_status').val();
+        var admin_not_approved_remark = $('#admin_not_approved_remark').val();
+        
+        if(notification_id != '' && notification_status_value != ''){
             var headers = {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-            
             $.ajax({
-                url: 'http://127.0.0.1:8000/check-on-screen-notification-slot-and-approved',
+                url: base_url + '/check-on-screen-notification-slot-and-approved',
                 type: "POST",
                 dataType: "json",
                 headers:headers,
                 data:{
+                    notification_status_value : notification_status_value,
                     notification_id : notification_id,
+                    admin_not_approved_remark : admin_not_approved_remark,
                 },
                 success:function(result) {
-                     if (result.status == true) {
-                            success_toast('', result.message);
-                            reload_table();
-                        }    
+                    if (result.status == true) {
+                        $("#myModal").modal('hide');
+                        $('#admin_not_approved_remark').val('');
+                        success_toast('', result.message);
+                        reload_table();
+                    }    
                 }
             });
         }
